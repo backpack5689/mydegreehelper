@@ -8,6 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyDegreeHelper" />
+        android:theme="@style/Theme.MyDegreeHelper">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.MyDegreeHelper.NoActionBar"></activity>
+    </application>
 
 </manifest>
