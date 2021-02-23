@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@android:drawable/ic_menu_call" />
 
     <TextView
         android:layout_width="224dp"
@@ -39,7 +39,7 @@
         android:textColor="@color/black"
         android:textAlignment="center"
         android:layout_gravity="center"
-        android:text="Hello World"
+        android:text="Hello User...\nWe are watching you..."
         android:textSize="50dp"
         >
     </TextView>
