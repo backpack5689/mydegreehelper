@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyDegreeHelper">
         <activity
+            android:name=".FileTest"
+            android:label="@string/title_activity_file_test"
+            android:theme="@style/Theme.MyDegreeHelper.NoActionBar"></activity>
+        <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.MyDegreeHelper.NoActionBar">
