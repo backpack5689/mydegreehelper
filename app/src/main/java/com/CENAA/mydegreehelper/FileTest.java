@@ -90,6 +90,7 @@ public class FileTest extends AppCompatActivity {
             String line;
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
+                stringBuilder.append('\n');
             }
         }
         return stringBuilder.toString();

@@ -13,7 +13,7 @@ public class Blueprint {
     ArrayList<Course> masterList;
     ArrayList<Requirement> requirements;
 
-    public Blueprint(File bpInput){
+    public Blueprint(String bpInput){
         //parse file to create BP
     }
 
@@ -24,6 +24,17 @@ public class Blueprint {
             }
         }
         return true;
+    }
+
+    public Course findCourse(String query){
+        Course course = new Course();
+        for(int i = 0; i < masterList.size(); i++)
+        {
+            if(masterList.get(i).courseName == query){
+                 course = masterList.get(i);
+            }
+        }
+        return course;
     }
 
 }

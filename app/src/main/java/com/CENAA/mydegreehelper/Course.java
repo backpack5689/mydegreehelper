@@ -9,6 +9,14 @@ public class Course {
     boolean completed;
     ArrayList<Course> prerequsites;
 
+    public Course(){
+        courseName = "";
+        creditValue = 0;
+        grade = 0.0;
+        completed = false;
+        prerequsites = new ArrayList<Course>();
+    }
+
     public Course(String cName, int cr){
         courseName = cName;
         creditValue = cr;
