@@ -1,12 +1,11 @@
 Software Engineering
 126
-
-Introduction to Computer Science-CS 1122-
-Introduction to Computer Programming-CS 1122-
+Introduction to Computer Science-CS 1122
+Introduction to Computer Programming-CS 1122
 The Story of Jesus-BI 1073-Foundations*Bible
 Composition I-ENG 1113-Composition
 Physical Fitness-PE 1001-Physical Education*Foundations
-One College Math Course-MA XXXX-Foundations
+One College Math Course-MA 0000-Foundations
 
 
 /*
@@ -14,5 +13,5 @@ Course Equivalents ||
 Calculus I-MA 1245-||Linear Algebra-MA 2113-
 
 Prerequisites
-Calculus I-MA 1245-(College Algebra-MA 1234-)
+Calculus I-MA 1245-(College Algebra-MA 1234)-
 *\
