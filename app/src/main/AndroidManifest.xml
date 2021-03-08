@@ -3,21 +3,21 @@
     package="com.CENAA.mydegreehelper">
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyDegreeHelper">
+        android:theme="@style/Theme.MyDegreeHelper"
+        android:allowBackup="false">
         <activity
             android:name=".FileTest"
             android:label="@string/title_activity_file_test"
-            android:theme="@style/Theme.MyDegreeHelper.NoActionBar"></activity>
+            android:theme="@style/Theme.MyDegreeHelper.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
+            android:label="@string/app_name"
             android:theme="@style/Theme.MyDegreeHelper.NoActionBar">
-            <intent-filter>
+            <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
