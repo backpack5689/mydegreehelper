@@ -76,7 +76,9 @@ public class FileTest extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.d("File", fileContents);
-
+                //TO-DO possibly an Intent to push the BP below to a DB upload function
+                Blueprint blueprint = new Blueprint(fileContents);
+                blueprint.displayBP();
             }
         }
     }

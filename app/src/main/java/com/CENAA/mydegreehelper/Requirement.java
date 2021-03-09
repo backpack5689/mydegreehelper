@@ -6,12 +6,12 @@ import java.util.List;
 public class Requirement {
 
     public String name;
-    public List<List<Course>> requiredCourses;
+    public ArrayList<Course> requiredCourses;
     private boolean isComplete;
 
     public Requirement(String rName){
         name = rName;
-        requiredCourses = new ArrayList<List<Course>>();
+        requiredCourses = new ArrayList<Course>();
         isComplete = false;
     }
 
@@ -21,10 +21,8 @@ public class Requirement {
 
     public boolean checkComplete(){
         for(int i = 0; i < requiredCourses.size();i++){
-            for(int j = 0; j < requiredCourses.get(i).size(); j++){
-                if(!requiredCourses.get(i).get(j).completed){
-                    return false;
-                }
+            if(!requiredCourses.get(i).completed) {
+                return false;
             }
         }
         isComplete = true;

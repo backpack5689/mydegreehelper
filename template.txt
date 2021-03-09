@@ -8,10 +8,9 @@ Physical Fitness-PE 1001-*Physical Education-*Foundations
 One College Math Course-MA 0000-*Foundations
 
 
-/*
-Course Equivalents |
-Calculus I-MA 1245-|Linear Algebra-MA 2113-
 
-Prerequisites
-Calculus I-MA 1245-(College Algebra-MA 1234)
-*\
+//Course Equivalents |
+//Calculus I-MA 1245-|Linear Algebra-MA 2113
+
+//Prerequisites
+//Calculus I-MA 1245-(College Algebra-MA 1234
