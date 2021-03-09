@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
     <TextView
+        android:id="@+id/cataloguePlaceholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Catalogue Placeholder"
         android:textSize="30sp"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        tools:ignore="HardcodedText" />
+    <Button
+        android:id="@+id/testButton"
+        android:backgroundTint="#efefef"
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="26dp"
+        android:text="Open File Test"
+        tools:targetApi="lollipop"
+        tools:ignore="HardcodedText" />
+    <Button
+        android:id="@+id/fileTestButton"
+        android:backgroundTint="#efefef"
+        android:textColor="#000"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="26dp"
+        android:text="File Test Activity"
+        tools:targetApi="lollipop"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>
