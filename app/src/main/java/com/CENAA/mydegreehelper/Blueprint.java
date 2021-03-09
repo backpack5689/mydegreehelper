@@ -60,9 +60,8 @@ public class Blueprint {
                 String query = splitLine[i].substring(1);
                 boolean queryFound = false;
                 for( Course c : masterList){
-                    if(c.courseName.equals(query)){
+                    if((c.courseSub + " " + c.courseNum).equals(query)){
                         course.prereqs.add(c);
-                        i++;
                         queryFound = true;
                         break;
                     }
@@ -87,6 +86,8 @@ public class Blueprint {
                     requirement.requiredCourses.add(course);
                     requirements.add(requirement);
                 }
+            }else {
+                course.creditValue = Integer.parseInt(splitLine[i]);
             }
         }
         masterList.add(course);
@@ -119,7 +120,8 @@ public class Blueprint {
         Log.d("BP", "Master List: \n");
         for(int i = 0; i < masterList.size(); i++){
             Log.d("BP", masterList.get(i).courseName + " " +
-                    masterList.get(i).courseSub + " " + masterList.get(i).courseNum + "\n");
+                    masterList.get(i).courseSub + " " + masterList.get(i).courseNum +
+                    "("+ masterList.get(i).creditValue +")"+ "\n");
             Log.d("BP", "Equivalents: \n");
             for(int j = 0; j < masterList.get(i).equivalents.size(); j++){
                 Log.d("BP", "\t" + masterList.get(i).equivalents.get(j).courseName + "\n");
