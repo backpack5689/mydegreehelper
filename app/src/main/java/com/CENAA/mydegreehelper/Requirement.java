@@ -7,11 +7,13 @@ public class Requirement {
 
     public String name;
     public ArrayList<Course> requiredCourses;
+    int totalHours;
     private boolean isComplete;
 
     public Requirement(String rName){
         name = rName;
         requiredCourses = new ArrayList<Course>();
+        totalHours = 0;
         isComplete = false;
     }
 
@@ -27,6 +29,11 @@ public class Requirement {
         }
         isComplete = true;
         return true;
+    }
+
+    public void addCourse(Course course){
+        requiredCourses.add(course);
+        totalHours += course.creditValue;
     }
 
 }

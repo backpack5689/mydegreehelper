@@ -77,13 +77,13 @@ public class Blueprint {
                 boolean reqExists = false;
                 for( Requirement r : requirements){
                     if(r.name.equals(req)){
-                        r.requiredCourses.add(course);
+                        r.addCourse(course);
                         reqExists = true;
                     }
                 }
                 if(!reqExists){
                     Requirement requirement = new Requirement(req);
-                    requirement.requiredCourses.add(course);
+                    requirement.addCourse(course);
                     requirements.add(requirement);
                 }
             }else {
@@ -122,13 +122,13 @@ public class Blueprint {
             Log.d("BP", masterList.get(i).courseName + " " +
                     masterList.get(i).courseSub + " " + masterList.get(i).courseNum +
                     "("+ masterList.get(i).creditValue +")"+ "\n");
-            Log.d("BP", "Equivalents: \n");
             for(int j = 0; j < masterList.get(i).equivalents.size(); j++){
+                if(j == 0)Log.d("BP", "Equivalents: \n");
                 Log.d("BP", "\t" + masterList.get(i).equivalents.get(j).courseName + "\n");
             }
-            Log.d("BP", "Prerequisites: \n");
-            for(int j = 0; j < masterList.get(i).prereqs.size(); j++){
-                Log.d("BP", "\t" + masterList.get(i).prereqs.get(j).courseName + "\n");
+            for(int k = 0; k < masterList.get(i).prereqs.size(); k++){
+                if(k == 0)Log.d("BP", "Prerequisites: \n");
+                Log.d("BP", "\t" + masterList.get(i).prereqs.get(k).courseName + "\n");
             }
         }
 
