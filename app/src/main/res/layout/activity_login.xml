@@ -101,7 +101,8 @@
 
     <Button
         android:id="@+id/tmpButton"
-        android:backgroundTint="#8a8a8a"
+        android:backgroundTint="#fff"
+        android:textColor="#000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
