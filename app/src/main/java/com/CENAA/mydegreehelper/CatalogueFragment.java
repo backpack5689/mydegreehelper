@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.CENAA.mydegreehelper.ui.login.LoginActivity;
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 
@@ -83,7 +84,12 @@ public class CatalogueFragment extends Fragment {
                 Log.d("File", fileContents);
                 //TO-DO possibly an Intent to push the BP below to a DB upload function
                 Blueprint blueprint = new Blueprint(fileContents);
-                blueprint.displayBP();
+                Gson gson = new Gson();
+                String bpString = gson.toJson(blueprint);
+                Log.d("GSON", bpString);
+                Blueprint gsonBP = gson.fromJson(bpString, Blueprint.class);
+                gsonBP.displayBP();
+                //blueprint.displayBP();
             }
         }
     }
