@@ -20,9 +20,10 @@ class DbOperation
     }
  
  /*
- * The create operation
- * When this method is called a new record is created in the database
+ * The create operations
  */
+    
+    //The following function creates a degree
     function createdegree($object, $degreename, $totalhours, $location)
     {
         $stmt = $this->con->prepare("INSERT INTO degree (degreename, location, totalhours, object")
@@ -31,34 +32,31 @@ class DbOperation
             return true;
         return false;
     }
+
+    //The following function creates a user
+    
  /*
- * The read operation
- * When this method is called it is returning all the existing record of the database
+ * The read operations
  */
     
     //The following function goes and gets a specific degree 
     //You will find the degree on the selector
     function getdegree($selector)
     {
-        $stmt = $this->con->prepare("SELECT * FROM degree WHERE selector=id");
+        $stmt = $this->con->prepare("SELECT * FROM degree WHERE id = ?");
+        $stmt->bind_param("i", $selector)                                           // <----- Possible Bug Point, not quite sure if this is right //
         $stmt->execute();
-        $stmt->bind_result($id, $name, $realname, $rating, $teamaffiliation);
+        $stmt->bind_result($degreename, $degreelocation, $degreecoursehours, $degreeobject);
         
-        $heroes = array(); 
-        
-        while($stmt->fetch())
-        {
-            $hero  = array();
-            $hero['id'] = $id; 
-            $hero['name'] = $name; 
-            $hero['realname'] = $realname; 
-            $hero['rating'] = $rating; 
-            $hero['teamaffiliation'] = $teamaffiliation; 
+        $degree = array(); 
 
-            array_push($heroes, $hero); 
-        }
+        $degree['id'] = $selector; 
+        $degree['name'] = $degreename; 
+        $degree['location'] = $degreelocation; 
+        $degree['course hours'] = $degreecoursehours; 
+        $degree['object'] = $degreeobject; 
         
-        return $heroes; 
+        return $degree; 
     }
 
     //
