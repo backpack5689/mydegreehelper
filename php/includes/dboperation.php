@@ -26,7 +26,7 @@ class DbOperation
     //The following function creates a degree
     function createdegree($object, $degreename, $totalhours, $location)
     {
-        $stmt = $this->con->prepare("INSERT INTO degree (degreename, location, totalhours, object")
+        $stmt = $this->con->prepare("INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_object) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssis", $degreename, $location, $totalhours, $object);
         if($stmt->execute())
             return true;
