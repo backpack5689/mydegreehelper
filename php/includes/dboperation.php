@@ -9,7 +9,7 @@ class DbOperation
     function __construct()
     {
         //Getting the DbConnect.php file
-        require_once dirname(__FILE__) . '/DbConnect.php';
+        require_once dirname(__FILE__) . '/dbconnect.php';
  
         //Creating a DbConnect object to connect to the database
         $db = new DbConnect();
@@ -44,7 +44,7 @@ class DbOperation
     function getdegree($selector)
     {
         $stmt = $this->con->prepare("SELECT * FROM degree WHERE id = ?");
-        $stmt->bind_param("i", $selector)                                           // <----- Possible Bug Point, not quite sure if this is right //
+        $stmt->bind_param("i", $selector);                                           // <----- Possible Bug Point, not quite sure if this is right //
         $stmt->execute();
         $stmt->bind_result($degreename, $degreelocation, $degreecoursehours, $degreeobject);
         
