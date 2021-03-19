@@ -91,7 +91,7 @@ class DbOperation
  */
 
  //This function updates the degree course list object in the database
- function updateHero($degree_id, $degreeobject)
+ function updatedegree($degree_id, $degreeobject)
  {
     $stmt = $this->con->prepare("UPDATE degree SET degree_object = ? WHERE degree_id = ?");
     $stmt->bind_param("si", $degreeobject, $degree_id);
