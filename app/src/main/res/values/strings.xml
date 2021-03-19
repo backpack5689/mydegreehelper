@@ -33,10 +33,12 @@
 
     <string name="major_courses_label"><b><u>Major Courses</u></b></string>
     <string name="general_education_label"><b><u>General Education</u></b></string>
+    <string name="requirements">Requirements:</string>
 
     <string name="progress_label">Progress Level: </string>
     <string name="progress_freshman">Freshman</string>
     <string name="progress_sophomore">Sophomore</string>
     <string name="progress_junior">Junior</string>
     <string name="progress_senior">Senior</string>
+    <string name="title_activity_course_display_drawer">course_display_drawer</string>
 </resources>
