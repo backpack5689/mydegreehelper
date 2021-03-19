@@ -19,7 +19,7 @@
             $missingparams = $missingparams . ", " . $param; 
         }   
     }
- 
+
     //if parameters are missing 
     if(!$available){
         $response = array(); 

@@ -16,7 +16,7 @@
     function connect()
     {
         //Including the constants.php file to get the database constants
-        include_once dirname(__FILE__) . '/Constants.php';
+        include_once dirname(__FILE__) . '/constants.php';
         
         //connecting to mysql database
         $this->con = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
