@@ -91,7 +91,7 @@ class DbOperation
  */
 
  //This function updates the degree course list object in the database
- function updatedegree($degree_id, $degreeobject)
+ function updatedegree($degreeid, $degreeobject)
  {
     $stmt = $this->con->prepare("UPDATE degree SET degree_object = ? WHERE degree_id = ?");
     $stmt->bind_param("si", $degreeobject, $degree_id);
@@ -105,13 +105,13 @@ class DbOperation
  * The delete operation
  * When this method is called record is deleted for the given id 
  */ 
- function deleteHero($id){
- $stmt = $this->con->prepare("DELETE FROM heroes WHERE id = ? ");
- $stmt->bind_param("i", $id);
- if($stmt->execute())
- return true; 
- 
- return false; 
+ function deletedegree($id){
+    $stmt = $this->con->prepare("DELETE FROM degree WHERE degree_id = ? ");
+    $stmt->bind_param("i", $id);
+    if($stmt->execute())
+        return true; 
+    
+    return false; 
  }
 }
 ?>
