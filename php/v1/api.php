@@ -74,7 +74,8 @@
                 $response['message'] = 'Degree addedd successfully';
                 
                 //and we are getting all the heroes from the database in the response
-                //$response['degree'] = $db->showalldegree();
+                $response['id'] = $db->$idvalue;
+
             }else{
         
                 //if record is not added that means there is an error 
