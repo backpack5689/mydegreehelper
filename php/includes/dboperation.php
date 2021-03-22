@@ -33,12 +33,13 @@ class DbOperation
         $stmt = $this->con->prepare("INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_object) VALUES (?, ?, ?, ?);");
         $stmt->bind_param("ssis", $degreename, $location, $totalhours, $object);
         
-        if($stmt->execute())
+        if($stmt->execute()){
             $stmt2 = $this->con->prepare("SELECT max(degree_id) from degree;");
             $stmt2->execute();
             $stmt2->bind_result($throwaway);
             $this->idvalue = $throwaway;
             return true;
+        }
         return false;
     }
 
