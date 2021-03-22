@@ -8,11 +8,42 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
+    RecyclerView majorCourses;
+    RecyclerAdapter recyclerAdapter;
+
+    List<CourseUI> majorCourseList;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        majorCourseList = new ArrayList<CourseUI>();
+
+        majorCourses = view.findViewById(R.id.majorCourses);
+
+        initData();
+        initRecyclerView();
+
+        return view;
+    }
+
+    private void initRecyclerView() {
+        recyclerAdapter = new RecyclerAdapter(majorCourseList);
+        majorCourses.setAdapter(recyclerAdapter);
+    }
+
+    private void initData() {
+        majorCourseList = new ArrayList<>();
+        majorCourseList.add(new CourseUI("CS", 1001,"Intro to Programming", "None"));
+        majorCourseList.add(new CourseUI("CS",1002,"Intro to Computer Science", "None"));
+        majorCourseList.add(new CourseUI("CS",3233,"Intro to Programming", "MA 3233"));
+        majorCourseList.add(new CourseUI("CS",3623,"Intro to Programming", "None"));
     }
 }
