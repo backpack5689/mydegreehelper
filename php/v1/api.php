@@ -148,6 +148,7 @@
                 $response['message'] = 'There was some error. To begin tracing, check case "deletedegree" in api.php';
             }
         break;
+    }
         
  }else{  
  //if it is not api call 
