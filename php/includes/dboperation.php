@@ -28,12 +28,13 @@ class DbOperation
     function createdegree($object, $degreename, $totalhours, $location)
     {
         $stmt = $this->con->prepare(
-            "INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_object) VALUES (?, ?, ?, ?);
-             SELECT max(degree_id) FROM degree;");
+            "INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_object) VALUES (?, ?, ?, ?);");
         $stmt->bind_param("ssis", $degreename, $location, $totalhours, $object);
         
         if($stmt->execute())
-            $stmt->bind_result($idvalue);
+            $stmt2 = $this->con->prepare("SELECT max(degree_id) from degree;");
+            $stmt2->execute();
+            $stmt2->bind_result($idvalue);
             return true;
         return false;
     }
