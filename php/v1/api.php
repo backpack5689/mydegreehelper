@@ -1,6 +1,7 @@
 <?php
 /*
 * Following tutorial here: https://www.simplifiedcoding.net/android-mysql-tutorial-to-perform-basic-crud-operation/#What-is-CRUD
+* For register/login here: https://www.simplifiedcoding.net/android-login-and-registration-tutorial/
 */
  //getting the dboperation class
  require_once '../includes/dboperation.php';
@@ -148,8 +149,57 @@
                 $response['message'] = 'There was some error. To begin tracing, check case "deletedegree" in api.php';
             }
         break;
+
+        //Sign up operation
+        case 'signup':
+            
+            //checking the parameters are available or not 
+            isTheseParametersAvailable(array('username','email','password'));
+            
+            $db = new DbOperation();
+
+            $result = $db->signup(
+                $_POST['username'],
+                $_POST['email'],
+                md5($_POST['password']),
+            );
+                
+                //if the user already exist in the database 
+                if($result){
+                    $response['error'] = true;
+                    $response['message'] = 'User already registered';
+                }else{
+                    $response['error'] = false; 
+                    $response['message'] = 'User registered successfully'; 
+                    $response['degree'] = $db->signup($_POST['username']);
+                }
+            break; 
+            
+        //Login operation
+        case 'login':
+            
+            //for login we need the username and password 
+            isTheseParametersAvailable(array('username', 'password'));
+                
+            $db = new DbOperation();
+
+            $result = $db->login(
+                $_POST['username'],
+                md5($_POST['password']),
+            );
+
+                if($result){
+                    $response['error'] = false; 
+                    $response['message'] = 'Login was successfull'; 
+                    $response['degree'] = $db->login($_POST['username']);    
+                }else{
+                    $response['error'] = false; 
+                    $response['message'] = 'Invalid username or password';
+                }
+                }
+            break; 
     }
-        
+
  }else{  
  //if it is not api call 
  //pushing appropriate values to response array 
