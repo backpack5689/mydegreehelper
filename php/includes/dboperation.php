@@ -4,7 +4,7 @@ class DbOperation
 {
     //Database connection link
     private $con;
- 
+    public $idvalue;
     //Class constructor
     function __construct()
     {
@@ -13,6 +13,7 @@ class DbOperation
  
         //Creating a DbConnect object to connect to the database
         $db = new DbConnect();
+        $idvalue = 0;
  
         //Initializing our connection link of this class
         //by calling the method connect of DbConnect class
@@ -26,9 +27,14 @@ class DbOperation
     //The following function creates a degree
     function createdegree($object, $degreename, $totalhours, $location)
     {
-        $stmt = $this->con->prepare("INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_object) VALUES (?, ?, ?, ?)");
+        $stmt = $this->con->prepare(
+            "INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_object) VALUES (?, ?, ?, ?);
+             SELECT max(degree_id) FROM degree;
+            ");
         $stmt->bind_param("ssis", $degreename, $location, $totalhours, $object);
+        
         if($stmt->execute())
+            $stmt->bind_result($idvalue);
             return true;
         return false;
     }
@@ -43,7 +49,7 @@ class DbOperation
     //You will find the degree on the selector
     function getdegree($selector)
     {
-        $stmt = $this->con->prepare("SELECT * FROM degree WHERE id = ?");
+        $stmt = $this->con->prepare("SELECT * FROM degree WHERE degree_id = ?");
         $stmt->bind_param("i", $selector);                                           // <----- Possible Bug Point, not quite sure if this is right //
         $stmt->execute();
         $stmt->bind_result($degreename, $degreelocation, $degreecoursehours, $degreeobject);
