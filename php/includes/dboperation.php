@@ -25,7 +25,7 @@ class DbOperation
     
     function getvar()
     {
-        return idvalue;
+        return $this->idvalue;
     }
     //The following function creates a degree
     function createdegree($object, $degreename, $totalhours, $location)
@@ -37,7 +37,7 @@ class DbOperation
         if($stmt->execute())
             $stmt2 = $this->con->prepare("SELECT max(degree_id) from degree;");
             $stmt2->execute();
-            $stmt2->bind_result($idvalue);
+            $stmt2->bind_result($this->idvalue);
             return true;
         return false;
     }
