@@ -74,7 +74,7 @@
                 $response['message'] = 'Degree addedd successfully';
                 
                 //and we are getting all the heroes from the database in the response
-                $response['id'] = $db->$idvalue;
+                //$response['id'] = $db->$idvalue;
 
             }else{
         
