@@ -25,7 +25,7 @@ class DbOperation
     
     function getvar()
     {
-        return $idvalue;
+        return idvalue;
     }
     //The following function creates a degree
     function createdegree($object, $degreename, $totalhours, $location)
