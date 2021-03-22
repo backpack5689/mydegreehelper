@@ -4,7 +4,7 @@ class DbOperation
 {
     //Database connection link
     private $con;
-    public $idvalue;
+
     //Class constructor
     function __construct()
     {
@@ -13,7 +13,7 @@ class DbOperation
  
         //Creating a DbConnect object to connect to the database
         $db = new DbConnect();
-        $idvalue = 0;
+
  
         //Initializing our connection link of this class
         //by calling the method connect of DbConnect class
@@ -29,12 +29,10 @@ class DbOperation
     {
         $stmt = $this->con->prepare(
             "INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_object) VALUES (?, ?, ?, ?);
-             SELECT max(degree_id) FROM degree;
             ");
         $stmt->bind_param("ssis", $degreename, $location, $totalhours, $object);
         
         if($stmt->execute())
-            $stmt->bind_result($idvalue);
             return true;
         return false;
     }
