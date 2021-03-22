@@ -1,5 +1,7 @@
 package com.CENAA.mydegreehelper;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -68,6 +70,7 @@ public class RequestHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Log.d("response", sb.toString());
         return sb.toString();
     }
 
@@ -88,7 +91,7 @@ public class RequestHandler {
     }
 
 
-    private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
+    public String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
         boolean first = true;
         for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -101,7 +104,7 @@ public class RequestHandler {
             result.append("=");
             result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
         }
-
+        Log.d("DataString", result.toString());
         return result.toString();
     }
 
