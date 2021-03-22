@@ -4,7 +4,7 @@ class DbOperation
 {
     //Database connection link
     private $con;
-    public $idvalue;
+    public $idvalue = 0;
     //Class constructor
     function __construct()
     {
@@ -13,8 +13,7 @@ class DbOperation
  
         //Creating a DbConnect object to connect to the database
         $db = new DbConnect();
-        $idvalue = 0;
- 
+
         //Initializing our connection link of this class
         //by calling the method connect of DbConnect class
         $this->con = $db->connect();
@@ -24,6 +23,10 @@ class DbOperation
  * The create operations
  */
     
+    function getvar()
+    {
+        return $idvalue;
+    }
     //The following function creates a degree
     function createdegree($object, $degreename, $totalhours, $location)
     {
