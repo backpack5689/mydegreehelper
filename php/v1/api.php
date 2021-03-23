@@ -95,7 +95,7 @@
             $db = new DbOperation();
             $response['error'] = false; 
             $response['message'] = 'Request successfully completed';
-            $response['degree'] = $db->getdegree($_GET['selector']);
+            $response['degree'] = $db->getdegree($_POST['selector']);
         break; 
         
 
