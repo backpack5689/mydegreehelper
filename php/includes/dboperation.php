@@ -57,6 +57,8 @@ class DbOperation
         $stmt->bind_param("i", $selector);                                           // <----- Possible Bug Point, not quite sure if this is right //
         $stmt->execute();
         $degree = $stmt->get_result();
+        file_put_contents('php://stderr', print_r($degree, TRUE));
+
         /*$stmt->fetch();
 
         $degree = array(); 
