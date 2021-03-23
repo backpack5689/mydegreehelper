@@ -56,9 +56,9 @@ class DbOperation
         $stmt = $this->con->prepare("SELECT * FROM degree WHERE degree_id = ?");
         $stmt->bind_param("i", $selector);                                           // <----- Possible Bug Point, not quite sure if this is right //
         $stmt->execute();
-        $stmt->bind_result($degreename, $degreelocation, $degreecoursehours, $degreeobject);
-        $stmt->fetch();
-        
+        $degree = $stmt->get_result();
+        /*$stmt->fetch();
+
         $degree = array(); 
 
         $degree['id'] = $selector; 
@@ -66,7 +66,7 @@ class DbOperation
         $degree['location'] = $degreelocation; 
         $degree['course hours'] = $degreecoursehours; 
         $degree['object'] = $degreeobject; 
-        
+        */
         return $degree; 
     }
 
