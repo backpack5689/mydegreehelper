@@ -57,6 +57,7 @@ class DbOperation
         $stmt->bind_param("i", $selector);                                           // <----- Possible Bug Point, not quite sure if this is right //
         $stmt->execute();
         $stmt->bind_result($degreename, $degreelocation, $degreecoursehours, $degreeobject);
+        $stmt->fetch();
         
         $degree = array(); 
 
