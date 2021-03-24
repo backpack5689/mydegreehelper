@@ -58,7 +58,7 @@ class DbOperation
         $stmt->execute();
         $degree = $stmt->bind_result($selector, $degreename, $degreelocation, $degreecoursehours, $degreeobject);
 
-        //$stmt->fetch();
+        $stmt->fetch();
 
         $degree = array(); 
 
