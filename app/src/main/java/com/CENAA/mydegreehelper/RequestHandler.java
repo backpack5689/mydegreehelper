@@ -77,6 +77,7 @@ public class RequestHandler {
     public String sendGetRequest(String requestURL) {
         StringBuilder sb = new StringBuilder();
         try {
+            requestURL += "&" + URLEncoder.encode("selector", "UTF-8") + "=" + URLEncoder.encode("3", "UTF-8");
             URL url = new URL(requestURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -87,6 +88,7 @@ public class RequestHandler {
             }
         } catch (Exception e) {
         }
+        Log.d("GET", sb.toString());
         return sb.toString();
     }
 

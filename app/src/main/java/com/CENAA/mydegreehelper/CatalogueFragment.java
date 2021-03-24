@@ -97,8 +97,9 @@ public class CatalogueFragment extends Fragment {
                 Log.d("GSON", bpString);
                 Blueprint gsonBP = gson.fromJson(bpString, Blueprint.class);
                 gsonBP.displayBP();
-                uploadBP(blueprint);
+                //uploadBP(blueprint);
                 //blueprint.displayBP();
+                requestBP(3);
             }
         }
     }
@@ -154,6 +155,11 @@ public class CatalogueFragment extends Fragment {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
                     Toast.makeText(getActivity().getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                    Log.d("Obj" , object.getString("degree"));
+
+                    Gson gson = new Gson();
+                    Blueprint gsonBP = gson.fromJson(object.getJSONObject("degree").getString("object"), Blueprint.class);
+                    gsonBP.displayBP();
                     //refreshing the herolist after every operation
                     //so we get an updated list
                     //we will create this method right now it is commented
@@ -192,5 +198,17 @@ public class CatalogueFragment extends Fragment {
 
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_CREATE_BP, params, CODE_POST_REQUEST);
         request.execute();
+    }
+
+    public void requestBP(int id){
+        //Blueprint blueprint;
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("selector", Integer.toString(id));
+
+        PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_BP, params, CODE_GET_REQUEST);
+        request.execute();
+
+        //return blueprint;
     }
 }
