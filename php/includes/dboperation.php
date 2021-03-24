@@ -37,6 +37,7 @@ class DbOperation
             $stmt2 = $this->con->prepare("SELECT max(degree_id) from degree;");
             $stmt2->execute();
             $stmt2->bind_result($throwaway);
+            $stmt2->fetch();
             $this->idvalue = $throwaway;
             return true;
         }
