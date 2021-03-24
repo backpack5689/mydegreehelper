@@ -30,7 +30,7 @@ class DbOperation
     //The following function creates a degree
     function createdegree($object, $degreename, $totalhours, $location)
     {
-        $stmt = $this->con->prepare("INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_object) VALUES (?, ?, ?, ?);");
+        $stmt = $this->con->prepare("INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_applied, degree_object) VALUES (?, ?, ?, CURDATE(), ?);");
         $stmt->bind_param("ssis", $degreename, $location, $totalhours, $object);
         
         if($stmt->execute()){
@@ -57,7 +57,7 @@ class DbOperation
         $stmt = $this->con->prepare("SELECT * FROM degree WHERE degree_id = ?");
         $stmt->bind_param("i", $selector);                                           // <----- Possible Bug Point, not quite sure if this is right //
         $stmt->execute();
-        $stmt->bind_result($selector, $degreename, $degreelocation, $degreecoursehours, $degreeobject);
+        $stmt->bind_result($selector, $degreename, $degreelocation, $degreecoursehours, $degreedate, $degreeobject);
 
         $stmt->fetch();
 
@@ -67,6 +67,7 @@ class DbOperation
         $degree['name'] = $degreename; 
         $degree['location'] = $degreelocation; 
         $degree['course hours'] = $degreecoursehours; 
+        $degree['date applied'] = $degreedate;
         $degree['object'] = $degreeobject; 
         return $degree; 
     }
