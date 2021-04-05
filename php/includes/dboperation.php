@@ -30,13 +30,14 @@ class DbOperation
     //The following function creates a degree
     function createdegree($object, $degreename, $totalhours, $location)
     {
-        $stmt = $this->con->prepare("INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_object) VALUES (?, ?, ?, ?);");
+        $stmt = $this->con->prepare("INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_applied, degree_object) VALUES (?, ?, ?, CURDATE(), ?);");
         $stmt->bind_param("ssis", $degreename, $location, $totalhours, $object);
         
         if($stmt->execute()){
             $stmt2 = $this->con->prepare("SELECT max(degree_id) from degree;");
             $stmt2->execute();
             $stmt2->bind_result($throwaway);
+            $stmt2->fetch();
             $this->idvalue = $throwaway;
             return true;
         }
@@ -56,16 +57,18 @@ class DbOperation
         $stmt = $this->con->prepare("SELECT * FROM degree WHERE degree_id = ?");
         $stmt->bind_param("i", $selector);                                           // <----- Possible Bug Point, not quite sure if this is right //
         $stmt->execute();
-        $stmt->bind_result($degreename, $degreelocation, $degreecoursehours, $degreeobject);
-        
+        $stmt->bind_result($selector, $degreename, $degreelocation, $degreecoursehours, $degreedate, $degreeobject);
+
+        $stmt->fetch();
+
         $degree = array(); 
 
         $degree['id'] = $selector; 
         $degree['name'] = $degreename; 
         $degree['location'] = $degreelocation; 
         $degree['course hours'] = $degreecoursehours; 
+        $degree['date applied'] = $degreedate;
         $degree['object'] = $degreeobject; 
-        
         return $degree; 
     }
 

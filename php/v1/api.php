@@ -95,7 +95,7 @@
             $db = new DbOperation();
             $response['error'] = false; 
             $response['message'] = 'Request successfully completed';
-            $response['degree'] = $db->getdegree($_POST['selector']);
+            $response['degree'] = $db->getdegree($_GET['selector']);
         break; 
         
 
@@ -111,7 +111,7 @@
         * the UPDATE operation
         */
         // update degree. This will update the degree object based on the id
-        case 'updatedegree':
+        /* case 'updatedegree':
             isTheseParametersAvailable(array('degree_id', 'degreeobject'));
             $db = new DbOperation();
             $result = $db->updatedegree(
@@ -127,10 +127,10 @@
                 $response['error'] = true; 
                 $response['message'] = 'There was some error. To begin tracing, check case "updatedegree" in api.php';
             }
-        break; 
+        break; */
 
         //the delete operation
-        case 'deletedegree':
+        /* case 'deletedegree':
         
             //for the delete operation we are getting a GET parameter from the url having the id of the record to be deleted
             if(isset($_GET['id'])){
@@ -147,7 +147,7 @@
                 $response['error'] = true; 
                 $response['message'] = 'There was some error. To begin tracing, check case "deletedegree" in api.php';
             }
-        break;
+        break; */
     }
         
  }else{  
