@@ -36,6 +36,7 @@
     <string name="major_courses_label"><b><u>Major Courses</u></b></string>
     <string name="general_education_label"><b><u>General Education</u></b></string>
     <string name="requirements">Requirements:</string>
+    <string name="complete_button">Enter Grade</string>
 
     <string name="progress_label">Progress Level: </string>
     <string name="progress_freshman">Freshman</string>
