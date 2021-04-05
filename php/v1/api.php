@@ -150,10 +150,9 @@
             }
         break;
 
-        //Sign up operation
+        /* Sign up operation */
         case 'signup':
-            
-            //checking the parameters are available or not 
+
             isTheseParametersAvailable(array('username','email','password'));
             
             $db = new DbOperation();
@@ -166,16 +165,16 @@
                 
                 //if the user already exist in the database 
                 if($result){
-                    $response['error'] = true;
-                    $response['message'] = 'User already registered';
+                    $response['error'] = false;
+                    $response['message'] = 'User registered successfully';
                 }else{
-                    $response['error'] = false; 
-                    $response['message'] = 'User registered successfully'; 
-                    $response['degree'] = $db->signup($_POST['username']);
+                    $response['error'] = true; 
+                    $response['message'] = 'User already registered'; 
+                    //$response['user'] = $db->signup($_POST['username']);
                 }
             break; 
             
-        //Login operation
+        /* Login operation */
         case 'login':
             
             //for login we need the username and password 
@@ -196,7 +195,7 @@
                     $response['error'] = false; 
                     $response['message'] = 'Invalid username or password';
                 }
-                }
+
             break; 
     }
 
@@ -210,3 +209,11 @@
  //displaying the response in json structure 
  echo json_encode($response);
 ?>
+
+
+<!-- CREATE TABLE users (
+    id int NOT NULL AUTO_INCREMENT,
+    username varchar(200) NOT NULL,
+    email varchar(200) NOT NULL,
+    password text NOT NULL
+); -->

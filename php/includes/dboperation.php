@@ -121,11 +121,10 @@ class DbOperation
  }
 
 /* The sign up operation */
-/* the table name should change */
 function signup($username, $email, $password) {
 
     //checking if the user is already exist with this username or email
-    $stmt = $conn->prepare("SELECT id FROM degree WHERE username = ? OR email = ?");
+    $stmt = $conn->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
     $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     $stmt->store_result();
@@ -136,25 +135,30 @@ function signup($username, $email, $password) {
     $stmt->close();
     }else{
     //if user is new creating an insert query 
-    $stmt = $conn->prepare("INSERT INTO degree (username, email, password) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $username, $email, $password);
 
+    //if the user is successfully added to the database 
     if($stmt->execute()){
+
     //fetching the user back 
-    $stmt = $conn->prepare("SELECT id, id, username, email, password FROM degree WHERE username = ?"); 
+    $stmt = $conn->prepare("SELECT id, id, username, email, password FROM users WHERE username = ?"); 
     $stmt->bind_param("s",$username);
     $stmt->execute();
     $stmt->bind_result($userid, $id, $username, $email);
     $stmt->fetch();
     
-    $degree = array();
-        $degree['id'] = $id; 
-        $degree['username'] = $username; 
-        $degree['email'] = $email; 
-        $degree['passwrod'] = $password;
+    $users = array();
+        $users['id'] = $id; 
+        $users['username'] = $username; 
+        $users['email'] = $email; 
+        $users['passwrod'] = $password;
+
     $stmt->close();
+    return true;
     }
 }
+return false;
     
 }
 
@@ -162,23 +166,24 @@ function signup($username, $email, $password) {
 function login($username, $password) {
 
     //creating the query 
-    $stmt = $conn->prepare("SELECT id, username, email, password FROM degree WHERE username = ? AND password = ?");
+    $stmt = $conn->prepare("SELECT id, username, email, password FROM users WHERE username = ? AND password = ?");
     $stmt->bind_param("ss",$username, $password);
     $stmt->execute();
     $stmt->store_result();
 
     if($stmt->num_rows > 0) {
     $stmt->bind_result($id, $username, $email, $password);
-        $stmt->fetch();
+    $stmt->fetch();
 
-    $degree = array();
-        $degree['id'] = $id; 
-        $degree['username'] = $username; 
-        $degree['email'] = $email; 
-        $degree['passwrod'] = $password; 
+    $users = array();
+        $users['id'] = $id; 
+        $users['username'] = $username; 
+        $users['email'] = $email; 
+        $users['passwrod'] = $password; 
 
-
+    return true;
     }
+    return false;
 }
 }
 ?>
