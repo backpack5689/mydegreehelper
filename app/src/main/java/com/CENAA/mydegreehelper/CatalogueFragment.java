@@ -25,6 +25,8 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -92,14 +94,15 @@ public class CatalogueFragment extends Fragment {
                 //Log.d("File", fileContents);
                 //TO-DO possibly an Intent to push the BP below to a DB upload function
                 Blueprint blueprint = new Blueprint(fileContents);
-                Gson gson = new Gson();
-                String bpString = gson.toJson(blueprint);
+                saveBPAsLocal(blueprint);
+                //Gson gson = new Gson();
+                //String bpString = gson.toJson(blueprint);
                 //Log.d("GSON", bpString);
-                Blueprint gsonBP = gson.fromJson(bpString, Blueprint.class);
+                //Blueprint gsonBP = gson.fromJson(bpString, Blueprint.class);
                 //gsonBP.displayBP();
                 //uploadBP(blueprint);
                 //blueprint.displayBP();
-                requestBP(1);
+                //requestBP(1);
                 //getAllBP();
             }
         }
@@ -226,5 +229,24 @@ public class CatalogueFragment extends Fragment {
     public void getAllBP(){
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_GETALL_BP, CODE_GET_REQUEST);
         request.execute();
+    }
+
+    public void saveBPAsLocal(Blueprint bp){
+        File file = new File(getActivity().getFilesDir(), "local");
+        if(!file.exists()){
+            file.mkdir();
+        }
+        try{
+            File localFile = new File(file, "localFile.txt");
+            FileWriter writer = new FileWriter(localFile);
+            Gson gson = new Gson();
+            String bpString = gson.toJson(bp);
+            writer.append(bpString);
+            writer.flush();
+            writer.close();
+            Toast.makeText(getActivity().getApplicationContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
