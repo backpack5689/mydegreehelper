@@ -25,6 +25,8 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -89,16 +91,19 @@ public class CatalogueFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Log.d("File", fileContents);
+                //Log.d("File", fileContents);
                 //TO-DO possibly an Intent to push the BP below to a DB upload function
                 Blueprint blueprint = new Blueprint(fileContents);
-                Gson gson = new Gson();
-                String bpString = gson.toJson(blueprint);
-                Log.d("GSON", bpString);
-                Blueprint gsonBP = gson.fromJson(bpString, Blueprint.class);
-                gsonBP.displayBP();
-                uploadBP(blueprint);
+                saveBPAsLocal(blueprint);
+                //Gson gson = new Gson();
+                //String bpString = gson.toJson(blueprint);
+                //Log.d("GSON", bpString);
+                //Blueprint gsonBP = gson.fromJson(bpString, Blueprint.class);
+                //gsonBP.displayBP();
+                //uploadBP(blueprint);
                 //blueprint.displayBP();
+                //requestBP(1);
+                //getAllBP();
             }
         }
     }
@@ -137,6 +142,11 @@ public class CatalogueFragment extends Fragment {
             this.requestCode = requestCode;
         }
 
+        PerformNetworkRequest(String url, int requestCode) {
+            this.url = url;
+            this.requestCode = requestCode;
+        }
+
         //when the task started displaying a progressbar
         @Override
         protected void onPreExecute() {
@@ -154,6 +164,14 @@ public class CatalogueFragment extends Fragment {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
                     Toast.makeText(getActivity().getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                   //*****TURN REQUESTED BP BACK INTO JAVA OBJECT*****
+                    /* Log.d("Obj" , object.getString("degree"));
+
+                    Gson gson = new Gson();
+                    Blueprint gsonBP = gson.fromJson(object.getJSONObject("degree").getString("object"), Blueprint.class);
+                    gsonBP.displayBP();*/
+
+
                     //refreshing the herolist after every operation
                     //so we get an updated list
                     //we will create this method right now it is commented
@@ -173,6 +191,8 @@ public class CatalogueFragment extends Fragment {
             if (requestCode == CODE_POST_REQUEST)
                 return requestHandler.sendPostRequest(url, params);
 
+            if (requestCode == CODE_GET_REQUEST && params != null)
+                return requestHandler.sendGetRequest(url, params);
 
             if (requestCode == CODE_GET_REQUEST)
                 return requestHandler.sendGetRequest(url);
@@ -192,5 +212,41 @@ public class CatalogueFragment extends Fragment {
 
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_CREATE_BP, params, CODE_POST_REQUEST);
         request.execute();
+    }
+
+    public void requestBP(int id){
+        //Blueprint blueprint;
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("selector", Integer.toString(id));
+
+        PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_BP, params, CODE_GET_REQUEST);
+        request.execute();
+
+        //return blueprint;
+    }
+
+    public void getAllBP(){
+        PerformNetworkRequest request = new PerformNetworkRequest(API.URL_GETALL_BP, CODE_GET_REQUEST);
+        request.execute();
+    }
+
+    public void saveBPAsLocal(Blueprint bp){
+        File file = new File(getActivity().getFilesDir(), "local");
+        if(!file.exists()){
+            file.mkdir();
+        }
+        try{
+            File localFile = new File(file, "localFile.txt");
+            FileWriter writer = new FileWriter(localFile);
+            Gson gson = new Gson();
+            String bpString = gson.toJson(bp);
+            writer.append(bpString);
+            writer.flush();
+            writer.close();
+            Toast.makeText(getActivity().getApplicationContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

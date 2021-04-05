@@ -1,6 +1,7 @@
 package com.CENAA.mydegreehelper;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +27,8 @@ public class HomeFragment extends Fragment {
     RecyclerAdapter majorAdapter, generalAdapter;
 
     List<CourseUI> majorCourseList, generalCourseList;
+
+    Blueprint userBP;
 
     @Nullable
     @Override
@@ -30,10 +41,39 @@ public class HomeFragment extends Fragment {
         majorCourses = view.findViewById(R.id.majorCourses);
         generalCourses = view.findViewById(R.id.generalCourses);
 
+        try {
+            initBP();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         initMajorCourseData();
         initRecyclerView();
 
         return view;
+    }
+
+    private void initBP() throws IOException {
+        File file = new File(getActivity().getApplicationContext().getFilesDir() + "/local/", "localFile.txt");
+        FileInputStream fis = new FileInputStream(file);
+        InputStreamReader inputStreamReader =
+                new InputStreamReader(fis);
+        StringBuilder stringBuilder = new StringBuilder();
+        String contents;
+        try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
+            String line = reader.readLine();
+            while (line != null) {
+                stringBuilder.append(line).append('\n');
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+            // Error occurred when opening raw file for reading.
+        } finally {
+            contents = stringBuilder.toString();
+        }
+        Log.d("line", contents);
+        Gson gson = new Gson();
+        userBP = gson.fromJson(contents, Blueprint.class);
     }
 
     private void initRecyclerView() {
