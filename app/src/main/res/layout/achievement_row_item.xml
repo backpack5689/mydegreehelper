@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
-        android:id="@+id/achievmentDesc"
+        android:id="@+id/achievementDesc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -28,13 +28,13 @@
         android:text="Achievement Description"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/achievmentName"
-        app:layout_constraintTop_toBottomOf="@+id/achievmentName" />
+        app:layout_constraintStart_toStartOf="@+id/achievementName"
+        app:layout_constraintTop_toBottomOf="@+id/achievementName" />
 
     <TextView
-        android:id="@+id/achievmentName"
+        android:id="@+id/achievementName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -44,9 +44,20 @@
         android:layout_marginRight="16dp"
         android:text="Achievement Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/achievmentDesc"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/achievementDesc"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/achievementIcon"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/achievementCompleteCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_check_box_outline_blank" />
 </androidx.constraintlayout.widget.ConstraintLayout>
