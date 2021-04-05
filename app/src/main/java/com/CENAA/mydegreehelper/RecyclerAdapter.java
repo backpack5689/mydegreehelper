@@ -3,7 +3,6 @@ package com.CENAA.mydegreehelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,7 +52,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
-            courseSub = itemView.findViewById(R.id.courseSub);
+            courseSub = itemView.findViewById(R.id.achievementName);
             courseNum = itemView.findViewById(R.id.courseNumber);
             courseTitle = itemView.findViewById(R.id.courseTitle);
             requirements = itemView.findViewById(R.id.requirements);
