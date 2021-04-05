@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AchievementsFragment extends Fragment {
@@ -25,14 +26,27 @@ public class AchievementsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_achievements, container, false);
 
-        achievementsView = view.findViewById(R.id.achievementsView);
-        achievementAdapter = new AchievementAdapter();
+        achievementsList = new ArrayList<Achievement>();
 
-        achievementsView.setAdapter(achievementAdapter);
+        achievementsView = view.findViewById(R.id.achievementsView);
+
+        initData();
+        initRecyclerView();
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
         achievementsView.addItemDecoration(dividerItemDecoration);
 
         return view;
+    }
+
+    private void initRecyclerView() {
+        achievementAdapter = new AchievementAdapter(achievementsList);
+        achievementsView.setAdapter(achievementAdapter);
+    }
+
+    private void initData() {
+        achievementsList = new ArrayList<>();
+        achievementsList.add(new Achievement("Test Achievement 1", "Achievement Description", false));
+        achievementsList.add(new Achievement("Test Achievement 2", "Achievement Description", true));
     }
 }
