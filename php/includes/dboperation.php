@@ -152,7 +152,7 @@ function signup($username, $email, $password) {
         $users['id'] = $id; 
         $users['username'] = $username; 
         $users['email'] = $email; 
-        $users['passwrod'] = $password;
+        $users['password'] = $password;
 
     $stmt->close();
     return true;
@@ -179,7 +179,7 @@ function login($username, $password) {
         $users['id'] = $id; 
         $users['username'] = $username; 
         $users['email'] = $email; 
-        $users['passwrod'] = $password; 
+        $users['password'] = $password; 
 
     return true;
     }
