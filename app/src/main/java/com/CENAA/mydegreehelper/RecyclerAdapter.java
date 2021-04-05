@@ -3,6 +3,7 @@ package com.CENAA.mydegreehelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,7 +37,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.requirements.setText(course.getRequirements());
 
         boolean isExpanded = courseList.get(position).isExpanded();
-        holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+
+        if (isExpanded) {
+            holder.dropdownIcon.setImageResource(R.drawable.ic_baseline_arrow_drop_up);
+            holder.expandableLayout.setVisibility(View.VISIBLE);
+        } else {
+            holder.dropdownIcon.setImageResource(R.drawable.ic_baseline_arrow_drop_down);
+            holder.expandableLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -46,12 +54,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        ImageView dropdownIcon;
         TextView courseSub, courseNum, courseTitle, requirements;
         ConstraintLayout expandableLayout, courseInfoCard;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
+            dropdownIcon = itemView.findViewById(R.id.dropdownIcon);
             courseSub = itemView.findViewById(R.id.achievementName);
             courseNum = itemView.findViewById(R.id.courseNumber);
             courseTitle = itemView.findViewById(R.id.courseTitle);

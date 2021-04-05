@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-    RecyclerView majorCourses;
-    RecyclerAdapter recyclerAdapter;
+    RecyclerView majorCourses, generalCourses;
+    RecyclerAdapter majorAdapter, generalAdapter;
 
-    List<CourseUI> majorCourseList;
+    List<CourseUI> majorCourseList, generalCourseList;
 
     @Nullable
     @Override
@@ -25,8 +25,10 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         majorCourseList = new ArrayList<CourseUI>();
+        generalCourseList = new ArrayList<CourseUI>();
 
         majorCourses = view.findViewById(R.id.majorCourses);
+        generalCourses = view.findViewById(R.id.generalCourses);
 
         initMajorCourseData();
         initRecyclerView();
@@ -35,8 +37,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        recyclerAdapter = new RecyclerAdapter(majorCourseList);
-        majorCourses.setAdapter(recyclerAdapter);
+        majorAdapter = new RecyclerAdapter(majorCourseList);
+        generalAdapter = new RecyclerAdapter(generalCourseList);
+
+        majorCourses.setAdapter(majorAdapter);
+        generalCourses.setAdapter(generalAdapter);
     }
 
     private void initMajorCourseData() {
@@ -45,5 +50,11 @@ public class HomeFragment extends Fragment {
         majorCourseList.add(new CourseUI("CS",1002,"Intro to Computer Science", "None"));
         majorCourseList.add(new CourseUI("CS",3233,"Intro to Programming", "MA 3233"));
         majorCourseList.add(new CourseUI("CS",3623,"Intro to Programming", "None"));
+
+        generalCourseList = new ArrayList<>();
+        generalCourseList.add(new CourseUI("CS", 1001,"Intro to Programming", "None"));
+        generalCourseList.add(new CourseUI("CS",1002,"Intro to Computer Science", "None"));
+        generalCourseList.add(new CourseUI("CS",3233,"Intro to Programming", "MA 3233"));
+        generalCourseList.add(new CourseUI("CS",3623,"Intro to Programming", "None"));
     }
 }

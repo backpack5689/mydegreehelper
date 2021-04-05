@@ -78,6 +78,14 @@
                 android:text="@string/general_education_label"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/generalCourses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/genEdLabel"
+                android:layout_marginTop="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
