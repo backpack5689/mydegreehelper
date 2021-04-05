@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
 
         majorCourses = view.findViewById(R.id.majorCourses);
 
-        initData();
+        initMajorCourseData();
         initRecyclerView();
 
         return view;
@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
         majorCourses.setAdapter(recyclerAdapter);
     }
 
-    private void initData() {
+    private void initMajorCourseData() {
         majorCourseList = new ArrayList<>();
         majorCourseList.add(new CourseUI("CS", 1001,"Intro to Programming", "None"));
         majorCourseList.add(new CourseUI("CS",1002,"Intro to Computer Science", "None"));
