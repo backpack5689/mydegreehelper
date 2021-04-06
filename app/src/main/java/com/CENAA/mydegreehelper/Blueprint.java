@@ -142,4 +142,8 @@ public class Blueprint {
         }
     }
 
+    public ArrayList<Requirement> getRequirements() {
+        return requirements;
+    }
+
 }
