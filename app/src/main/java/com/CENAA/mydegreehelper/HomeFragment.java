@@ -87,14 +87,15 @@ public class HomeFragment extends Fragment {
     }
 
     private void initData() { // Initialize data for RecyclerViews from blueprint
-        majorCourseList = userBP.requirements.get(0).requiredCourses;
-        majorCourseList.add(new Course("Test", 9999, "TS", 3, 0.0, new ArrayList<Course>(), new ArrayList<Course>(), true));
+        majorCourseList = userBP.requirements.get(0).requiredCourses; // Pull major courses from blueprint
+        majorCourseList.add(new Course("Test", 9999, "TS", 3, 0.0, new ArrayList<Course>(), new ArrayList<Course>(), true)); // For testing completed courses
 
         int i = 1, j = 0, k = 0;
         boolean duplicate;
         ArrayList<Requirement> genCourses = userBP.getRequirements();
         ArrayList<Course> compiledList = new ArrayList<>();
-        for (i = 1; i < genCourses.size(); i++) {
+
+        for (i = 1; i < genCourses.size(); i++) { // Check for duplicate courses
             for (j = 0; j < genCourses.get(i).requiredCourses.size(); j++) {
                 duplicate = false;
                 for (k = 0; k < compiledList.size(); k++) {
@@ -107,6 +108,6 @@ public class HomeFragment extends Fragment {
                 }
             }
         }
-        generalCourseList = new ArrayList<>(compiledList);
+        generalCourseList = new ArrayList<>(compiledList); // Add courses to general education RecyclerView
     }
 }
