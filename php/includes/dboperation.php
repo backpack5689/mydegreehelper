@@ -4,7 +4,7 @@ class DbOperation
 {
     //Database connection link
     private $con;
-    public $idvalue;
+    public $idvalue = 0;
     //Class constructor
     function __construct()
     {
@@ -13,8 +13,7 @@ class DbOperation
  
         //Creating a DbConnect object to connect to the database
         $db = new DbConnect();
-        $idvalue = 0;
- 
+
         //Initializing our connection link of this class
         //by calling the method connect of DbConnect class
         $this->con = $db->connect();
@@ -24,18 +23,24 @@ class DbOperation
  * The create operations
  */
     
+    function getvar()
+    {
+        return $this->idvalue;
+    }
     //The following function creates a degree
     function createdegree($object, $degreename, $totalhours, $location)
     {
-        $stmt = $this->con->prepare(
-            "INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_object) VALUES (?, ?, ?, ?);
-             SELECT max(degree_id) FROM degree;
-            ");
+        $stmt = $this->con->prepare("INSERT INTO degree (degree_name, degree_location, degree_coursehours, degree_applied, degree_object) VALUES (?, ?, ?, CURDATE(), ?);");
         $stmt->bind_param("ssis", $degreename, $location, $totalhours, $object);
         
-        if($stmt->execute())
-            $stmt->bind_result($idvalue);
+        if($stmt->execute()){
+            $stmt2 = $this->con->prepare("SELECT max(degree_id) from degree;");
+            $stmt2->execute();
+            $stmt2->bind_result($throwaway);
+            $stmt2->fetch();
+            $this->idvalue = $throwaway;
             return true;
+        }
         return false;
     }
 
@@ -52,16 +57,18 @@ class DbOperation
         $stmt = $this->con->prepare("SELECT * FROM degree WHERE degree_id = ?");
         $stmt->bind_param("i", $selector);                                           // <----- Possible Bug Point, not quite sure if this is right //
         $stmt->execute();
-        $stmt->bind_result($degreename, $degreelocation, $degreecoursehours, $degreeobject);
-        
+        $stmt->bind_result($selector, $degreename, $degreelocation, $degreecoursehours, $degreedate, $degreeobject);
+
+        $stmt->fetch();
+
         $degree = array(); 
 
         $degree['id'] = $selector; 
         $degree['name'] = $degreename; 
         $degree['location'] = $degreelocation; 
         $degree['course hours'] = $degreecoursehours; 
+        $degree['date applied'] = $degreedate;
         $degree['object'] = $degreeobject; 
-        
         return $degree; 
     }
 

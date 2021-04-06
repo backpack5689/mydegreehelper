@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -17,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -48,8 +47,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 break;
+            case R.id.nav_browse:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BrowseFragment()).commit();
+                break;
             case R.id.nav_catalogue:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CatalogueFragment()).commit();
+                break;
+            case R.id.nav_achievements:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementsFragment()).commit();
                 break;
             case R.id.nav_settings:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
@@ -74,6 +79,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        String message = "Navigating";
        intent.putExtra(EXTRA_MESSAGE, message);
        startActivity(intent);
+   }
+
+   public void getAchievement(String achievementName) {
+        String toastText = "Achievment Unlocked: " + achievementName;
+        Toast achievementToast = Toast.makeText(getApplicationContext(), achievementName, Toast.LENGTH_SHORT);
+        achievementToast.show();
    }
 
 }
