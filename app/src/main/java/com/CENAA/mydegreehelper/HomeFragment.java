@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
             for (j = 0; j < genCourses.get(i).requiredCourses.size(); j++) {
                 duplicate = false;
                 for (k = 0; k < compiledList.size(); k++) {
-                   if (genCourses.get(i).requiredCourses.get(j) == compiledList.get(k)) {
+                   if (genCourses.get(i).requiredCourses.get(j).toString().equals(compiledList.get(k).toString())) {
                        duplicate = true;
                    }
                 }
@@ -111,7 +111,7 @@ public class HomeFragment extends Fragment {
         }
         generalCourseList = new ArrayList<>(compiledList); // Add courses to general education RecyclerView
 
-        // Sort arrays
+        // Sort
         Collections.sort(majorCourseList);
         Collections.sort(generalCourseList);
     }

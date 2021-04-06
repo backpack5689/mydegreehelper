@@ -53,6 +53,18 @@ public class Course implements Comparable<Course> {
         return courseName;
     }
 
+    public String toString() {
+        return "Course{" +
+                "Sub='" + courseSub + "'" +
+                ", Num='" + courseNum + "'" +
+                ", Name='" + courseName +  "'" +
+                ", CreditValue='" + creditValue + "'" +
+                ", Grade='" + grade + "'" +
+                ", Prereqs='" + prereqs + "'" +
+                ", Equivalent='" + equivalents + "'" +
+                ", Completed='" + completed + "'";
+    }
+
     @Override
     public int compareTo(Course o) {
         return Integer.compare(this.getCourseNum(), o.getCourseNum());
