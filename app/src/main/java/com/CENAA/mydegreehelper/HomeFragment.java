@@ -20,13 +20,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
     RecyclerView majorCourses, generalCourses;
     RecyclerAdapter majorAdapter, generalAdapter;
 
-    List<CourseUI> majorCourseList, generalCourseList;
+    List<Course> majorCourseList, generalCourseList;
 
     Blueprint userBP;
 
@@ -35,8 +37,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        majorCourseList = new ArrayList<CourseUI>();
-        generalCourseList = new ArrayList<CourseUI>();
+        majorCourseList = new ArrayList<Course>();
+        generalCourseList = new ArrayList<Course>();
 
         majorCourses = view.findViewById(R.id.majorCourses);
         generalCourses = view.findViewById(R.id.generalCourses);
@@ -47,14 +49,14 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
-        initMajorCourseData();
+        initData();
         initRecyclerView();
 
         return view;
     }
 
     private void initBP() throws IOException {
-        File file = new File(getActivity().getApplicationContext().getFilesDir() + "/local/", "localFile.txt");
+        File file = new File(requireActivity().getApplicationContext().getFilesDir() + "/local/", "localFile.txt");
         FileInputStream fis = new FileInputStream(file);
         InputStreamReader inputStreamReader =
                 new InputStreamReader(fis);
@@ -84,17 +86,27 @@ public class HomeFragment extends Fragment {
         generalCourses.setAdapter(generalAdapter);
     }
 
-    private void initMajorCourseData() {
-        majorCourseList = new ArrayList<>();
-        majorCourseList.add(new CourseUI("CS", 1001,"Intro to Programming", "None"));
-        majorCourseList.add(new CourseUI("CS",1002,"Intro to Computer Science", "None"));
-        majorCourseList.add(new CourseUI("CS",3233,"Intro to Programming", "MA 3233"));
-        majorCourseList.add(new CourseUI("CS",3623,"Intro to Programming", "None"));
+    private void initData() { // Initialize data for RecyclerViews from blueprint
+        majorCourseList = userBP.requirements.get(0).requiredCourses;
+        majorCourseList.add(new Course("Test", 9999, "TS", 3, 0.0, new ArrayList<Course>(), new ArrayList<Course>(), true));
 
-        generalCourseList = new ArrayList<>();
-        generalCourseList.add(new CourseUI("CS", 1001,"Intro to Programming", "None"));
-        generalCourseList.add(new CourseUI("CS",1002,"Intro to Computer Science", "None"));
-        generalCourseList.add(new CourseUI("CS",3233,"Intro to Programming", "MA 3233"));
-        generalCourseList.add(new CourseUI("CS",3623,"Intro to Programming", "None"));
+        int i = 1, j = 0, k = 0;
+        boolean duplicate;
+        ArrayList<Requirement> genCourses = userBP.getRequirements();
+        ArrayList<Course> compiledList = new ArrayList<>();
+        for (i = 1; i < genCourses.size(); i++) {
+            for (j = 0; j < genCourses.get(i).requiredCourses.size(); j++) {
+                duplicate = false;
+                for (k = 0; k < compiledList.size(); k++) {
+                   if (genCourses.get(i).requiredCourses.get(j) == compiledList.get(k)) {
+                       duplicate = true;
+                   }
+                }
+                if (!duplicate) {
+                    compiledList.add(genCourses.get(i).requiredCourses.get(j));
+                }
+            }
+        }
+        generalCourseList = new ArrayList<>(compiledList);
     }
 }
