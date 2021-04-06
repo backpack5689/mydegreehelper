@@ -9,24 +9,27 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:id="@+id/progressText"
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true">
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp">
+
                 <TextView
                     android:id="@+id/progressLabel"
-                    android:layout_marginRight="5sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="5sp"
+                    android:layout_marginRight="5sp"
                     android:text="@string/progress_label"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="5sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/progressTitle"
@@ -38,24 +41,24 @@
             </LinearLayout>
 
             <ProgressBar
-                android:layout_marginTop="5dp"
-                android:layout_marginHorizontal="50dp"
                 android:id="@+id/progressBar"
                 style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-                android:progressTint="@color/main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/progressText"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginTop="5dp"
                 android:progress="45"
+                android:progressTint="@color/main"
                 tools:targetApi="lollipop" />
 
             <TextView
                 android:id="@+id/majorCoursesLabel"
-                android:layout_below="@id/progressBar"
-                android:layout_marginTop="16dp"
-                android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/progressBar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
                 android:text="@string/major_courses_label"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -66,15 +69,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/majorCoursesLabel"
                 android:layout_marginTop="8dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <TextView
                 android:id="@+id/genEdLabel"
-                android:layout_below="@+id/majorCourses"
-                android:layout_marginTop="16dp"
-                android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/majorCourses"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
                 android:text="@string/general_education_label"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -85,7 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/genEdLabel"
                 android:layout_marginTop="8dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
