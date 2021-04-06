@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -109,5 +110,9 @@ public class HomeFragment extends Fragment {
             }
         }
         generalCourseList = new ArrayList<>(compiledList); // Add courses to general education RecyclerView
+
+        // Sort arrays
+        Collections.sort(majorCourseList);
+        Collections.sort(generalCourseList);
     }
 }

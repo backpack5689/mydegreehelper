@@ -2,7 +2,7 @@ package com.CENAA.mydegreehelper;
 
 import java.util.ArrayList;
 
-public class Course {
+public class Course implements Comparable<Course> {
     boolean expanded;
     String courseName;
     String courseSub;
@@ -51,5 +51,10 @@ public class Course {
     }
     public String getCourseName() {
         return courseName;
+    }
+
+    @Override
+    public int compareTo(Course o) {
+        return Integer.compare(this.getCourseNum(), o.getCourseNum());
     }
 }
