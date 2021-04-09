@@ -54,8 +54,7 @@ public class HomeFragment extends Fragment {
     private void initBP() throws IOException {
         File file = new File(getActivity().getApplicationContext().getFilesDir() + "/local/", "localFile.txt");
         FileInputStream fis = new FileInputStream(file);
-        InputStreamReader inputStreamReader =
-                new InputStreamReader(fis);
+        InputStreamReader inputStreamReader = new InputStreamReader(fis);
         StringBuilder stringBuilder = new StringBuilder();
         String contents;
         try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
