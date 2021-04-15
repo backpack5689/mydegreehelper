@@ -136,11 +136,12 @@ function signup($username, $email, $password) {
     $stmt->execute();
     $stmt->store_result();
     
-    
+    error_log($stmt->num_rows);
     //if the user is successfully added to the database 
     if($stmt->num_rows > 0){
     $stmt->close();
     }else{
+        error_log("else");   
     //if user is new creating an insert query 
     $stmt = $this->con->prepare("INSERT INTO user (user_username, user_email, user_password) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $username, $email, $password);
@@ -148,6 +149,7 @@ function signup($username, $email, $password) {
     //if the user is successfully added to the database 
     if($stmt->execute()){
 
+        error_log("statement execute");
     //fetching the user back 
     $stmt = $this->con->prepare("SELECT user_id, user_username, user_email, user_password FROM user WHERE user_username = ?"); 
     $stmt->bind_param("s",$username);
@@ -164,8 +166,8 @@ function signup($username, $email, $password) {
     $stmt->close();
     return true;
     }
+    return false;
 }
-return false;
 }
 
 /* Login operation */
