@@ -198,7 +198,7 @@
 
 	    break;
 	case 'saveuserprogress':
-		isTheseParametersAvailable(array('userid','jsonstring');
+		isTheseParametersAvailable(array('userid','jsonstring'));
 		$db = new DbOperation();
 
 		$result = $db->updateuserprogress(
