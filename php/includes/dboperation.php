@@ -172,7 +172,7 @@ return false;
 function login($username, $password) {
 
     //creating the query 
-    $stmt = $this->$con->prepare("SELECT user_id, username, email, password FROM user WHERE username = ? AND password = ?");
+    $stmt = $this->$con->prepare("SELECT user_id, user_username, user_email,user_password FROM user WHERE user_username = ? AND user_password = ?");
     $stmt->bind_param("ss",$username, $password);
     $stmt->execute();
     $stmt->store_result();
@@ -186,7 +186,6 @@ function login($username, $password) {
         $user['username'] = $username; 
         $user['email'] = $email; 
         $user['password'] = $password; 
-
     return true;
     }
     return false;
