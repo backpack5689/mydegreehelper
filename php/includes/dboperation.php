@@ -131,7 +131,7 @@ class DbOperation
 function signup($username, $email, $password) {
 
     //checking if the user is already exist with this username or email
-    $stmt = $conn->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
+    $stmt = $conn->prepare("SELECT user_id FROM user WHERE username = ? OR email = ?");
     $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     $stmt->store_result();
@@ -142,38 +142,37 @@ function signup($username, $email, $password) {
     $stmt->close();
     }else{
     //if user is new creating an insert query 
-    $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO user (username, email, password) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $username, $email, $password);
 
     //if the user is successfully added to the database 
     if($stmt->execute()){
 
     //fetching the user back 
-    $stmt = $conn->prepare("SELECT id, id, username, email, password FROM users WHERE username = ?"); 
+    $stmt = $conn->prepare("SELECT user_id, username, email, password FROM user WHERE username = ?"); 
     $stmt->bind_param("s",$username);
     $stmt->execute();
-    $stmt->bind_result($userid, $id, $username, $email);
+    $stmt->bind_result($id, $username, $email);
     $stmt->fetch();
     
-    $users = array();
-        $users['id'] = $id; 
-        $users['username'] = $username; 
-        $users['email'] = $email; 
-        $users['password'] = $password;
+    $user = array();
+        $user['id'] = $id; 
+        $user['username'] = $username; 
+        $user['email'] = $email; 
+        $user['password'] = $password;
 
     $stmt->close();
     return true;
     }
 }
 return false;
-    
 }
 
 /* Login operation */
 function login($username, $password) {
 
     //creating the query 
-    $stmt = $conn->prepare("SELECT id, username, email, password FROM users WHERE username = ? AND password = ?");
+    $stmt = $conn->prepare("SELECT user_id, username, email, password FROM user WHERE username = ? AND password = ?");
     $stmt->bind_param("ss",$username, $password);
     $stmt->execute();
     $stmt->store_result();
@@ -182,11 +181,11 @@ function login($username, $password) {
     $stmt->bind_result($id, $username, $email, $password);
     $stmt->fetch();
 
-    $users = array();
-        $users['id'] = $id; 
-        $users['username'] = $username; 
-        $users['email'] = $email; 
-        $users['password'] = $password; 
+    $user = array();
+        $user['id'] = $id; 
+        $user['username'] = $username; 
+        $user['email'] = $email; 
+        $user['password'] = $password; 
 
     return true;
     }
@@ -194,3 +193,27 @@ function login($username, $password) {
 }
 }
 ?>
+<!-- function login() {
+
+//creating the query 
+$stmt = $conn->prepare("SELECT user_id, username, email, password FROM user WHERE username = ? AND password = ?");
+$stmt->bind_param("ss",$username, $password);
+$stmt->execute();
+$stmt->store_result();
+
+if($stmt->num_rows > 0) {
+$stmt->bind_result($id, $username, $email, $password);
+$stmt->fetch();
+
+$user = array();
+    $user['id'] = $id; 
+    $user['username'] = $username; 
+    $user['email'] = $email; 
+    $user['password'] = $password; 
+
+    array_push($users, $user);
+
+return $users;
+}
+return false;
+} -->
