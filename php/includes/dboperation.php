@@ -131,7 +131,7 @@ class DbOperation
 function signup($username, $email, $password) {
 
     //checking if the user is already exist with this username or email
-    $stmt = $conn->prepare("SELECT user_id FROM user WHERE username = ? OR email = ?");
+    $stmt = $conn->prepare("SELECT user_id FROM user WHERE user_username = ? OR user_email = ?");
     $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     $stmt->store_result();
@@ -142,14 +142,14 @@ function signup($username, $email, $password) {
     $stmt->close();
     }else{
     //if user is new creating an insert query 
-    $stmt = $conn->prepare("INSERT INTO user (username, email, password) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO user (user_username, user_email, user_password) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $username, $email, $password);
 
     //if the user is successfully added to the database 
     if($stmt->execute()){
 
     //fetching the user back 
-    $stmt = $conn->prepare("SELECT user_id, username, email, password FROM user WHERE username = ?"); 
+    $stmt = $conn->prepare("SELECT user_id, user_username, user_email, user_password FROM user WHERE user_username = ?"); 
     $stmt->bind_param("s",$username);
     $stmt->execute();
     $stmt->bind_result($id, $username, $email);
