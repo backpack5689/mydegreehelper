@@ -197,29 +197,6 @@
                 }
 
             break; 
-
-            // case 'login':
-            
-            //     //for login we need the username and password 
-            //     // isTheseParametersAvailable(array('username', 'password'));
-                    
-            //     $db = new DbOperation();
-    
-            //     // $result = $db->login(
-            //     //     $_POST['username'],
-            //     //     md5($_POST['password']),
-            //     // );
-    
-            //         // if($result){
-            //             $response['error'] = false; 
-            //             $response['message'] = 'Login was successfull'; 
-            //             $response['degree'] = $db->login();    
-            //         // }else{
-            //             $response['error'] = true; 
-            //             $response['message'] = 'Invalid username or password';
-            //         // }
-    
-            //     break; 
     }
 
  }else{  
