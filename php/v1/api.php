@@ -190,7 +190,7 @@
                 if($result){
                     $response['error'] = false; 
                     $response['message'] = 'Login was successfull'; 
-                    $response['degree'] = $db->login($_POST['username']);    
+                    $response['user'] = $_POST['username'];    
                 }else{
                     $response['error'] = true; 
                     $response['message'] = 'Invalid username or password';
