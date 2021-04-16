@@ -37,7 +37,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Course course = courseList.get(position);
-        Log.i("Course", course.toString());
         holder.courseSub.setText(course.getCourseSub());
         holder.courseNum.setText(String.valueOf(course.getCourseNum()));
         holder.courseTitle.setText(course.getCourseName());
@@ -56,8 +55,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 }
             }
         }
-        Log.i("ReqList", requirementsList.toString());
-        Log.i("ItemReq", reqString);
         holder.requirements.setText(reqString);
 
         boolean isExpanded = courseList.get(position).isExpanded();
