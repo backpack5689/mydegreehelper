@@ -1,5 +1,6 @@
 package com.CENAA.mydegreehelper;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     List<Course> courseList;
+    List<Course> requirementsList;
+    String reqString = "";
 
     public RecyclerAdapter(List<Course> courseList) {
         this.courseList = courseList;
@@ -34,10 +37,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Course course = courseList.get(position);
+        Log.i("Course", course.toString());
         holder.courseSub.setText(course.getCourseSub());
         holder.courseNum.setText(String.valueOf(course.getCourseNum()));
         holder.courseTitle.setText(course.getCourseName());
-        holder.requirements.setText("tmp");
+
+        requirementsList = course.getRequirements();
+
+        if (requirementsList.size() == 0) {
+            reqString = "None";
+        } else {
+            for (int i = 0; i < requirementsList.size(); i++) {
+                reqString = "• " + requirementsList.get(i).courseName;
+                if (requirementsList.get(i).isCompleted()) {
+                    reqString = reqString + " (Complete)\n";
+                } else {
+                    reqString = reqString + " (Incomplete)\n";
+                }
+            }
+        }
+        Log.i("ReqList", requirementsList.toString());
+        Log.i("ItemReq", reqString);
+        holder.requirements.setText(reqString);
 
         boolean isExpanded = courseList.get(position).isExpanded();
 
