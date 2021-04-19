@@ -31,8 +31,6 @@ public class HomeFragment extends Fragment {
 
     List<Course> majorCourseList, generalCourseList;
 
-    Blueprint userBP;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,38 +43,10 @@ public class HomeFragment extends Fragment {
         majorCourses = view.findViewById(R.id.majorCourses);
         generalCourses = view.findViewById(R.id.generalCourses);
 
-        try {
-            initBP();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         initData();
         initRecyclerView();
 
         return view;
-    }
-
-    private void initBP() throws IOException {
-        File file = new File(requireActivity().getApplicationContext().getFilesDir() + "/local/", "localFile.txt");
-        FileInputStream fis = new FileInputStream(file);
-        InputStreamReader inputStreamReader = new InputStreamReader(fis);
-        StringBuilder stringBuilder = new StringBuilder();
-        String contents;
-        try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
-            String line = reader.readLine();
-            while (line != null) {
-                stringBuilder.append(line).append('\n');
-                line = reader.readLine();
-            }
-        } catch (IOException e) {
-            // Error occurred when opening raw file for reading.
-        } finally {
-            contents = stringBuilder.toString();
-        }
-        Log.d("line", contents);
-        Gson gson = new Gson();
-        stateManager.setState(gson.fromJson(contents, Blueprint.class));
     }
 
     private void initRecyclerView() {
