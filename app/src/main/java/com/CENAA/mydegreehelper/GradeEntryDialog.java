@@ -3,6 +3,7 @@ package com.CENAA.mydegreehelper;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -47,11 +48,12 @@ public class GradeEntryDialog extends DialogFragment {
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (grade == 0) {
-                    dismiss();
-                } else {
-                    state.completeCourse(courseName, Double.parseDouble(gradeInput.getText().toString()));
+                grade = Double.parseDouble(gradeInput.getText().toString());
+                if (grade != 0) {
+                    state.completeCourse(courseName, grade);
+                    stateManager.setState(state);
                 }
+                dismiss();
             }
         });
 
