@@ -131,49 +131,50 @@ class DbOperation
 function signup($username, $email, $password) {
 
     //checking if the user is already exist with this username or email
-    $stmt = $conn->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
+    $stmt = $this->con->prepare("SELECT user_id FROM user WHERE user_username = ? OR user_email = ?");
     $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     $stmt->store_result();
     
-    
+    error_log($stmt->num_rows);
     //if the user is successfully added to the database 
     if($stmt->num_rows > 0){
     $stmt->close();
     }else{
+        error_log("else");   
     //if user is new creating an insert query 
-    $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+    $stmt = $this->con->prepare("INSERT INTO user (user_username, user_email, user_password) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $username, $email, $password);
 
     //if the user is successfully added to the database 
     if($stmt->execute()){
 
+        error_log("statement execute");
     //fetching the user back 
-    $stmt = $conn->prepare("SELECT id, id, username, email, password FROM users WHERE username = ?"); 
+    $stmt = $this->con->prepare("SELECT user_id, user_username, user_email, user_password FROM user WHERE user_username = ?"); 
     $stmt->bind_param("s",$username);
     $stmt->execute();
-    $stmt->bind_result($userid, $id, $username, $email);
+    $stmt->bind_result($id, $username, $email);
     $stmt->fetch();
     
-    $users = array();
-        $users['id'] = $id; 
-        $users['username'] = $username; 
-        $users['email'] = $email; 
-        $users['password'] = $password;
+    $user = array();
+        $user['id'] = $id; 
+        $user['username'] = $username; 
+        $user['email'] = $email; 
+        $user['password'] = $password;
 
     $stmt->close();
     return true;
     }
+    return false;
 }
-return false;
-    
 }
 
 /* Login operation */
 function login($username, $password) {
 
     //creating the query 
-    $stmt = $conn->prepare("SELECT id, username, email, password FROM users WHERE username = ? AND password = ?");
+    $stmt = $this->con->prepare("SELECT user_id, user_username, user_email,user_password FROM user WHERE user_username = ? AND user_password = ?");
     $stmt->bind_param("ss",$username, $password);
     $stmt->execute();
     $stmt->store_result();
@@ -182,15 +183,34 @@ function login($username, $password) {
     $stmt->bind_result($id, $username, $email, $password);
     $stmt->fetch();
 
-    $users = array();
-        $users['id'] = $id; 
-        $users['username'] = $username; 
-        $users['email'] = $email; 
-        $users['password'] = $password; 
-
+    $user = array();
+        $user['id'] = $id; 
+        $user['username'] = $username; 
+        $user['email'] = $email; 
+        $user['password'] = $password; 
     return true;
     }
     return false;
 }
+
+/* Update Progress Operation */
+function updateuserprogress($userid, $jsonstring)
+{
+	//creating the query
+	$stmt = $this->con->prepare("UPDATE user SET user_progress = ? WHERE user_id = ?");
+	$stmt->bind_param("si", $jsonstring, $userid);
+	$resultant = false;
+
+	//running the query
+	if($stmt->execute())
+	{
+		$resultant = true;
+	}
+
+	//return statement
+	return $resultant;
+		
+}
+
 }
 ?>

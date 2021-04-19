@@ -52,6 +52,9 @@ public class Course implements Comparable<Course> {
     public String getCourseName() {
         return courseName;
     }
+    public ArrayList<Course> getRequirements() {
+        return prereqs;
+    }
 
     public String toString() {
         return "Course{" +
