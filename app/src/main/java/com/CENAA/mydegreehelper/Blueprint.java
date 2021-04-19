@@ -14,6 +14,7 @@ public class Blueprint {
     int totalCredits;
     int level;
     boolean bpComplete;
+    int creditsCompleted;
 
     ArrayList<Course> masterList;
     ArrayList<Requirement> requirements;
@@ -24,6 +25,7 @@ public class Blueprint {
     String line;
     masterList = new ArrayList<Course>();
     requirements = new ArrayList<Requirement>();
+    creditsCompleted = 0;
     //Update level for Fresh/Soph/etc. (Possibly move this data elsewhere like User class)
     level = 1;
     bpComplete = false;
@@ -113,6 +115,16 @@ public class Blueprint {
             }
         }
         return course;
+    }
+
+    public void completeCourse (String courseName, double score){
+        Course course = findCourse(courseName);
+        course.completed = true;
+        course.grade = score;
+        creditsCompleted += course.creditValue;
+        //***Following items may need to be done in Home Fragment***
+        //update progress bar
+        //save BP
     }
 
     public void displayBP(){

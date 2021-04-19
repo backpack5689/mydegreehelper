@@ -73,6 +73,7 @@ public class Course implements Comparable<Course> {
                 ", Completed='" + completed + "'";
     }
 
+
     @Override
     public int compareTo(Course o) {
         return Integer.compare(this.getCourseNum(), o.getCourseNum());
