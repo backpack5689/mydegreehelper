@@ -55,6 +55,7 @@ public class Course implements Comparable<Course> {
     public ArrayList<Course> getRequirements() {
         return prereqs;
     }
+    public double getGrade() { return grade; }
 
     public String toString() {
         return "Course{" +
