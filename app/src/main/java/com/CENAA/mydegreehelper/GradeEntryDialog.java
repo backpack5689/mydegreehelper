@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -14,7 +15,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class GradeEntryDialog extends DialogFragment {
 
+    EditText gradeInput;
     Button enterButton, cancelButton;
+    double grade;
 
     @NotNull
     @Override
@@ -25,13 +28,21 @@ public class GradeEntryDialog extends DialogFragment {
         View dialogView = inflater.inflate(R.layout.grade_entry_dialog, null);
         builder.setView(dialogView);
 
+        Bundle bundle = getArguments();
+
+        grade = 0.0;
+
         enterButton = dialogView.findViewById(R.id.enter_grade_button);
         cancelButton = dialogView.findViewById(R.id.cancel_button);
+
+        gradeInput = dialogView.findViewById(R.id.gradeEntry);
 
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                if (grade == 0) {
+                    dismiss();
+                }
             }
         });
 
@@ -42,7 +53,6 @@ public class GradeEntryDialog extends DialogFragment {
             }
         });
 
-        builder.setMessage(R.string.grade_entry_title);
         return builder.create();
     }
 }

@@ -57,6 +57,10 @@ public class Course implements Comparable<Course> {
     }
     public double getGrade() { return grade; }
 
+    public void setGrade(double grade) {
+        this.grade = grade;
+    }
+
     public String toString() {
         return "Course{" +
                 "Sub='" + courseSub + "'" +

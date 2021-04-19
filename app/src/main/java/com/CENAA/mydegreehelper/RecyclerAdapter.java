@@ -1,5 +1,6 @@
 package com.CENAA.mydegreehelper;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -126,11 +128,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     FragmentManager manager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
-                    Course course = courseList.get(getAdapterPosition());
+                    String courseName = courseList.get(getAdapterPosition()).getCourseName();
                     GradeEntryDialog dialog = new GradeEntryDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("courseName", courseName);
+                    dialog.setArguments(bundle);
+
                     dialog.show(manager, "Grade Entry");
                 }
             });
         }
     }
 }
+

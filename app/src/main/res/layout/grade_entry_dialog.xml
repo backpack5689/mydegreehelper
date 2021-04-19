@@ -19,6 +19,7 @@
         android:textStyle="bold" />
 
     <EditText
+        android:id="@+id/gradeEntry"
         android:theme="@style/EditTextTheme"
         android:inputType="numberDecimal"
         android:layout_width="match_parent"
