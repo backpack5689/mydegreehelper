@@ -2,7 +2,6 @@ package com.CENAA.mydegreehelper;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class GradeEntryDialog extends DialogFragment {
 
+    StateManager stateManager;
+    Blueprint state;
+    String courseName;
+    Bundle bundle;
     EditText gradeInput;
     Button enterButton, cancelButton;
     double grade;
@@ -24,11 +27,15 @@ public class GradeEntryDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
+        stateManager = ((BPstate)getActivity().getApplicationContext()).getStateManager();
+        state = stateManager.getState();
+
 
         View dialogView = inflater.inflate(R.layout.grade_entry_dialog, null);
         builder.setView(dialogView);
 
-        Bundle bundle = getArguments();
+        bundle = getArguments();
+        courseName = bundle.getString("courseName");
 
         grade = 0.0;
 
@@ -42,6 +49,8 @@ public class GradeEntryDialog extends DialogFragment {
             public void onClick(View v) {
                 if (grade == 0) {
                     dismiss();
+                } else {
+                    state.completeCourse(courseName, Double.parseDouble(gradeInput.getText().toString()));
                 }
             }
         });

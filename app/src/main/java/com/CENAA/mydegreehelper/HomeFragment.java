@@ -16,16 +16,16 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    StateManager stateManager;
+    Blueprint state;
+
     RecyclerView majorCourses, generalCourses;
     RecyclerAdapter majorAdapter, generalAdapter;
 
@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        stateManager = ((BPstate)getActivity().getApplicationContext()).getStateManager();
 
         majorCourseList = new ArrayList<Course>();
         generalCourseList = new ArrayList<Course>();
@@ -75,7 +76,7 @@ public class HomeFragment extends Fragment {
         }
         Log.d("line", contents);
         Gson gson = new Gson();
-        userBP = gson.fromJson(contents, Blueprint.class);
+        stateManager.setState(gson.fromJson(contents, Blueprint.class));
     }
 
     private void initRecyclerView() {
@@ -87,12 +88,13 @@ public class HomeFragment extends Fragment {
     }
 
     private void initData() { // Initialize data for RecyclerViews from blueprint
-        majorCourseList = userBP.requirements.get(0).requiredCourses; // Pull major courses from blueprint
+        state = stateManager.getState();
+        majorCourseList = state.requirements.get(0).requiredCourses; // Pull major courses from blueprint
         majorCourseList.add(new Course("Test", 9999, "TS", 3, 92.3, new ArrayList<Course>(), new ArrayList<Course>(), true)); // For testing completed courses
 
         int i = 1, j = 0, k = 0;
         boolean duplicate;
-        ArrayList<Requirement> genCourses = userBP.getRequirements();
+        ArrayList<Requirement> genCourses = state.getRequirements();
         ArrayList<Course> compiledList = new ArrayList<>();
 
         for (i = 1; i < genCourses.size(); i++) { // Check for duplicate courses

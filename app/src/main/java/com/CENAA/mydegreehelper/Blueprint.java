@@ -19,6 +19,17 @@ public class Blueprint {
     ArrayList<Course> masterList;
     ArrayList<Requirement> requirements;
 
+    public Blueprint() {
+        bpID = 0;
+        degree = "";
+        totalCredits = 0;
+        level = 0;
+        bpComplete = false;
+        creditsCompleted = 0;
+        masterList = new ArrayList<Course>();
+        requirements = new ArrayList<Requirement>();
+    }
+
     public Blueprint(String bpInput){
     //parse file to create BP
     Scanner sc = new Scanner(bpInput);
@@ -118,6 +129,8 @@ public class Blueprint {
     }
 
     public void completeCourse (String courseName, double score){
+
+
         Course course = findCourse(courseName);
         course.completed = true;
         course.grade = score;
