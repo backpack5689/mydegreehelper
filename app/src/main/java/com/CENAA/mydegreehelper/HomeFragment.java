@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +28,9 @@ public class HomeFragment extends Fragment {
     StateManager stateManager;
     Blueprint state;
 
+    ProgressBar progressBar;
+    TextView progressTitle;
+
     RecyclerView majorCourses, generalCourses;
     RecyclerAdapter majorAdapter, generalAdapter;
 
@@ -36,12 +41,34 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         stateManager = ((BPstate)getActivity().getApplicationContext()).getStateManager();
+        state = stateManager.getState();
 
         majorCourseList = new ArrayList<Course>();
         generalCourseList = new ArrayList<Course>();
 
         majorCourses = view.findViewById(R.id.majorCourses);
         generalCourses = view.findViewById(R.id.generalCourses);
+
+        // Set progressbar visuals
+        progressBar = view.findViewById(R.id.progressBar);
+        double progressDbl = Math.floor((double) state.creditsCompleted / (double) state.totalCredits * 100);
+        int progress = (int) progressDbl;
+        progressBar.setProgress(progress);
+
+        // Set progress title
+        progressTitle = view.findViewById(R.id.progressTitle);
+        if (progress >= 75) {
+            progressTitle.setText(R.string.progress_senior);
+        } else if (progress >= 50) {
+            progressTitle.setText(R.string.progress_junior);
+        } else if (progress >= 25) {
+            progressTitle.setText(R.string.progress_sophomore);
+        } else {
+            progressTitle.setText(R.string.progress_freshman);
+        }
+
+
+        Log.i("Progress", String.valueOf(progress));
 
         initData();
         initRecyclerView();
