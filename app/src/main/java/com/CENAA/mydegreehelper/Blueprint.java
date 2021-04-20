@@ -2,9 +2,7 @@ package com.CENAA.mydegreehelper;
 
 import android.util.Log;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -129,7 +127,6 @@ public class Blueprint {
     }
 
     public void completeCourse (String courseName, double score){
-
 
         Course course = findCourse(courseName);
         course.completed = true;

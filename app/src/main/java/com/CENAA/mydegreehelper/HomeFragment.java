@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,18 +28,20 @@ public class HomeFragment extends Fragment {
     StateManager stateManager;
     Blueprint state;
 
+    ProgressBar progressBar;
+    TextView progressTitle;
+
     RecyclerView majorCourses, generalCourses;
     RecyclerAdapter majorAdapter, generalAdapter;
 
     List<Course> majorCourseList, generalCourseList;
-
-    Blueprint userBP;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         stateManager = ((BPstate)getActivity().getApplicationContext()).getStateManager();
+        state = stateManager.getState();
 
         majorCourseList = new ArrayList<Course>();
         generalCourseList = new ArrayList<Course>();
@@ -45,38 +49,31 @@ public class HomeFragment extends Fragment {
         majorCourses = view.findViewById(R.id.majorCourses);
         generalCourses = view.findViewById(R.id.generalCourses);
 
-        try {
-            initBP();
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Set progressbar visuals
+        progressBar = view.findViewById(R.id.progressBar);
+        double progressDbl = Math.floor((double) state.creditsCompleted / (double) state.totalCredits * 100);
+        int progress = (int) progressDbl;
+        progressBar.setProgress(progress);
+
+        // Set progress title
+        progressTitle = view.findViewById(R.id.progressTitle);
+        if (progress >= 75) {
+            progressTitle.setText(R.string.progress_senior);
+        } else if (progress >= 50) {
+            progressTitle.setText(R.string.progress_junior);
+        } else if (progress >= 25) {
+            progressTitle.setText(R.string.progress_sophomore);
+        } else {
+            progressTitle.setText(R.string.progress_freshman);
         }
+
+
+        Log.i("Progress", String.valueOf(progress));
 
         initData();
         initRecyclerView();
 
         return view;
-    }
-
-    private void initBP() throws IOException {
-        File file = new File(requireActivity().getApplicationContext().getFilesDir() + "/local/", "localFile.txt");
-        FileInputStream fis = new FileInputStream(file);
-        InputStreamReader inputStreamReader = new InputStreamReader(fis);
-        StringBuilder stringBuilder = new StringBuilder();
-        String contents;
-        try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
-            String line = reader.readLine();
-            while (line != null) {
-                stringBuilder.append(line).append('\n');
-                line = reader.readLine();
-            }
-        } catch (IOException e) {
-            // Error occurred when opening raw file for reading.
-        } finally {
-            contents = stringBuilder.toString();
-        }
-        Log.d("line", contents);
-        Gson gson = new Gson();
-        stateManager.setState(gson.fromJson(contents, Blueprint.class));
     }
 
     private void initRecyclerView() {
