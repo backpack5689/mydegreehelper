@@ -108,7 +108,7 @@ public class Blueprint {
 
     public Course findCourse(String query){
         Course course = new Course();
-        for(int i = 0; i < masterList.size(); i++)
+        for(int i = 0; i < masterList.size(); i++)git
         {
             if(masterList.get(i).courseName.equals(query)){
                  course = masterList.get(i);
@@ -122,6 +122,17 @@ public class Blueprint {
         course.completed = true;
         course.grade = score;
         creditsCompleted += course.creditValue;
+
+        for(int i = 0; i < requirements.size(); i++)
+        {
+            for(int j = 0; j < requirements.get(i).requiredCourses.size(); j++){
+                if(requirements.get(i).requiredCourses.get(j).courseName.equals(courseName)) {
+                    course = requirements.get(i).requiredCourses.get(j);
+                    course.completed = true;
+                    course.grade = score;
+                }
+            }
+        }
         //***Following items may need to be done in Home Fragment***
         //update progress bar
         //save BP
