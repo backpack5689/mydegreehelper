@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,27 +18,30 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    StateManager stateManager;
+    Blueprint state;
+
+    ProgressBar progressBar;
+    TextView progressTitle;
+
     RecyclerView majorCourses, generalCourses;
     RecyclerAdapter majorAdapter, generalAdapter;
 
     List<Course> majorCourseList, generalCourseList;
 
-    Blueprint userBP;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        stateManager = ((BPstate)getActivity().getApplicationContext()).getStateManager();
+        state = stateManager.getState();
 
         majorCourseList = new ArrayList<Course>();
         generalCourseList = new ArrayList<Course>();
@@ -44,38 +49,31 @@ public class HomeFragment extends Fragment {
         majorCourses = view.findViewById(R.id.majorCourses);
         generalCourses = view.findViewById(R.id.generalCourses);
 
-        try {
-            initBP();
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Set progressbar visuals
+        progressBar = view.findViewById(R.id.progressBar);
+        double progressDbl = Math.floor((double) state.creditsCompleted / (double) state.totalCredits * 100);
+        int progress = (int) progressDbl;
+        progressBar.setProgress(progress);
+
+        // Set progress title
+        progressTitle = view.findViewById(R.id.progressTitle);
+        if (progress >= 75) {
+            progressTitle.setText(R.string.progress_senior);
+        } else if (progress >= 50) {
+            progressTitle.setText(R.string.progress_junior);
+        } else if (progress >= 25) {
+            progressTitle.setText(R.string.progress_sophomore);
+        } else {
+            progressTitle.setText(R.string.progress_freshman);
         }
+
+
+        Log.i("Progress", String.valueOf(progress));
 
         initData();
         initRecyclerView();
 
         return view;
-    }
-
-    private void initBP() throws IOException {
-        File file = new File(requireActivity().getApplicationContext().getFilesDir() + "/local/", "localFile.txt");
-        FileInputStream fis = new FileInputStream(file);
-        InputStreamReader inputStreamReader = new InputStreamReader(fis);
-        StringBuilder stringBuilder = new StringBuilder();
-        String contents;
-        try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
-            String line = reader.readLine();
-            while (line != null) {
-                stringBuilder.append(line).append('\n');
-                line = reader.readLine();
-            }
-        } catch (IOException e) {
-            // Error occurred when opening raw file for reading.
-        } finally {
-            contents = stringBuilder.toString();
-        }
-        Log.d("line", contents);
-        Gson gson = new Gson();
-        userBP = gson.fromJson(contents, Blueprint.class);
     }
 
     private void initRecyclerView() {
@@ -87,12 +85,13 @@ public class HomeFragment extends Fragment {
     }
 
     private void initData() { // Initialize data for RecyclerViews from blueprint
-        majorCourseList = userBP.requirements.get(0).requiredCourses; // Pull major courses from blueprint
-        majorCourseList.add(new Course("Test", 9999, "TS", 3, 0.0, new ArrayList<Course>(), new ArrayList<Course>(), true)); // For testing completed courses
+        state = stateManager.getState();
+        majorCourseList = state.requirements.get(0).requiredCourses; // Pull major courses from blueprint
+        majorCourseList.add(new Course("Test", 9999, "TS", 3, 92.3, new ArrayList<Course>(), new ArrayList<Course>(), true)); // For testing completed courses
 
         int i = 1, j = 0, k = 0;
         boolean duplicate;
-        ArrayList<Requirement> genCourses = userBP.getRequirements();
+        ArrayList<Requirement> genCourses = state.getRequirements();
         ArrayList<Course> compiledList = new ArrayList<>();
 
         for (i = 1; i < genCourses.size(); i++) { // Check for duplicate courses

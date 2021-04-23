@@ -1,5 +1,6 @@
 package com.CENAA.mydegreehelper;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +42,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.courseSub.setText(course.getCourseSub());
         holder.courseNum.setText(String.valueOf(course.getCourseNum()));
         holder.courseTitle.setText(course.getCourseName());
+        holder.gradeDisplay.setText(String.valueOf(course.getGrade()));
 
         requirementsList = course.getRequirements();
 
@@ -70,9 +73,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         boolean isCompleted = courseList.get(position).isCompleted();
 
         if (isCompleted) {
+            holder.gradeLabel.setVisibility(View.VISIBLE);
+            holder.gradeDisplay.setVisibility(View.VISIBLE);
             holder.completeButton.setVisibility(View.GONE);
+            holder.requirementsLabel.setVisibility(View.GONE);
+            holder.requirements.setVisibility(View.GONE);
         } else {
+            holder.requirementsLabel.setVisibility(View.VISIBLE);
+            holder.requirements.setVisibility(View.VISIBLE);
             holder.completeButton.setVisibility(View.VISIBLE);
+            holder.gradeLabel.setVisibility(View.GONE);
+            holder.gradeDisplay.setVisibility(View.GONE);
         }
     }
 
@@ -84,7 +95,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView dropdownIcon;
-        TextView courseSub, courseNum, courseTitle, requirements;
+        TextView courseSub, courseNum, courseTitle, requirementsLabel, requirements, gradeLabel, gradeDisplay;
         ConstraintLayout expandableLayout, courseInfoCard;
         Button completeButton;
 
@@ -95,10 +106,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             courseSub = itemView.findViewById(R.id.achievementName);
             courseNum = itemView.findViewById(R.id.courseNumber);
             courseTitle = itemView.findViewById(R.id.courseTitle);
+            requirementsLabel = itemView.findViewById(R.id.achievementDesc);
             requirements = itemView.findViewById(R.id.requirements);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
             courseInfoCard = itemView.findViewById(R.id.courseInfoCard);
             completeButton = itemView.findViewById(R.id.completeButton);
+            gradeLabel = itemView.findViewById(R.id.gradeLabel);
+            gradeDisplay = itemView.findViewById(R.id.gradeDisplay);
 
             // Listener for expanding course panel
             courseInfoCard.setOnClickListener(new View.OnClickListener() {
@@ -114,11 +128,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     FragmentManager manager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
-                    Course course = courseList.get(getAdapterPosition());
+                    String courseName = courseList.get(getAdapterPosition()).getCourseName();
                     GradeEntryDialog dialog = new GradeEntryDialog();
-                    dialog.show(manager, "Test");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("courseName", courseName);
+                    dialog.setArguments(bundle);
+
+                    dialog.show(manager, "Grade Entry");
                 }
             });
         }
     }
 }
+
