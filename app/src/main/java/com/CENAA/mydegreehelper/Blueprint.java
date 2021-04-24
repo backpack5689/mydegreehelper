@@ -117,7 +117,7 @@ public class Blueprint {
 
     public Course findCourse(String query){
         Course course = new Course();
-        for(int i = 0; i < masterList.size(); i++)git
+        for(int i = 0; i < masterList.size(); i++)
         {
             if(masterList.get(i).courseName.equals(query)){
                  course = masterList.get(i);
