@@ -54,19 +54,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         // Build requirements list display
         requirementsList = course.getRequirements();
 
+        int incompleteCount;
         if (requirementsList.size() == 0) {
             reqString = "None";
+            incompleteCount = 0;
         } else {
+            incompleteCount = 0;
             for (int i = 0; i < requirementsList.size(); i++) {
                 reqString = "• " + requirementsList.get(i).courseName;
                 if (requirementsList.get(i).isCompleted()) {
                     reqString = reqString + " (Complete)\n";
                 } else {
                     reqString = reqString + " (Incomplete)\n";
+                    incompleteCount++;
                 }
             }
         }
         holder.requirements.setText(reqString);
+
+        if (incompleteCount == 0) {
+            holder.completeButton.setVisibility(View.VISIBLE);
+        } else {
+            holder.completeButton.setVisibility(View.GONE);
+        }
 
         // Check if course item card is expanded
         boolean isExpanded = courseList.get(position).isExpanded();
