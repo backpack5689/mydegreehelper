@@ -24,8 +24,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     List<Course> requirementsList;
     String reqString = "";
 
-    public RecyclerAdapter(List<Course> courseList) {
+    ProgressCallback callback;
+
+    public RecyclerAdapter(List<Course> courseList, ProgressCallback callback) {
         this.courseList = courseList;
+        this.callback = callback;
     }
 
     @NonNull
@@ -39,11 +42,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Course course = courseList.get(position);
+
+        // Apply course data to RecyclerView item
         holder.courseSub.setText(course.getCourseSub());
         holder.courseNum.setText(String.valueOf(course.getCourseNum()));
         holder.courseTitle.setText(course.getCourseName());
         holder.gradeDisplay.setText(String.valueOf(course.getGrade()));
 
+        // Build requirements list display
         requirementsList = course.getRequirements();
 
         if (requirementsList.size() == 0) {
@@ -60,6 +66,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
         holder.requirements.setText(reqString);
 
+        // Check if course item card is expanded
         boolean isExpanded = courseList.get(position).isExpanded();
 
         if (isExpanded) {
@@ -70,18 +77,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             holder.expandableLayout.setVisibility(View.GONE);
         }
 
+        // Show/hide requirements or grade depending on if course is complete
         boolean isCompleted = courseList.get(position).isCompleted();
 
         if (isCompleted) {
             holder.gradeLabel.setVisibility(View.VISIBLE);
             holder.gradeDisplay.setVisibility(View.VISIBLE);
-            holder.completeButton.setVisibility(View.GONE);
+            holder.completeButton.setText(R.string.complete_button_edit);
             holder.requirementsLabel.setVisibility(View.GONE);
             holder.requirements.setVisibility(View.GONE);
         } else {
             holder.requirementsLabel.setVisibility(View.VISIBLE);
             holder.requirements.setVisibility(View.VISIBLE);
-            holder.completeButton.setVisibility(View.VISIBLE);
+            holder.completeButton.setText(R.string.complete_button);
             holder.gradeLabel.setVisibility(View.GONE);
             holder.gradeDisplay.setVisibility(View.GONE);
         }
@@ -102,6 +110,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
+            // Attach UI elements to variables
             dropdownIcon = itemView.findViewById(R.id.dropdownIcon);
             courseSub = itemView.findViewById(R.id.achievementName);
             courseNum = itemView.findViewById(R.id.courseNumber);
@@ -124,14 +133,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 }
             });
 
+            // Grade entry button listener
             completeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FragmentManager manager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
                     String courseName = courseList.get(getAdapterPosition()).getCourseName();
-                    GradeEntryDialog dialog = new GradeEntryDialog();
+                    double grade = courseList.get(getAdapterPosition()).getGrade();
+
+                    // Create new instance of grade entry dialog
+                    GradeEntryDialog dialog = new GradeEntryDialog(new GradeEntryCallback() {
+                        @Override
+                        public void onDialogCallback() {
+                            notifyDataSetChanged(); // Update RecyclerView
+                            callback.onProgressCallback(); // Update ProgressBar
+                        }
+                    });
+                    // Pass coursename and current grade to dialog
                     Bundle bundle = new Bundle();
                     bundle.putString("courseName", courseName);
+                    bundle.putDouble("grade", grade);
                     dialog.setArguments(bundle);
 
                     dialog.show(manager, "Grade Entry");
