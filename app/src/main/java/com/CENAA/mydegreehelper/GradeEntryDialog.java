@@ -33,21 +33,23 @@ public class GradeEntryDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
+
+        // Retrieve current blueprint state
         stateManager = ((BPstate)getActivity().getApplicationContext()).getStateManager();
         state = stateManager.getState();
-
 
         View dialogView = inflater.inflate(R.layout.grade_entry_dialog, null);
         builder.setView(dialogView);
 
+        // Retrieve course name
         bundle = getArguments();
         courseName = bundle.getString("courseName");
 
-        grade = 0.0;
+        grade = 0.0; // Initialize grade variable
 
+        // Attach UI elements to variables
         enterButton = dialogView.findViewById(R.id.enter_grade_button);
         cancelButton = dialogView.findViewById(R.id.cancel_button);
-
         gradeInput = dialogView.findViewById(R.id.gradeEntry);
 
         enterButton.setOnClickListener(new View.OnClickListener() {

@@ -40,34 +40,35 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // Initialize state from blueprint
         stateManager = ((BPstate)getActivity().getApplicationContext()).getStateManager();
         state = stateManager.getState();
 
         majorCourseList = new ArrayList<Course>();
         generalCourseList = new ArrayList<Course>();
 
+        // Attach UI elements to variables
         majorCourses = view.findViewById(R.id.majorCourses);
         generalCourses = view.findViewById(R.id.generalCourses);
-
-        // Set progressbar visuals
         progressBar = view.findViewById(R.id.progressBar);
         progressTitle = view.findViewById(R.id.progressTitle);
 
-        setProgressBar();
+        setProgressBar(); // Set progress from blueprint
 
-        initData();
-        initRecyclerView();
+        initData(); // Send data from blueprint to UI
+        initRecyclerView(); // Initialize RecyclerViews from blueprint data
 
         return view;
     }
 
     private void setProgressBar() {
         state = stateManager.getState();
+
+        // Set current progress from state
         double progressDbl = Math.floor((double) state.creditsCompleted / (double) state.totalCredits * 100);
         int progress = (int) progressDbl;
         progressBar.setProgress(progress);
-
-        Log.i("Progress", String.valueOf(progress));
 
         // Set progress title
         if (progress >= 75) {
@@ -103,6 +104,7 @@ public class HomeFragment extends Fragment {
         state = stateManager.getState();
         majorCourseList = state.requirements.get(0).requiredCourses; // Pull major courses from blueprint
 
+        // Iterate through requirements in blueprint and add all non-duplicate courses to general course list
         int i = 1, j = 0, k = 0;
         boolean duplicate;
         ArrayList<Requirement> genCourses = state.getRequirements();
