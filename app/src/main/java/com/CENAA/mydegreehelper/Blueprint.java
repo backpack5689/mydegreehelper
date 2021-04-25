@@ -129,9 +129,12 @@ public class Blueprint {
     public void completeCourse (String courseName, double score){
 
         Course course = findCourse(courseName);
-        course.completed = true;
         course.grade = score;
-        creditsCompleted += course.creditValue;
+
+        if (!course.isCompleted()) {
+            course.completed = true;
+            creditsCompleted += course.creditValue;
+        }
 
         for(int i = 0; i < requirements.size(); i++)
         {
