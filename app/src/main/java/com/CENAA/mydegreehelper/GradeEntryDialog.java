@@ -3,6 +3,8 @@ package com.CENAA.mydegreehelper;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,23 @@ public class GradeEntryDialog extends DialogFragment {
     Button enterButton, cancelButton;
     double grade;
     GradeEntryCallback callback;
+
+    private TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            checkFieldsForEmptyValues();
+        }
+    };
 
     public GradeEntryDialog(GradeEntryCallback callback) {
         this.callback = callback;
@@ -52,6 +71,9 @@ public class GradeEntryDialog extends DialogFragment {
         cancelButton = dialogView.findViewById(R.id.cancel_button);
         gradeInput = dialogView.findViewById(R.id.gradeEntry);
 
+        gradeInput.addTextChangedListener(mTextWatcher);
+
+        // Listener for entering
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +95,12 @@ public class GradeEntryDialog extends DialogFragment {
         });
 
         return builder.create();
+    }
+
+    private void checkFieldsForEmptyValues() {
+        String input = gradeInput.getText().toString();
+        Log.i("input", input);
+        enterButton.setEnabled(!input.equals(""));
     }
 }
 
