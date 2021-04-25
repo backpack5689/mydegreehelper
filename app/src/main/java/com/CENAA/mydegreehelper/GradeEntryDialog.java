@@ -22,6 +22,11 @@ public class GradeEntryDialog extends DialogFragment {
     EditText gradeInput;
     Button enterButton, cancelButton;
     double grade;
+    GradeEntryCallback callback;
+
+    public GradeEntryDialog(GradeEntryCallback callback) {
+        this.callback = callback;
+    }
 
     @NotNull
     @Override
@@ -52,6 +57,7 @@ public class GradeEntryDialog extends DialogFragment {
                 if (grade != 0) {
                     state.completeCourse(courseName, grade);
                     stateManager.setState(state);
+                    callback.onDialogCallback();
                 }
                 dismiss();
             }

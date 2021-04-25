@@ -39,6 +39,7 @@
     <string name="requirements">Requirements:</string>
     <string name="grade">Grade:</string>
     <string name="complete_button">Enter Grade</string>
+    <string name="complete_button_edit">Edit Grade</string>
 
     <string name="progress_label">Progress Level: </string>
     <string name="progress_freshman">Freshman</string>

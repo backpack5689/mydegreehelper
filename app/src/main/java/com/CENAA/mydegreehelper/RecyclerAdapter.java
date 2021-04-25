@@ -75,13 +75,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         if (isCompleted) {
             holder.gradeLabel.setVisibility(View.VISIBLE);
             holder.gradeDisplay.setVisibility(View.VISIBLE);
-            holder.completeButton.setVisibility(View.GONE);
+            holder.completeButton.setText(R.string.complete_button_edit);
             holder.requirementsLabel.setVisibility(View.GONE);
             holder.requirements.setVisibility(View.GONE);
         } else {
             holder.requirementsLabel.setVisibility(View.VISIBLE);
             holder.requirements.setVisibility(View.VISIBLE);
-            holder.completeButton.setVisibility(View.VISIBLE);
+            holder.completeButton.setText(R.string.complete_button);
             holder.gradeLabel.setVisibility(View.GONE);
             holder.gradeDisplay.setVisibility(View.GONE);
         }
@@ -129,7 +129,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 public void onClick(View v) {
                     FragmentManager manager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
                     String courseName = courseList.get(getAdapterPosition()).getCourseName();
-                    GradeEntryDialog dialog = new GradeEntryDialog();
+                    GradeEntryDialog dialog = new GradeEntryDialog(new GradeEntryCallback() {
+                        @Override
+                        public void onDialogCallback() {
+                            notifyDataSetChanged();
+                        }
+                    });
                     Bundle bundle = new Bundle();
                     bundle.putString("courseName", courseName);
                     dialog.setArguments(bundle);

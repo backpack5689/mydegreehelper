@@ -87,7 +87,6 @@ public class HomeFragment extends Fragment {
     private void initData() { // Initialize data for RecyclerViews from blueprint
         state = stateManager.getState();
         majorCourseList = state.requirements.get(0).requiredCourses; // Pull major courses from blueprint
-        majorCourseList.add(new Course("Test", 9999, "TS", 3, 92.3, new ArrayList<Course>(), new ArrayList<Course>(), true)); // For testing completed courses
 
         int i = 1, j = 0, k = 0;
         boolean duplicate;
