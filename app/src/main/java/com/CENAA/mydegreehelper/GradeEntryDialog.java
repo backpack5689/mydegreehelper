@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,18 +61,23 @@ public class GradeEntryDialog extends DialogFragment {
         View dialogView = inflater.inflate(R.layout.grade_entry_dialog, null);
         builder.setView(dialogView);
 
-        // Retrieve course name
+        // Retrieve course name and grade
         bundle = getArguments();
         courseName = bundle.getString("courseName");
-
-        grade = 0.0; // Initialize grade variable
+        grade = bundle.getDouble("grade");
 
         // Attach UI elements to variables
         enterButton = dialogView.findViewById(R.id.enter_grade_button);
         cancelButton = dialogView.findViewById(R.id.cancel_button);
         gradeInput = dialogView.findViewById(R.id.gradeEntry);
 
-        gradeInput.addTextChangedListener(mTextWatcher);
+        gradeInput.setFilters(new InputFilter[]{new GradeInputFilter()});
+        gradeInput.addTextChangedListener(mTextWatcher); // Check if input is blank to disable entry button
+
+        // Set text entry value to current grade if editing
+        if (grade != 0.0) {
+            gradeInput.setText(String.valueOf(grade));
+        }
 
         // Listener for entering
         enterButton.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +105,6 @@ public class GradeEntryDialog extends DialogFragment {
 
     private void checkFieldsForEmptyValues() {
         String input = gradeInput.getText().toString();
-        Log.i("input", input);
         enterButton.setEnabled(!input.equals(""));
     }
 }

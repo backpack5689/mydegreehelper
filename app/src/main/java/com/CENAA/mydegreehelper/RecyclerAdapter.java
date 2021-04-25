@@ -139,6 +139,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 public void onClick(View v) {
                     FragmentManager manager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
                     String courseName = courseList.get(getAdapterPosition()).getCourseName();
+                    double grade = courseList.get(getAdapterPosition()).getGrade();
 
                     // Create new instance of grade entry dialog
                     GradeEntryDialog dialog = new GradeEntryDialog(new GradeEntryCallback() {
@@ -148,9 +149,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                             callback.onProgressCallback(); // Update ProgressBar
                         }
                     });
-                    // Pass coursename to dialog
+                    // Pass coursename and current grade to dialog
                     Bundle bundle = new Bundle();
                     bundle.putString("courseName", courseName);
+                    bundle.putDouble("grade", grade);
                     dialog.setArguments(bundle);
 
                     dialog.show(manager, "Grade Entry");
