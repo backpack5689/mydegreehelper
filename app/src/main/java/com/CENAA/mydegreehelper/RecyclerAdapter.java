@@ -24,8 +24,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     List<Course> requirementsList;
     String reqString = "";
 
-    public RecyclerAdapter(List<Course> courseList) {
+    ProgressCallback callback;
+
+    public RecyclerAdapter(List<Course> courseList, ProgressCallback callback) {
         this.courseList = courseList;
+        this.callback = callback;
     }
 
     @NonNull
@@ -133,6 +136,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                         @Override
                         public void onDialogCallback() {
                             notifyDataSetChanged();
+                            callback.onProgressCallback();
                         }
                     });
                     Bundle bundle = new Bundle();

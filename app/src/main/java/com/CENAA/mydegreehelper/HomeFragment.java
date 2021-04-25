@@ -51,12 +51,25 @@ public class HomeFragment extends Fragment {
 
         // Set progressbar visuals
         progressBar = view.findViewById(R.id.progressBar);
+        progressTitle = view.findViewById(R.id.progressTitle);
+
+        setProgressBar();
+
+        initData();
+        initRecyclerView();
+
+        return view;
+    }
+
+    private void setProgressBar() {
+        state = stateManager.getState();
         double progressDbl = Math.floor((double) state.creditsCompleted / (double) state.totalCredits * 100);
         int progress = (int) progressDbl;
         progressBar.setProgress(progress);
 
+        Log.i("Progress", String.valueOf(progress));
+
         // Set progress title
-        progressTitle = view.findViewById(R.id.progressTitle);
         if (progress >= 75) {
             progressTitle.setText(R.string.progress_senior);
         } else if (progress >= 50) {
@@ -66,19 +79,21 @@ public class HomeFragment extends Fragment {
         } else {
             progressTitle.setText(R.string.progress_freshman);
         }
-
-
-        Log.i("Progress", String.valueOf(progress));
-
-        initData();
-        initRecyclerView();
-
-        return view;
     }
 
     private void initRecyclerView() {
-        majorAdapter = new RecyclerAdapter(majorCourseList);
-        generalAdapter = new RecyclerAdapter(generalCourseList);
+        majorAdapter = new RecyclerAdapter(majorCourseList, new ProgressCallback() {
+            @Override
+            public void onProgressCallback() {
+                setProgressBar();
+            }
+        });
+        generalAdapter = new RecyclerAdapter(generalCourseList, new ProgressCallback() {
+            @Override
+            public void onProgressCallback() {
+                setProgressBar();
+            }
+        });
 
         majorCourses.setAdapter(majorAdapter);
         generalCourses.setAdapter(generalAdapter);
