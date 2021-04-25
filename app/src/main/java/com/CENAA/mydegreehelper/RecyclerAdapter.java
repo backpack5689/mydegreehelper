@@ -1,5 +1,6 @@
 package com.CENAA.mydegreehelper;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -81,12 +83,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         boolean isCompleted = courseList.get(position).isCompleted();
 
         if (isCompleted) {
+            holder.background.setBackgroundColor(Color.parseColor("#E9FDE9"));
+
             holder.gradeLabel.setVisibility(View.VISIBLE);
             holder.gradeDisplay.setVisibility(View.VISIBLE);
             holder.completeButton.setText(R.string.complete_button_edit);
             holder.requirementsLabel.setVisibility(View.GONE);
             holder.requirements.setVisibility(View.GONE);
         } else {
+            holder.background.setBackgroundColor(Color.parseColor("#F8DDDD"));
+
             holder.requirementsLabel.setVisibility(View.VISIBLE);
             holder.requirements.setVisibility(View.VISIBLE);
             holder.completeButton.setText(R.string.complete_button);
@@ -102,6 +108,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        CardView background;
         ImageView dropdownIcon;
         TextView courseSub, courseNum, courseTitle, requirementsLabel, requirements, gradeLabel, gradeDisplay;
         ConstraintLayout expandableLayout, courseInfoCard;
@@ -111,6 +118,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             super(itemView);
 
             // Attach UI elements to variables
+            background = itemView.findViewById(R.id.courseRowCard);
             dropdownIcon = itemView.findViewById(R.id.dropdownIcon);
             courseSub = itemView.findViewById(R.id.achievementName);
             courseNum = itemView.findViewById(R.id.courseNumber);
