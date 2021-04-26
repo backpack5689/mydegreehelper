@@ -215,11 +215,15 @@ public class CatalogueFragment extends Fragment {
     }
 
     public void requestBP(int id){
+        //Blueprint blueprint;
+
         HashMap<String, String> params = new HashMap<>();
         params.put("selector", Integer.toString(id));
 
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_BP, params, CODE_GET_REQUEST);
         request.execute();
+
+        //return blueprint;
     }
 
     public void getAllBP(){

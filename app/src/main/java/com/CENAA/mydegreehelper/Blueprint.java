@@ -2,7 +2,9 @@ package com.CENAA.mydegreehelper;
 
 import android.util.Log;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,21 +14,9 @@ public class Blueprint {
     int totalCredits;
     int level;
     boolean bpComplete;
-    int creditsCompleted;
 
     ArrayList<Course> masterList;
     ArrayList<Requirement> requirements;
-
-    public Blueprint() {
-        bpID = 0;
-        degree = "";
-        totalCredits = 0;
-        level = 0;
-        bpComplete = false;
-        creditsCompleted = 0;
-        masterList = new ArrayList<Course>();
-        requirements = new ArrayList<Requirement>();
-    }
 
     public Blueprint(String bpInput){
     //parse file to create BP
@@ -34,7 +24,6 @@ public class Blueprint {
     String line;
     masterList = new ArrayList<Course>();
     requirements = new ArrayList<Requirement>();
-    creditsCompleted = 0;
     //Update level for Fresh/Soph/etc. (Possibly move this data elsewhere like User class)
     level = 1;
     bpComplete = false;
@@ -124,31 +113,6 @@ public class Blueprint {
             }
         }
         return course;
-    }
-
-    public void completeCourse (String courseName, double score){
-
-        Course course = findCourse(courseName);
-        course.grade = score;
-
-        if (!course.isCompleted()) {
-            course.completed = true;
-            creditsCompleted += course.creditValue;
-        }
-
-        for(int i = 0; i < requirements.size(); i++)
-        {
-            for(int j = 0; j < requirements.get(i).requiredCourses.size(); j++){
-                if(requirements.get(i).requiredCourses.get(j).courseName.equals(courseName)) {
-                    course = requirements.get(i).requiredCourses.get(j);
-                    course.completed = true;
-                    course.grade = score;
-                }
-            }
-        }
-        //***Following items may need to be done in Home Fragment***
-        //update progress bar
-        //save BP
     }
 
     public void displayBP(){

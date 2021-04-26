@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import com.CENAA.mydegreehelper.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
-import com.google.gson.Gson;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -15,21 +14,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    StateManager stateManager;
-    Blueprint state;
 
     public static final String EXTRA_MESSAGE = "com.CENAA.mydegreehelper.MESSAGE";
     @Override
@@ -38,14 +28,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        stateManager = ((BPstate)getApplicationContext()).getStateManager();
-
-        try {
-            initBP();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -85,28 +67,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void initBP() throws IOException {
-        File file = new File(getApplicationContext().getFilesDir() + "/local/", "localFile.txt");
-        FileInputStream fis = new FileInputStream(file);
-        InputStreamReader inputStreamReader = new InputStreamReader(fis);
-        StringBuilder stringBuilder = new StringBuilder();
-        String contents;
-        try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
-            String line = reader.readLine();
-            while (line != null) {
-                stringBuilder.append(line).append('\n');
-                line = reader.readLine();
-            }
-        } catch (IOException e) {
-            // Error occurred when opening raw file for reading.
-        } finally {
-            contents = stringBuilder.toString();
-        }
-        Log.d("line", contents);
-        Gson gson = new Gson();
-        stateManager.setState(gson.fromJson(contents, Blueprint.class));
     }
 
     @Override

@@ -35,7 +35,7 @@
                     android:id="@+id/progressTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/progress_freshman"
+                    android:text="@string/progress_sophomore"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -48,7 +48,7 @@
                 android:layout_below="@+id/progressText"
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginTop="5dp"
-                android:progress="0"
+                android:progress="45"
                 android:progressTint="@color/main"
                 tools:targetApi="lollipop" />
 
