@@ -52,6 +52,14 @@ public class Course implements Comparable<Course> {
     public String getCourseName() {
         return courseName;
     }
+    public ArrayList<Course> getRequirements() {
+        return prereqs;
+    }
+    public double getGrade() { return grade; }
+
+    public void setGrade(double grade) {
+        this.grade = grade;
+    }
 
     public String toString() {
         return "Course{" +
@@ -64,6 +72,7 @@ public class Course implements Comparable<Course> {
                 ", Equivalent='" + equivalents + "'" +
                 ", Completed='" + completed + "'";
     }
+
 
     @Override
     public int compareTo(Course o) {

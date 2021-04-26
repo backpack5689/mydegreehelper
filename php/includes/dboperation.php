@@ -193,5 +193,25 @@ function login($username, $password) {
     }
     return false;
 }
+
+/* Update Progress Operation */
+function updateuserprogress($userid, $jsonstring)
+{
+	//creating the query
+	$stmt = $this->con->prepare("UPDATE user SET user_progress = ? WHERE user_id = ?");
+	$stmt->bind_param("si", $jsonstring, $userid);
+	$resultant = false;
+
+	//running the query
+	if($stmt->execute())
+	{
+		$resultant = true;
+	}
+
+	//return statement
+	return $resultant;
+		
+}
+
 }
 ?>
