@@ -91,19 +91,9 @@ public class CatalogueFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                //Log.d("File", fileContents);
-                //TO-DO possibly an Intent to push the BP below to a DB upload function
                 Blueprint blueprint = new Blueprint(fileContents);
                 saveBPAsLocal(blueprint);
-                //Gson gson = new Gson();
-                //String bpString = gson.toJson(blueprint);
-                //Log.d("GSON", bpString);
-                //Blueprint gsonBP = gson.fromJson(bpString, Blueprint.class);
-                //gsonBP.displayBP();
                 uploadBP(blueprint);
-                //blueprint.displayBP();
-                //requestBP(1);
-                //getAllBP();
             }
         }
     }

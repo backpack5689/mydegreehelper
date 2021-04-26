@@ -124,8 +124,6 @@ public class LoginActivity extends AppCompatActivity {
                     user.username = object.getString("user");
                     user.id = object.getInt("id");
                     stateManager.setUserState(user);
-                    user = stateManager.getUserState();
-                    Log.d("user", user.username);
                     welcomeUser(object.getString("user"));
                 }else{
                     showLoginFailed(object.getString("message"));
