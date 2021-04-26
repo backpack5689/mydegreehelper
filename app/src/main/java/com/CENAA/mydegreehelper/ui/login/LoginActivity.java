@@ -28,6 +28,8 @@ import com.CENAA.mydegreehelper.API;
 import com.CENAA.mydegreehelper.MainActivity;
 import com.CENAA.mydegreehelper.R;
 import com.CENAA.mydegreehelper.RequestHandler;
+import com.CENAA.mydegreehelper.StateManager;
+import com.CENAA.mydegreehelper.User;
 import com.CENAA.mydegreehelper.ui.login.LoginViewModel;
 import com.CENAA.mydegreehelper.ui.login.LoginViewModelFactory;
 
@@ -115,6 +117,8 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
+                    StateManager stateManager = new StateManager();
+                    User user = new User();
                     welcomeUser("user");
                 }else{
                     showLoginFailed(object.getString("message"));
