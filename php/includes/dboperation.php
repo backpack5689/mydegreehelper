@@ -140,7 +140,6 @@ function signup($username, $email, $password) {
     //if the user is successfully added to the database 
     if($stmt->num_rows > 0){
     $stmt->close();
-    return false;
     }else{
         error_log("else");   
     //if user is new creating an insert query 
