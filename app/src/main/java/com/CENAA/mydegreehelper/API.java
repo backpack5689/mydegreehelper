@@ -8,5 +8,7 @@ public class API {
     public static final String URL_GETALL_BP = ROOT_URL + "showalldegree";
     public static final String URL_UPDATE_BP = ROOT_URL + "updatedegree";
     public static final String URL_DELETE_BP = ROOT_URL + "deletedegree&id=";
+    public static final String URL_REGISTER = ROOT_URL + "signup";
+    public static final String URL_LOGIN= ROOT_URL + "login";
 
 }
