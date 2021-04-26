@@ -1,8 +1,8 @@
 package com.CENAA.mydegreehelper;
 
 public class User{
-    String username;
-    int id;
+    public String username;
+    public int id;
 
     public User(){
         username = "unset";

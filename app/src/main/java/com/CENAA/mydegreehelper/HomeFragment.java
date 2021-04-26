@@ -102,6 +102,8 @@ public class HomeFragment extends Fragment {
 
     private void initData() { // Initialize data for RecyclerViews from blueprint
         state = stateManager.getState();
+        User loggedInUser = stateManager.getUserState();
+        Log.d("Logged-In", loggedInUser.username + " " + loggedInUser.id);
         majorCourseList = state.requirements.get(0).requiredCourses; // Pull major courses from blueprint
 
         // Iterate through requirements in blueprint and add all non-duplicate courses to general course list

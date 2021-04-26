@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.CENAA.mydegreehelper.API;
+import com.CENAA.mydegreehelper.BPstate;
 import com.CENAA.mydegreehelper.MainActivity;
 import com.CENAA.mydegreehelper.R;
 import com.CENAA.mydegreehelper.RequestHandler;
@@ -117,9 +119,14 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
-                    StateManager stateManager = new StateManager();
+                    StateManager stateManager = ((BPstate)getApplicationContext()).getStateManager();
                     User user = new User();
-                    welcomeUser("user");
+                    user.username = object.getString("user");
+                    user.id = object.getInt("id");
+                    stateManager.setUserState(user);
+                    user = stateManager.getUserState();
+                    Log.d("user", user.username);
+                    welcomeUser(object.getString("user"));
                 }else{
                     showLoginFailed(object.getString("message"));
                 }
