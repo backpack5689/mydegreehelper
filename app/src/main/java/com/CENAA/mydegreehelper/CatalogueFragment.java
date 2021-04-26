@@ -56,7 +56,7 @@ public class CatalogueFragment extends Fragment {
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });
-
+        getAllBP();
         return view;
     }
 
@@ -100,7 +100,7 @@ public class CatalogueFragment extends Fragment {
                 //Log.d("GSON", bpString);
                 //Blueprint gsonBP = gson.fromJson(bpString, Blueprint.class);
                 //gsonBP.displayBP();
-                //uploadBP(blueprint);
+                uploadBP(blueprint);
                 //blueprint.displayBP();
                 //requestBP(1);
                 //getAllBP();
@@ -164,19 +164,9 @@ public class CatalogueFragment extends Fragment {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
                     Toast.makeText(getActivity().getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                   //*****TURN REQUESTED BP BACK INTO JAVA OBJECT*****
-                    /* Log.d("Obj" , object.getString("degree"));
+                   //*****Save returned BPs*****
+                    //Log.d("Response", )
 
-                    Gson gson = new Gson();
-                    Blueprint gsonBP = gson.fromJson(object.getJSONObject("degree").getString("object"), Blueprint.class);
-                    gsonBP.displayBP();*/
-
-
-                    //refreshing the herolist after every operation
-                    //so we get an updated list
-                    //we will create this method right now it is commented
-                    //because we haven't created it yet
-                    //refreshHeroList(object.getJSONArray("heroes"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -223,7 +213,7 @@ public class CatalogueFragment extends Fragment {
     }
 
     public void getAllBP(){
-        PerformNetworkRequest request = new PerformNetworkRequest(API.URL_GETALL_BP, CODE_GET_REQUEST);
+            PerformNetworkRequest request = new PerformNetworkRequest(API.URL_GETALL_BP, CODE_GET_REQUEST);
         request.execute();
     }
 
