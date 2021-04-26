@@ -196,7 +196,28 @@
                     $response['message'] = 'Invalid username or password';
                 }
 
-            break; 
+	    break;
+	case 'saveuserprogress':
+		isTheseParametersAvailable(array('userid','jsonstring'));
+		$db = new DbOperation();
+
+		$result = $db->updateuserprogress(
+			$_POST['userid'],
+			$_POST['jsonstring']
+		);
+		if($result)
+		{
+			$response['error'] = false;
+			$response['message'] = 'Update was successful';
+			$response['user'] = $_POST['userid'];
+		}
+		else
+		{
+			$response['error'] = true;
+			$response['message'] = "An error was encountered trying to update the user progress";
+		}
+		break;
+
     }
 
  }else{  
