@@ -219,8 +219,34 @@
 		}
 		break;
 
-    }
+	// Get user information
+	case 'getuser':
+		isTheseParametersAvailable(array('userid'));
+		$db = new DbOperation();
 
+		$result = $db->getuserinfo(
+			$_POST['userid']
+		);
+
+    if($result)
+    {
+      $response['error'] = false;
+      $response['user_id'] = $_POST['user_id'];
+      $response['user_fname'] = $_POST['user_fname'];
+      $response['user_lname'] = $_POST['user_lname'];
+      $response['user_email'] = $_POST['user_email'];
+      $response['user_password'] = $_POST['user_password'];
+      $response['user_progress'] = $_POST['user_progress'];
+      $response['user_type'] = $_POST['user_type'];
+      $response['degree_id'] = $_POST['degree_id'];
+      $response['user_username'] = $_POST['user_username'];
+    }
+    else {
+      $response['error'] = true;
+      $response['message'] = 'Apologies, I messed up';
+    }
+    break;
+    
  }else{
  //if it is not api call
  //pushing appropriate values to response array
