@@ -50,4 +50,6 @@
 
     <string name="grade_entry_title">Enter grade</string>
     <string name="dialog_enter_grade">Enter</string>
+
+    <string name="search">Search</string>
 </resources>
