@@ -58,7 +58,7 @@ public class CatalogueFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.catalogue_menu, menu);
+        inflater.inflate(R.menu.fragment_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
