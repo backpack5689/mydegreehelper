@@ -247,5 +247,17 @@ function getuserinfo($userid)
   return $userinfo;
 }
 
+function updateuser($userid, $bpid, $progress)
+{
+    $stmt = $this->con->prepare("UPDATE user SET user_progress = ?, degree_id = ? WHERE user_id = ?");
+    $stmt->bind_param("sii", $progress, $bpid, $userid);
+
+    $result = false;
+    if($stmt->execute())
+    {
+        $result = true;
+    }
+    return $result;
+}
 }
 ?>
