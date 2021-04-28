@@ -242,7 +242,7 @@
       $response['message'] = 'Apologies, I messed up';
     }
     break;
-
+  }
  }else{
  //if it is not api call
  //pushing appropriate values to response array
