@@ -110,7 +110,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return false;
         }else{
             Gson gson = new Gson();
-            stateManager.setState(gson.fromJson(contents, Blueprint.class));
+            Blueprint userBP = gson.fromJson(contents, Blueprint.class);
+            userBP.referenceRebuild();
+            stateManager.setState(userBP);
             return true;
         }
     }
