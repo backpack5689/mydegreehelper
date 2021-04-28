@@ -216,5 +216,36 @@ function updateuserprogress($userid, $jsonstring)
 
 }
 
+/* Get User information */
+function getuserinfo($userid)
+{
+  $stmt = $this->con->prepare("SELECT * FROM user WHERE user_id = ?");
+  $stmt->bind_param("i", $userid);
+  $stmt->execute();
+  $stmt->bind_result($user_id, $user_fname, $user_lname, $user_email, $user_password, $user_progress, $user_type, $degree_id, $user_username);
+  $stmt->fetch();
+
+  $userinfo = array();
+
+  if($stmt->num_rows >= 0) {
+
+    $userinfo['success'] = true;
+    $userinfo['user_id'] = $user_id;
+    $userinfo['user_fname'] = $user_fname;
+    $userinfo['user_lname'] = $user_lanme;
+    $userinfo['user_email'] = $user_password;
+    $userinfo['user_password'] = $user_password;
+    $userinfo['user_progress'] = $user_progress;
+    $userinfo['user_type'] = $user_type;
+    $userinfo['degree_id'] = $degree_id;
+    $userinfo['user_username'] = $user_username;
+  }
+  else
+  {
+    $userinfo['success'] = false;
+  }
+  return $userinfo;
+}
+
 }
 ?>
