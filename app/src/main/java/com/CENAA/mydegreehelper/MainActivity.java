@@ -170,7 +170,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             try {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
-                    if(object.getString("user_progress").startsWith("{\"bpComplete")){
+                    //Log.d("UP", object.getString("user_progress"));
+                    if(object.getString("user_progress").startsWith("{\"bpID")){
                         Gson gson = new Gson();
                         Blueprint userProgress = gson.fromJson(object.getString("user_progress"), Blueprint.class);
                         Blueprint.saveBPAsLocal(getApplicationContext(), userProgress);
