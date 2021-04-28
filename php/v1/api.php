@@ -246,7 +246,7 @@
     // This updates the user progress string 
     // Funciton called updateuser that takes in params (userID, bpID, and progress) and uses them to update users bpID and progress string in DB
     case 'updateUser':
-        isTheseParametersAvailable(array('userID', 'bpID', 'progress'));
+        isTheseParametersAvailable(array('userid', 'bpid', 'progress'));
         $db = new DbOperation();
 
         $result = $db->updateuser(
