@@ -101,7 +101,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             holder.requirementsLabel.setVisibility(View.GONE);
             holder.requirements.setVisibility(View.GONE);
         } else {
-            holder.background.setBackgroundColor(Color.parseColor("#F8DDDD"));
+            holder.background.setBackgroundColor(Color.parseColor("#F8F8F8"));
 
             holder.requirementsLabel.setVisibility(View.VISIBLE);
             holder.requirements.setVisibility(View.VISIBLE);
