@@ -227,7 +227,7 @@ function getuserinfo($userid)
 
   $userinfo = array();
 
-  if($stmt->num_rows > 0) {
+  if($stmt->num_rows >= 0) {
 
     $userinfo['success'] = true;
     $userinfo['user_id'] = $user_id;
