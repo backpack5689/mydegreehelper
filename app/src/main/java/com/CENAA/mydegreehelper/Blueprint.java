@@ -174,6 +174,7 @@ public class Blueprint {
             creditsCompleted += course.creditValue;
         }
 
+
     }
 
     public void displayBP(){
