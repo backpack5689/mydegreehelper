@@ -2,6 +2,7 @@ package com.CENAA.mydegreehelper;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.CENAA.mydegreehelper.ui.login.LoginActivity;
@@ -20,16 +21,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     StateManager stateManager;
     Blueprint state;
+    int userID;
+    NavigationView navigationView;
 
     public static final String EXTRA_MESSAGE = "com.CENAA.mydegreehelper.MESSAGE";
     @Override
@@ -39,24 +46,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        stateManager = ((BPstate)getApplicationContext()).getStateManager();
-
-        try {
-            initBP();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-        navigationView.setCheckedItem(R.id.nav_home);
+        stateManager = ((BPstate)getApplicationContext()).getStateManager();
+        userID = stateManager.getUserState().id;
+        getUser(userID);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -87,8 +87,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private void initBP() throws IOException {
-        File file = new File(getApplicationContext().getFilesDir() + "/local/", "localFile.txt");
+    private boolean initBP() throws IOException {
+        File file = new File(getApplicationContext().getFilesDir() + "/local/", "user_" + userID +"_localFile.txt");
+        if(!file.exists()){return false;}
         FileInputStream fis = new FileInputStream(file);
         InputStreamReader inputStreamReader = new InputStreamReader(fis);
         StringBuilder stringBuilder = new StringBuilder();
@@ -104,9 +105,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } finally {
             contents = stringBuilder.toString();
         }
-        Log.d("line", contents);
-        Gson gson = new Gson();
-        stateManager.setState(gson.fromJson(contents, Blueprint.class));
+        Log.d("contents", contents);
+        if(contents.equals("null\n")){
+            return false;
+        }else{
+            Gson gson = new Gson();
+            stateManager.setState(gson.fromJson(contents, Blueprint.class));
+            return true;
+        }
     }
 
     @Override
@@ -130,5 +136,84 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast achievementToast = Toast.makeText(getApplicationContext(), achievementName, Toast.LENGTH_SHORT);
         achievementToast.show();
    }
+
+   //****Begin API Request Code****
+
+    private static final int CODE_GET_REQUEST = 1024;
+    private static final int CODE_POST_REQUEST = 1025;
+
+    private class PerformNetworkRequest extends AsyncTask<Void, Void, String> {
+
+        String url;
+
+        HashMap<String, String> params;
+
+        int requestCode;
+
+        PerformNetworkRequest(String url, HashMap<String, String> params, int requestCode) {
+            this.url = url;
+            this.params = params;
+            this.requestCode = requestCode;
+        }
+
+        PerformNetworkRequest(String url, int requestCode) {
+            this.url = url;
+            this.requestCode = requestCode;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            try {
+                JSONObject object = new JSONObject(s);
+                if (!object.getBoolean("error")) {
+                    if(object.getString("user_progress").startsWith("{\"bpComplete")){
+                        Gson gson = new Gson();
+                        Blueprint userProgress = gson.fromJson(object.getString("user_progress"), Blueprint.class);
+                        Blueprint.saveBPAsLocal(getApplicationContext(), userProgress);
+                    }
+                    if(initBP()){
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                        navigationView.setCheckedItem(R.id.nav_home);
+                    }else{
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CatalogueFragment()).commit();
+                        navigationView.setCheckedItem(R.id.nav_catalogue);
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Failed to Load Progress from DB", Toast.LENGTH_LONG).show();
+
+                }
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            RequestHandler requestHandler = new RequestHandler();
+
+            if (requestCode == CODE_POST_REQUEST)
+                return requestHandler.sendPostRequest(url, params);
+
+            if (requestCode == CODE_GET_REQUEST && params != null)
+                return requestHandler.sendGetRequest(url, params);
+
+            if (requestCode == CODE_GET_REQUEST)
+                return requestHandler.sendGetRequest(url);
+
+            return null;
+        }
+    }
+    public void getUser(int userID){
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userid", Integer.toString(userID));
+
+        MainActivity.PerformNetworkRequest request = new MainActivity.PerformNetworkRequest(API.URL_GETUSER, params, CODE_POST_REQUEST);
+        request.execute();
+    }
+
+
 
 }
