@@ -244,7 +244,7 @@ function getuserinfo($userid)
   {
     $userinfo['success'] = false;
   }
-  return userinfo;
+  return $userinfo;
 }
 
 }
