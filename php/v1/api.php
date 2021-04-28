@@ -250,8 +250,8 @@
         $db = new DbOperation();
 
         $result = $db->updateuser(
-            $_POST['userID'],
-            $_POST['bpID'],
+            $_POST['userid'],
+            $_POST['bpid'],
             $_POST['progress']
         );
 

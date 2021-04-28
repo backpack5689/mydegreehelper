@@ -232,7 +232,7 @@ function getuserinfo($userid)
     $userinfo['success'] = true;
     $userinfo['user_id'] = $user_id;
     $userinfo['user_fname'] = $user_fname;
-    $userinfo['user_lname'] = $user_lanme;
+    $userinfo['user_lname'] = $user_lname;
     $userinfo['user_email'] = $user_password;
     $userinfo['user_password'] = $user_password;
     $userinfo['user_progress'] = $user_progress;
