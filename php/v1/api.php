@@ -224,12 +224,9 @@
 		isTheseParametersAvailable(array('userid'));
 		$db = new DbOperation();
 
-		$result = $db->getuserinfo(
-			$_POST['userid']
-		);
+		$result = $db->getuserinfo($_POST['userid']);
 
-    if($result['success'])
-    {
+    if($result['success']){
       $response['error'] = false;
       $response['user_id'] = $result['user_id'];
       $response['user_fname'] = $result['user_fname'];
@@ -240,8 +237,7 @@
       $response['user_type'] = $result['user_type'];
       $response['degree_id'] = $result['degree_id'];
       $response['user_username'] = $result['user_username'];
-    }
-    else {
+    } else {
       $response['error'] = true;
       $response['message'] = 'Apologies, I messed up';
     }
