@@ -228,18 +228,18 @@
 			$_POST['userid']
 		);
 
-    if($result)
+    if($result['success'])
     {
       $response['error'] = false;
-      $response['user_id'] = $_POST['user_id'];
-      $response['user_fname'] = $_POST['user_fname'];
-      $response['user_lname'] = $_POST['user_lname'];
-      $response['user_email'] = $_POST['user_email'];
-      $response['user_password'] = $_POST['user_password'];
-      $response['user_progress'] = $_POST['user_progress'];
-      $response['user_type'] = $_POST['user_type'];
-      $response['degree_id'] = $_POST['degree_id'];
-      $response['user_username'] = $_POST['user_username'];
+      $response['user_id'] = $result['user_id'];
+      $response['user_fname'] = $result['user_fname'];
+      $response['user_lname'] = $result['user_lname'];
+      $response['user_email'] = $result['user_email'];
+      $response['user_password'] = $result['user_password'];
+      $response['user_progress'] = $result['user_progress'];
+      $response['user_type'] = $result['user_type'];
+      $response['degree_id'] = $result['degree_id'];
+      $response['user_username'] = $result['user_username'];
     }
     else {
       $response['error'] = true;
