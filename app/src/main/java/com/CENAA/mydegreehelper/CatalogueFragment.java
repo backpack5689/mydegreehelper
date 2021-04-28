@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.CENAA.mydegreehelper.ui.login.LoginActivity;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -92,7 +93,7 @@ public class CatalogueFragment extends Fragment {
                     e.printStackTrace();
                 }
                 Blueprint blueprint = new Blueprint(fileContents);
-                saveBPAsLocal(blueprint);
+                //Blueprint.saveBPAsLocal(this.requireActivity(), blueprint);
                 uploadBP(blueprint);
             }
         }
@@ -157,6 +158,7 @@ public class CatalogueFragment extends Fragment {
                    //*****Save returned BPs*****
                     //Log.d("Response", )
 
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -207,22 +209,4 @@ public class CatalogueFragment extends Fragment {
         request.execute();
     }
 
-    public void saveBPAsLocal(Blueprint bp){
-        File file = new File(getActivity().getFilesDir(), "local");
-        if(!file.exists()){
-            file.mkdir();
-        }
-        try{
-            File localFile = new File(file, "localFile.txt");
-            FileWriter writer = new FileWriter(localFile);
-            Gson gson = new Gson();
-            String bpString = gson.toJson(bp);
-            writer.append(bpString);
-            writer.flush();
-            writer.close();
-            Toast.makeText(getActivity().getApplicationContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 }

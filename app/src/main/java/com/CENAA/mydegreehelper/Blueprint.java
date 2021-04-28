@@ -1,7 +1,15 @@
 package com.CENAA.mydegreehelper;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.pm.InstrumentationInfo;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -146,9 +154,6 @@ public class Blueprint {
                 }
             }
         }
-        //***Following items may need to be done in Home Fragment***
-        //update progress bar
-        //save BP
     }
 
     public void displayBP(){
@@ -175,6 +180,28 @@ public class Blueprint {
             for(int j = 0; j < requirements.get(i).requiredCourses.size(); j++){
                 Log.d("BP", "\t" + requirements.get(i).requiredCourses.get(j).courseName + "\n");
             }
+        }
+    }
+
+    public static void saveBPAsLocal(Context c, Blueprint bp){
+        File file = new File(c.getFilesDir(), "local");
+        if(!file.exists()){
+            file.mkdir();
+        }
+        try{
+            StateManager stateManager = ((BPstate)c.getApplicationContext()).getStateManager();
+            String userIDString = Integer.toString(stateManager.getUserState().id);
+            File localFile = new File(file, "user_" + userIDString +"_localFile.txt");
+            FileWriter writer = new FileWriter(localFile);
+            Gson gson = new Gson();
+            String bpString = gson.toJson(bp);
+            writer.write(bpString);
+            Log.d("saved String", bpString);
+            writer.flush();
+            writer.close();
+            Toast.makeText(c.getApplicationContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
