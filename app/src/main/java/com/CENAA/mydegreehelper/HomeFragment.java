@@ -5,9 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -63,7 +65,42 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.fragment_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+    }
+
+    void filter(String search) {
+        List<Course> tempMajor = new ArrayList<>();
+        List<Course> tempGeneral = new ArrayList<>();
+        String searchLowerCase = search.toLowerCase();
+
+        for (Course m: majorCourseList) {
+            if (m.getCourseName().toLowerCase().contains(searchLowerCase)) {
+                tempMajor.add(m);
+            }
+        }
+        for (Course g: generalCourseList) {
+            if (g.getCourseName().toLowerCase().contains(searchLowerCase)) {
+                tempGeneral.add(g);
+            }
+        }
+
+        majorAdapter.updateList(tempMajor);
+        generalAdapter.updateList(tempGeneral);
     }
 
     private void setProgressBar() {
