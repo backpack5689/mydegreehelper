@@ -67,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         tmpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                usernameEditText.setText("aaron");
+                passwordEditText.setText("Password");
             }
         });
 
