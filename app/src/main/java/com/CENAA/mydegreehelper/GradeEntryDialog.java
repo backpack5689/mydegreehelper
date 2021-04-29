@@ -16,6 +16,8 @@ import androidx.fragment.app.DialogFragment;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class GradeEntryDialog extends DialogFragment {
 
     StateManager stateManager;
@@ -87,6 +89,7 @@ public class GradeEntryDialog extends DialogFragment {
                 if (grade != 0) {
                     state.completeCourse(courseName, grade);
                     stateManager.setState(state);
+                    stateManager.getUserState().userUpdateProgress(requireActivity().getApplicationContext());
                     callback.onDialogCallback();
                 }
                 dismiss();

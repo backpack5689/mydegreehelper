@@ -219,9 +219,54 @@
 		}
 		break;
 
-    }
+	// Get user information
+	case 'getuser':
+		isTheseParametersAvailable(array('userid'));
+		$db = new DbOperation();
 
+		$result = $db->getuserinfo($_POST['userid']);
+
+        if($result['success']){
+          $response['error'] = false;
+          $response['user_id'] = $result['user_id'];
+          $response['user_fname'] = $result['user_fname'];
+          $response['user_lname'] = $result['user_lname'];
+          $response['user_email'] = $result['user_email'];
+          $response['user_password'] = $result['user_password'];
+          $response['user_progress'] = $result['user_progress'];
+          $response['user_type'] = $result['user_type'];
+          $response['degree_id'] = $result['degree_id'];
+          $response['user_username'] = $result['user_username'];
+        } else {
+          $response['error'] = true;
+          $response['message'] = 'Apologies, I messed up';
+        }
+        break;
+    
+    // This updates the user progress string 
+    // Funciton called updateuser that takes in params (userID, bpID, and progress) and uses them to update users bpID and progress string in DB
+    case 'updateUser':
+        isTheseParametersAvailable(array('userid', 'bpid', 'progress'));
+        $db = new DbOperation();
+
+        $result = $db->updateuser(
+            $_POST['userid'],
+            $_POST['bpid'],
+            $_POST['progress']
+        );
+
+        if($result)
+        {
+            $response['error'] = false;
+            $response['message'] = "The user was updated successfully!";
+        } else {
+            $response['error'] = true;
+            $response['message'] = "The user was not updated properly! Please check the API and try again. :(";
+        }
+        break;
+  }
  }else{
+ 
  //if it is not api call
  //pushing appropriate values to response array
  $response['error'] = true;

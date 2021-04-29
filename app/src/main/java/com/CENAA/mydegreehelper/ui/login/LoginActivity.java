@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
+                // loadingProgressBar.setVisibility(View.VISIBLE);
                 user_login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
             }
         });
@@ -67,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         tmpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                usernameEditText.setText("aaron");
+                passwordEditText.setText("Password");
             }
         });
 

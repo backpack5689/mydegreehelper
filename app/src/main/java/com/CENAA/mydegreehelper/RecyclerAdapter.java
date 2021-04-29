@@ -18,6 +18,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -109,6 +110,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             holder.gradeLabel.setVisibility(View.GONE);
             holder.gradeDisplay.setVisibility(View.GONE);
         }
+    }
+
+    public void updateList(List<Course> list) {
+        courseList = list;
+        notifyDataSetChanged();
     }
 
     @Override

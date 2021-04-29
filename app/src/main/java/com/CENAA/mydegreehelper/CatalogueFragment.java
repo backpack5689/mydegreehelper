@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.CENAA.mydegreehelper.ui.login.LoginActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -54,8 +54,10 @@ public class CatalogueFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         View view = inflater.inflate(R.layout.fragment_catalogue, container, false);
-        Button testButton = view.findViewById(R.id.testButton);
 
         // print BPS on catalogue page between test buttons
 
@@ -65,32 +67,23 @@ public class CatalogueFragment extends Fragment {
         bplist = new ArrayList<>();
         getAllBP();
         initRecyclerView();
+        FloatingActionButton addButton = view.findViewById(R.id.add_bp_fab);
 
-
-
-        //
-
-        Button fileTestButton = view.findViewById(R.id.fileTestButton);
-
-        testButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openFile(view);
             }
         });
 
-
-        fileTestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              //  startActivity(new Intent(getActivity(), MainActivity.class));
-                getAllBP();
-            }
-        });
-
-       // getAllBP();
-
+        getAllBP();
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.fragment_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private static final int PICK_TXT_FILE = 2;
@@ -137,7 +130,7 @@ public class CatalogueFragment extends Fragment {
                     e.printStackTrace();
                 }
                 Blueprint blueprint = new Blueprint(fileContents);
-                saveBPAsLocal(blueprint);
+                //Blueprint.saveBPAsLocal(this.requireActivity(), blueprint);
                 uploadBP(blueprint);
             }
         }
@@ -203,6 +196,7 @@ public class CatalogueFragment extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
                    //*****Save returned BPs*****
 
+
                     array = new JSONArray(object.getString("degrees"));
                     // bplist = new ArrayList<>();
 
@@ -265,22 +259,4 @@ public class CatalogueFragment extends Fragment {
         request.execute();
     }
 
-    public void saveBPAsLocal(Blueprint bp){
-        File file = new File(getActivity().getFilesDir(), "local");
-        if(!file.exists()){
-            file.mkdir();
-        }
-        try{
-            File localFile = new File(file, "localFile.txt");
-            FileWriter writer = new FileWriter(localFile);
-            Gson gson = new Gson();
-            String bpString = gson.toJson(bp);
-            writer.append(bpString);
-            writer.flush();
-            writer.close();
-            Toast.makeText(getActivity().getApplicationContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 }

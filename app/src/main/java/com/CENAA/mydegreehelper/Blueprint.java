@@ -1,8 +1,17 @@
   package com.CENAA.mydegreehelper;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.pm.InstrumentationInfo;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -19,7 +28,7 @@ public class Blueprint {
     ArrayList<Requirement> requirements;
 
     public Blueprint() {
-        bpID = 0;
+        bpID = -1;
         degree = "";
         totalCredits = 0;
         level = 0;
@@ -151,9 +160,38 @@ public class Blueprint {
         {
             if(masterList.get(i).courseName.equals(query)){
                  course = masterList.get(i);
+                 return course;
             }
         }
         return course;
+    }
+
+    public void referenceRebuild(){
+
+        for(int m = 0; m < masterList.size(); m++){
+            ArrayList<String> temp = new ArrayList<>();
+            for(Iterator<Course> iterator = masterList.get(m).prereqs.iterator(); iterator.hasNext();){
+                Course c = iterator.next();
+                temp.add(c.courseName);
+                iterator.remove();
+            }
+            for(int n = 0; n < temp.size(); n++){
+                masterList.get(m).prereqs.add(findCourse(temp.get(n)));
+            }
+        }
+
+        for(int i = 0; i < requirements.size(); i++) {
+            ArrayList<String> temp = new ArrayList<>();
+            for(Iterator<Course> iterator = requirements.get(i).requiredCourses.iterator(); iterator.hasNext();){
+                Course c = iterator.next();
+                temp.add(c.courseName);
+                requirements.get(i).totalHours -= c.creditValue;
+                iterator.remove();
+            }
+            for(int j = 0; j < temp.size(); j++){
+                requirements.get(i).addCourse(findCourse(temp.get(j)));
+            }
+        }
     }
 
     public void completeCourse (String courseName, double score){
@@ -166,19 +204,7 @@ public class Blueprint {
             creditsCompleted += course.creditValue;
         }
 
-        for(int i = 0; i < requirements.size(); i++)
-        {
-            for(int j = 0; j < requirements.get(i).requiredCourses.size(); j++){
-                if(requirements.get(i).requiredCourses.get(j).courseName.equals(courseName)) {
-                    course = requirements.get(i).requiredCourses.get(j);
-                    course.completed = true;
-                    course.grade = score;
-                }
-            }
-        }
-        //***Following items may need to be done in Home Fragment***
-        //update progress bar
-        //save BP
+
     }
 
     public void displayBP(){
@@ -205,6 +231,28 @@ public class Blueprint {
             for(int j = 0; j < requirements.get(i).requiredCourses.size(); j++){
                 Log.d("BP", "\t" + requirements.get(i).requiredCourses.get(j).courseName + "\n");
             }
+        }
+    }
+
+    public static void saveBPAsLocal(Context c, Blueprint bp){
+        File file = new File(c.getFilesDir(), "local");
+        if(!file.exists()){
+            file.mkdir();
+        }
+        try{
+            StateManager stateManager = ((BPstate)c.getApplicationContext()).getStateManager();
+            String userIDString = Integer.toString(stateManager.getUserState().id);
+            File localFile = new File(file, "user_" + userIDString +"_localFile.txt");
+            FileWriter writer = new FileWriter(localFile);
+            Gson gson = new Gson();
+            String bpString = gson.toJson(bp);
+            writer.write(bpString);
+            Log.d("saved String", bpString);
+            writer.flush();
+            writer.close();
+            Toast.makeText(c.getApplicationContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

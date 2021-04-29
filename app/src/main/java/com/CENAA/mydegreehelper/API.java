@@ -10,6 +10,7 @@ public class API {
     public static final String URL_DELETE_BP = ROOT_URL + "deletedegree&id=";
     public static final String URL_REGISTER = ROOT_URL + "signup";
     public static final String URL_LOGIN= ROOT_URL + "login";
-
-
+    public static final String URL_GETUSER= ROOT_URL + "getuser";
+    public static final String URL_UPDATE_USERP = ROOT_URL + "saveuserprogress";
+    public static final String URL_UPDATE_USER = ROOT_URL + "updateUser";
 }
