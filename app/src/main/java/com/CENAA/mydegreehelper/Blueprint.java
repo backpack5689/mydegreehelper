@@ -1,4 +1,4 @@
-package com.CENAA.mydegreehelper;
+  package com.CENAA.mydegreehelper;
 
 import android.util.Log;
 
@@ -13,6 +13,7 @@ public class Blueprint {
     int level;
     boolean bpComplete;
     int creditsCompleted;
+    boolean expanded;
 
     ArrayList<Course> masterList;
     ArrayList<Requirement> requirements;
@@ -26,6 +27,7 @@ public class Blueprint {
         creditsCompleted = 0;
         masterList = new ArrayList<Course>();
         requirements = new ArrayList<Requirement>();
+        expanded = false;
     }
 
     public Blueprint(String bpInput){
@@ -38,6 +40,7 @@ public class Blueprint {
     //Update level for Fresh/Soph/etc. (Possibly move this data elsewhere like User class)
     level = 1;
     bpComplete = false;
+    expanded = false;
 
     //TO-DO replace 0 with auto-inc from DB
     Random rand = new Random();
@@ -105,6 +108,33 @@ public class Blueprint {
     }
 
     }
+
+    public void setExpanded(boolean expanded) {
+
+        this.expanded = expanded;
+    }
+
+    public boolean isExpanded() {
+
+        return expanded;
+    }
+
+    public String getName() {
+        return String.valueOf(bpID);
+
+    }
+
+    public String getSchool() {
+        return "Lipscomb University";
+
+    }
+
+    public int getTotalCredits() {
+
+        return totalCredits;
+    }
+
+
 
     public boolean checkBPComplete(){
         for(int i = 0; i < requirements.size(); i++){

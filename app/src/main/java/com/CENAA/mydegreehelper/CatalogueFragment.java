@@ -16,10 +16,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.CENAA.mydegreehelper.ui.login.LoginActivity;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,16 +34,42 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 
 public class CatalogueFragment extends Fragment {
+
+    JSONArray array;
+
+    // JSONObject response;
+    CatalogueAdapter catalogueAdapter;
+    RecyclerView catalogueView;
+
+    List<JSONObject> bplist;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_catalogue, container, false);
         Button testButton = view.findViewById(R.id.testButton);
+
+        // print BPS on catalogue page between test buttons
+
+        catalogueView = view.findViewById(R.id.catalogueRecycler);
+        catalogueView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        bplist = new ArrayList<>();
+        getAllBP();
+        initRecyclerView();
+
+
+
+        //
+
         Button fileTestButton = view.findViewById(R.id.fileTestButton);
 
         testButton.setOnClickListener(new View.OnClickListener() {
@@ -50,19 +79,36 @@ public class CatalogueFragment extends Fragment {
             }
         });
 
+
         fileTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
+              //  startActivity(new Intent(getActivity(), MainActivity.class));
+                getAllBP();
             }
         });
-        getAllBP();
+
+       // getAllBP();
+
         return view;
     }
 
     private static final int PICK_TXT_FILE = 2;
     private static final int CODE_GET_REQUEST = 1024;
     private static final int CODE_POST_REQUEST = 1025;
+
+    private void initRecyclerView() {
+
+
+        catalogueAdapter = new CatalogueAdapter(bplist);
+        catalogueView.setAdapter(catalogueAdapter);
+
+
+
+
+
+    }
+
 
     public void openFile(View view) {
         @SuppressLint("InlinedApi")
@@ -74,8 +120,7 @@ public class CatalogueFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode,
-                                 Intent resultData) {
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         super.onActivityResult(requestCode, resultCode, resultData);
         if (requestCode == 2
                 && resultCode == Activity.RESULT_OK) {
@@ -137,7 +182,7 @@ public class CatalogueFragment extends Fragment {
             this.requestCode = requestCode;
         }
 
-        //when the task started displaying a progressbar
+        //when the task started displaying a progress bar
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -150,14 +195,27 @@ public class CatalogueFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             //progressBar.setVisibility(GONE);
+
+            // get JSONObject from JSON file
             try {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
                     Toast.makeText(getActivity().getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
                    //*****Save returned BPs*****
-                    //Log.d("Response", )
 
+                    array = new JSONArray(object.getString("degrees"));
+                    // bplist = new ArrayList<>();
+
+                    for (int i = 0; i < array.length(); i++) {
+                        bplist.add(array.getJSONObject(i));
+
+                    }
+
+                    Log.d("bp test", bplist.toString());
+                    
+                    catalogueAdapter.notifyDataSetChanged();
                 }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
