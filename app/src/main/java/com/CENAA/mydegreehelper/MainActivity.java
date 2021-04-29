@@ -10,15 +10,19 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Blueprint state;
     int userID;
     NavigationView navigationView;
+    Menu navMenu;
 
     public static final String EXTRA_MESSAGE = "com.CENAA.mydegreehelper.MESSAGE";
     @Override
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -56,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         stateManager = ((BPstate)getApplicationContext()).getStateManager();
         userID = stateManager.getUserState().id;
+        state = stateManager.getState();
+
         getUser(userID);
     }
 
@@ -64,7 +72,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                if (userID != -1) {
+                    item.setCheckable(true);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                } else {
+                    item.setCheckable(false);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CatalogueFragment()).commit();
+                    Toast.makeText(getApplicationContext(), "Please select a blueprint first", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.nav_browse:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BrowseFragment()).commit();
@@ -79,12 +94,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
                 break;
             case R.id.nav_logout:
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                logout();
                 break;
         }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void logout() {
+        stateManager.setUserState(new User());
+        MainActivity.PerformNetworkRequest request = new MainActivity.PerformNetworkRequest(API.URL_LOGIN, CODE_POST_REQUEST);
+        request.execute();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 
     private boolean initBP() throws IOException {
@@ -122,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            drawer.openDrawer(GravityCompat.START);
         }
     }
 

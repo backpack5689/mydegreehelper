@@ -27,7 +27,7 @@ public class Blueprint {
     ArrayList<Requirement> requirements;
 
     public Blueprint() {
-        bpID = 0;
+        bpID = -1;
         degree = "";
         totalCredits = 0;
         level = 0;
