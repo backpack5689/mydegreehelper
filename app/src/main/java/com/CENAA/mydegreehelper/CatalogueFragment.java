@@ -201,6 +201,7 @@ public class CatalogueFragment extends Fragment {
                     // bplist = new ArrayList<>();
 
                     for (int i = 0; i < array.length(); i++) {
+                        array.getJSONObject(i).put("expanded", false);
                         bplist.add(array.getJSONObject(i));
 
                     }

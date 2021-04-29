@@ -28,52 +28,21 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/achievementName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:text="CS"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintBottom_toTopOf="@+id/expandableLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText,RtlSymmetry" />
-
-            <TextView
-                android:id="@+id/courseNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="16dp"
-                android:text="####"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintBottom_toTopOf="@+id/expandableLayout"
-                app:layout_constraintEnd_toStartOf="@id/courseTitle"
-                app:layout_constraintStart_toEndOf="@id/achievementName"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText,RtlSymmetry" />
-
-            <TextView
-                android:id="@+id/courseTitle"
+                android:id="@+id/blueprintName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:paddingTop="19dp"
                 android:paddingEnd="16dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="19dp"
-                android:text="Course Title"
+                android:text="Blueprint Name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@id/expandableLayout"
-                app:layout_constraintEnd_toStartOf="@+id/dropdownIcon"
-                app:layout_constraintStart_toEndOf="@id/courseNumber"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText,RtlSymmetry" />
 
@@ -84,96 +53,87 @@
                 android:paddingBottom="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/courseTitle">
+                app:layout_constraintTop_toBottomOf="@+id/blueprintName">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/completeButton">
+                    app:layout_constraintBottom_toTopOf="@+id/applyButton">
+
                     <TextView
-                        android:id="@+id/achievementDesc"
+                        android:id="@+id/locationLabel"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="16dp"
-                        android:text="@string/requirements"
+                        android:text="@string/location_label"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/gradeLabel"
+                        android:id="@+id/totalCreditLabel"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="16dp"
-                        android:text="@string/grade"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="@string/total_credits_label"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/requirements"
+                        android:id="@+id/locationDisplay"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="requirements"
+                        android:text="location"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/achievementDesc"
-                        app:layout_constraintTop_toBottomOf="@+id/achievementDesc"
+                        app:layout_constraintEnd_toStartOf="@+id/totalCreditsDisplay"
+                        app:layout_constraintStart_toStartOf="@+id/locationLabel"
+                        app:layout_constraintTop_toBottomOf="@+id/locationLabel"
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:id="@+id/gradeDisplay"
+                        android:id="@+id/totalCreditsDisplay"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
-                        android:text="grade"
+                        android:text="total credits"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/gradeLabel"
-                        app:layout_constraintTop_toBottomOf="@+id/gradeLabel"
+                        app:layout_constraintStart_toStartOf="@+id/totalCreditLabel"
+                        app:layout_constraintTop_toBottomOf="@+id/totalCreditLabel"
                         tools:ignore="HardcodedText" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
                 <Button
-                    android:id="@+id/completeButton"
+                    android:id="@+id/applyButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
                     android:backgroundTint="@color/main"
-                    android:text="@string/complete_button"
+                    android:text="@string/set_blueprint"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/requirements"
+                    app:layout_constraintTop_toBottomOf="@+id/locationDisplay"
                     tools:targetApi="lollipop" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/dropdownIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/expandableLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_arrow_drop_down" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

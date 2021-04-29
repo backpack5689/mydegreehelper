@@ -54,7 +54,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 
             achievementIcon = itemView.findViewById(R.id.achievementIcon);
             achievementName = itemView.findViewById(R.id.achievementName);
-            achievementDesc = itemView.findViewById(R.id.achievementDesc);
+            achievementDesc = itemView.findViewById(R.id.locationLabel);
             achievementCompleteCheck = itemView.findViewById(R.id.achievementCompleteCheck);
         }
     }
