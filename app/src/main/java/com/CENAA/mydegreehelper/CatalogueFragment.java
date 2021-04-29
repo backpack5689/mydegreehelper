@@ -204,8 +204,6 @@ public class CatalogueFragment extends Fragment {
                         bplist.add(array.getJSONObject(i));
 
                     }
-
-                    Log.d("bp test", bplist.toString());
                     
                     catalogueAdapter.notifyDataSetChanged();
                 }
