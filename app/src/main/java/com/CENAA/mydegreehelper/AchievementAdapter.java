@@ -1,5 +1,6 @@
 package com.CENAA.mydegreehelper;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,9 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 
         if(achievement.isComplete()) {
             holder.achievementCompleteCheck.setImageResource(R.drawable.ic_baseline_check_box_24);
+            holder.achievementName.setTextColor(Color.BLACK);
+        } else {
+            holder.achievementName.setTextColor(Color.GRAY);
         }
     }
 
@@ -52,7 +56,6 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            achievementIcon = itemView.findViewById(R.id.achievementIcon);
             achievementName = itemView.findViewById(R.id.achievementName);
             achievementDesc = itemView.findViewById(R.id.achievementDesc);
             achievementCompleteCheck = itemView.findViewById(R.id.achievementCompleteCheck);
