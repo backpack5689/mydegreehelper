@@ -52,4 +52,5 @@
     <string name="dialog_enter_grade">Enter</string>
 
     <string name="search">Search</string>
+    <string name="log_out_confirm">Log out?</string>
 </resources>

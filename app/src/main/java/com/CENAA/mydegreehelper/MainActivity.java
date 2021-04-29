@@ -1,6 +1,7 @@
 package com.CENAA.mydegreehelper;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import com.google.gson.Gson;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -103,10 +105,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void logout() {
-        stateManager.setUserState(new User());
-        MainActivity.PerformNetworkRequest request = new MainActivity.PerformNetworkRequest(API.URL_LOGIN, CODE_POST_REQUEST);
-        request.execute();
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.log_out_confirm);
+        builder.setPositiveButton(R.string.log_out, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                stateManager.setUserState(new User());
+                MainActivity.PerformNetworkRequest request = new MainActivity.PerformNetworkRequest(API.URL_LOGIN, CODE_POST_REQUEST);
+                request.execute();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private boolean initBP() throws IOException {
