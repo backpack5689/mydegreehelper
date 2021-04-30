@@ -53,4 +53,8 @@
 
     <string name="search">Search</string>
     <string name="log_out_confirm">Log out?</string>
+
+    <string name="location_label">Location:</string>
+    <string name="total_credits_label">Total Credits:</string>
+    <string name="set_blueprint">Set Active Blueprint</string>
 </resources>

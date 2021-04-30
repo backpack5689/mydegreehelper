@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/catalogueRecycler"
+        />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_bp_fab"
         android:layout_width="wrap_content"
@@ -22,5 +28,6 @@
         app:tint="@color/white"
         tools:ignore="VectorDrawableCompat"
         tools:targetApi="lollipop" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package com.CENAA.mydegreehelper;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -139,13 +136,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             courseSub = itemView.findViewById(R.id.achievementName);
             courseNum = itemView.findViewById(R.id.courseNumber);
             courseTitle = itemView.findViewById(R.id.courseTitle);
-            requirementsLabel = itemView.findViewById(R.id.achievementDesc);
+            requirementsLabel = itemView.findViewById(R.id.locationLabel);
             requirements = itemView.findViewById(R.id.requirements);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
             courseInfoCard = itemView.findViewById(R.id.courseInfoCard);
             completeButton = itemView.findViewById(R.id.completeButton);
-            gradeLabel = itemView.findViewById(R.id.gradeLabel);
-            gradeDisplay = itemView.findViewById(R.id.gradeDisplay);
+            gradeLabel = itemView.findViewById(R.id.totalCreditLabel);
+            gradeDisplay = itemView.findViewById(R.id.totalCreditsDisplay);
 
             // Listener for expanding course panel
             courseInfoCard.setOnClickListener(new View.OnClickListener() {
