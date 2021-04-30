@@ -47,6 +47,7 @@
     <string name="total_credits_label">Total Credits:</string>
     <string name="set_blueprint">Set Active Blueprint</string>
     <string name="add_blueprint">Add blueprint</string>
+    <string name="apply_bp">Apply</string>
     <string name="user_label">Current User:</string>
     <string name="achievement_name">Achievement Name</string>
     <string name="achievement_description">Achievement Description</string>
