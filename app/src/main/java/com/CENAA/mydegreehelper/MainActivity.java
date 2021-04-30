@@ -50,18 +50,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Add toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Attach navigation elements to variables
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Nav drawer listener
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        // Load state
         stateManager = ((BPstate)getApplicationContext()).getStateManager();
         userID = stateManager.getUserState().id;
         state = stateManager.getState();
@@ -77,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (userID != -1) {
                     item.setCheckable(true);
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-                } else {
+                } else { // Disable navigation to home if blueprint is not selected
                     item.setCheckable(false);
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CatalogueFragment()).commit();
                     Toast.makeText(getApplicationContext(), "Please select a blueprint first", Toast.LENGTH_SHORT).show();
