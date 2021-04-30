@@ -51,24 +51,11 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final Button signUpButton = findViewById(R.id.register);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
-
-        // temporary navigation button
-        final Button tmpButton = findViewById(R.id.tmpButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // loadingProgressBar.setVisibility(View.VISIBLE);
                 user_login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
-            }
-        });
-
-        tmpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                usernameEditText.setText("aaron");
-                passwordEditText.setText("Password");
             }
         });
 

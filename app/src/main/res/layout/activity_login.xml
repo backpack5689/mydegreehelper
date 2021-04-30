@@ -100,24 +100,6 @@
         app:layout_constraintVertical_bias="0.2"
         tools:targetApi="lollipop" />
 
-    <Button
-        android:id="@+id/tmpButton"
-        android:backgroundTint="#fff"
-        android:textColor="#000"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="26dp"
-        android:text="Temp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register"
-        app:layout_constraintVertical_bias="0.2"
-        tools:targetApi="lollipop"
-        tools:ignore="HardcodedText" />
-
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="wrap_content"
