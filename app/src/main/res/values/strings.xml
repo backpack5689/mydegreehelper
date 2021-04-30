@@ -1,20 +1,14 @@
 <resources>
     <string name="app_name">MyDegreeHelper</string>
     <string name="title_activity_main">MainActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="cancel">Cancel</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_file_test">FileTest</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="placeholderName">John Doe</string>
     <string name="placeholderEmail">jdoe@mail.lipscomb.edu</string>
     <string name="title_activity_login">LoginActivity</string>
@@ -33,30 +27,32 @@
     <string name="achievements">Achievements</string>
     <string name="settings">Settings</string>
     <string name="log_out">Log Out</string>
-
     <string name="major_courses_label"><b><u>Major Courses</u></b></string>
     <string name="general_education_label"><b><u>General Education</u></b></string>
     <string name="requirements">Requirements:</string>
     <string name="grade">Grade:</string>
     <string name="complete_button">Enter Grade</string>
     <string name="complete_button_edit">Edit Grade</string>
-
     <string name="progress_label">Progress Level: </string>
     <string name="progress_freshman">Freshman</string>
     <string name="progress_sophomore">Sophomore</string>
     <string name="progress_junior">Junior</string>
     <string name="progress_senior">Senior</string>
     <string name="title_activity_course_display_drawer">course_display_drawer</string>
-
     <string name="grade_entry_title">Enter grade</string>
     <string name="dialog_enter_grade">Enter</string>
-
     <string name="search">Search</string>
     <string name="log_out_confirm">Log out?</string>
-
     <string name="location_label">Location:</string>
     <string name="total_credits_label">Total Credits:</string>
     <string name="set_blueprint">Set Active Blueprint</string>
     <string name="add_blueprint">Add blueprint</string>
     <string name="apply_bp">Apply</string>
+    <string name="user_label">Current User:</string>
+    <string name="achievement_name">Achievement Name</string>
+    <string name="achievement_description">Achievement Description</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="logo">logo</string>
+    <string name="dropdown_icon">Dropdown Icon</string>
 </resources>

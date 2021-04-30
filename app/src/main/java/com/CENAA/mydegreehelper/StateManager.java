@@ -9,9 +9,19 @@ public class StateManager {
         this.blueprint = new Blueprint();
     }
 
-    public Blueprint getState() { return blueprint; }
-    public User getUserState() { return user; }
+    public Blueprint getState() {
+        return blueprint;
+    }
 
-    public void setState(Blueprint input) { this.blueprint = input; }
-    public void setUserState(User input) { this.user = input; }
+    public User getUserState() {
+        return user;
+    }
+
+    public void setState(Blueprint input) {
+        this.blueprint = input;
+    }
+
+    public void setUserState(User input) {
+        this.user = input;
+    }
 }

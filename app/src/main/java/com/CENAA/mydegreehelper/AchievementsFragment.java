@@ -37,7 +37,7 @@ public class AchievementsFragment extends Fragment {
         initData();
         initRecyclerView();
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL);
         achievementsView.addItemDecoration(dividerItemDecoration);
 
         return view;

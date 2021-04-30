@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int userID;
     NavigationView navigationView;
     Menu navMenu;
+    View headerView;
+    TextView headerTitle;
 
     public static final String EXTRA_MESSAGE = "com.CENAA.mydegreehelper.MESSAGE";
     @Override
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         navMenu = navigationView.getMenu();
+        headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
 
         // Nav drawer listener
@@ -72,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         state = stateManager.getState();
 
         getUser(userID);
+
+        headerTitle = (TextView) headerView.findViewById(R.id.name);
+        headerTitle.setText(stateManager.getUserState().username);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -164,13 +171,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawer.openDrawer(GravityCompat.START);
         }
     }
-
-    public void navToFile(View view){
-       Intent intent = new Intent(this, FileTest.class);
-       String message = "Navigating";
-       intent.putExtra(EXTRA_MESSAGE, message);
-       startActivity(intent);
-   }
 
    public void getAchievement(String achievementName) {
         String toastText = "Achievment Unlocked: " + achievementName;

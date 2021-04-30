@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +14,6 @@ import android.widget.EditText;
 import androidx.fragment.app.DialogFragment;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 public class GradeEntryDialog extends DialogFragment {
 
@@ -29,7 +26,7 @@ public class GradeEntryDialog extends DialogFragment {
     double grade;
     GradeEntryCallback callback;
 
-    private TextWatcher mTextWatcher = new TextWatcher() {
+    private final TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -57,7 +54,7 @@ public class GradeEntryDialog extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         // Retrieve current blueprint state
-        stateManager = ((BPstate)getActivity().getApplicationContext()).getStateManager();
+        stateManager = ((BPstate) requireActivity().getApplicationContext()).getStateManager();
         state = stateManager.getState();
 
         View dialogView = inflater.inflate(R.layout.grade_entry_dialog, null);
@@ -65,6 +62,7 @@ public class GradeEntryDialog extends DialogFragment {
 
         // Retrieve course name and grade
         bundle = getArguments();
+        assert bundle != null;
         courseName = bundle.getString("courseName");
         grade = bundle.getDouble("grade");
 

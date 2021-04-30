@@ -136,13 +136,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             courseSub = itemView.findViewById(R.id.achievementName);
             courseNum = itemView.findViewById(R.id.courseNumber);
             courseTitle = itemView.findViewById(R.id.courseTitle);
-            requirementsLabel = itemView.findViewById(R.id.locationLabel);
+            requirementsLabel = itemView.findViewById(R.id.requirementsLabel);
             requirements = itemView.findViewById(R.id.requirements);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
             courseInfoCard = itemView.findViewById(R.id.courseInfoCard);
             completeButton = itemView.findViewById(R.id.completeButton);
-            gradeLabel = itemView.findViewById(R.id.totalCreditLabel);
-            gradeDisplay = itemView.findViewById(R.id.totalCreditsDisplay);
+            gradeLabel = itemView.findViewById(R.id.gradeLabel);
+            gradeDisplay = itemView.findViewById(R.id.gradeDisplay);
 
             // Listener for expanding course panel
             courseInfoCard.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +158,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             completeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentManager manager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
+                    FragmentManager manager = ((AppCompatActivity) v.getContext()).getSupportFragmentManager();
                     String courseName = courseList.get(getAdapterPosition()).getCourseName();
                     double grade = courseList.get(getAdapterPosition()).getGrade();
 

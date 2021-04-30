@@ -46,17 +46,19 @@
                 android:id="@+id/courseNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
                 android:paddingLeft="8dp"
+                android:paddingTop="16dp"
                 android:paddingRight="16dp"
+                android:paddingBottom="16dp"
                 android:text="####"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintBottom_toTopOf="@+id/expandableLayout"
                 app:layout_constraintEnd_toStartOf="@id/courseTitle"
                 app:layout_constraintStart_toEndOf="@id/achievementName"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText,RtlSymmetry" />
+                tools:ignore="HardcodedText,RtlSymmetry"
+                android:paddingStart="8dp"
+                android:paddingEnd="16dp" />
 
             <TextView
                 android:id="@+id/courseTitle"
@@ -87,13 +89,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/courseTitle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/courseInfoPanel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/completeButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/completeButton">
+                    app:layout_constraintTop_toTopOf="parent">
+
                     <TextView
-                        android:id="@+id/locationLabel"
+                        android:id="@+id/requirementsLabel"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -106,7 +110,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/totalCreditLabel"
+                        android:id="@+id/gradeLabel"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -129,12 +133,12 @@
                         android:text="requirements"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/locationLabel"
-                        app:layout_constraintTop_toBottomOf="@+id/locationLabel"
+                        app:layout_constraintStart_toStartOf="@+id/requirementsLabel"
+                        app:layout_constraintTop_toBottomOf="@+id/requirementsLabel"
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:id="@+id/totalCreditsDisplay"
+                        android:id="@+id/gradeDisplay"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -143,11 +147,10 @@
                         android:text="grade"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/totalCreditLabel"
-                        app:layout_constraintTop_toBottomOf="@+id/totalCreditLabel"
+                        app:layout_constraintStart_toStartOf="@+id/gradeLabel"
+                        app:layout_constraintTop_toBottomOf="@+id/gradeLabel"
                         tools:ignore="HardcodedText" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
                 <Button
@@ -160,7 +163,7 @@
                     android:backgroundTint="@color/main"
                     android:text="@string/complete_button"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/requirements"
+                    app:layout_constraintTop_toBottomOf="@+id/courseInfoPanel"
                     tools:targetApi="lollipop" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -173,7 +176,9 @@
                 app:layout_constraintBottom_toTopOf="@+id/expandableLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_arrow_drop_down" />
+                app:srcCompat="@drawable/ic_baseline_arrow_drop_down"
+                android:contentDescription="@string/dropdown_icon"
+                tools:ignore="VectorDrawableCompat" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

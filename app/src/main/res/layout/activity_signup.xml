@@ -21,7 +21,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_graduation_cap"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"
+        android:contentDescription="@string/logo" />
 
     <TextView
         android:id="@+id/appNameLabel"
@@ -42,6 +43,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints="Username"
         android:hint="@string/prompt_username"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
@@ -57,7 +59,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:hint="Email"
+        android:autofillHints="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         android:theme="@style/EditTextTheme"
@@ -72,6 +75,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints="Password"
         android:hint="@string/prompt_password"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
@@ -89,7 +93,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:hint="Confirm password"
+        android:autofillHints="Confirm Password"
+        android:hint="@string/confirm_password"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
@@ -109,7 +114,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="26dp"
         android:enabled="true"
-        android:text="sign up"
+        android:text="@string/action_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirm_password" />
@@ -123,13 +128,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="26dp"
         android:backgroundTint="@color/white"
-        android:text="cancel"
+        android:text="@string/cancel"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_up"
         tools:targetApi="lollipop" />
-
 
     <ProgressBar
         android:id="@+id/loading"
