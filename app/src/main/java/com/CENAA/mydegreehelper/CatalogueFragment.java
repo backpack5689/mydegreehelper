@@ -9,12 +9,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -80,26 +82,13 @@ public class CatalogueFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.fragment_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
     private static final int PICK_TXT_FILE = 2;
     private static final int CODE_GET_REQUEST = 1024;
     private static final int CODE_POST_REQUEST = 1025;
 
     private void initRecyclerView() {
-
-
         catalogueAdapter = new CatalogueAdapter(bplist);
         catalogueView.setAdapter(catalogueAdapter);
-
-
-
-
-
     }
 
 
@@ -194,7 +183,7 @@ public class CatalogueFragment extends Fragment {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
                     Toast.makeText(getActivity().getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                   //*****Save returned BPs*****
+                    //*****Save returned BPs*****
 
 
                     array = new JSONArray(object.getString("degrees"));
@@ -205,7 +194,7 @@ public class CatalogueFragment extends Fragment {
                         bplist.add(array.getJSONObject(i));
 
                     }
-                    
+
                     catalogueAdapter.notifyDataSetChanged();
                 }
 
@@ -232,7 +221,7 @@ public class CatalogueFragment extends Fragment {
         }
     }
 
-    public void uploadBP(Blueprint bp){
+    public void uploadBP(Blueprint bp) {
         Gson gson = new Gson();
         String bpString = gson.toJson(bp);
         HashMap<String, String> params = new HashMap<>();
@@ -245,7 +234,7 @@ public class CatalogueFragment extends Fragment {
         request.execute();
     }
 
-    public void requestBP(int id){
+    public void requestBP(int id) {
         HashMap<String, String> params = new HashMap<>();
         params.put("selector", Integer.toString(id));
 
@@ -253,8 +242,8 @@ public class CatalogueFragment extends Fragment {
         request.execute();
     }
 
-    public void getAllBP(){
-            PerformNetworkRequest request = new PerformNetworkRequest(API.URL_GETALL_BP, CODE_GET_REQUEST);
+    public void getAllBP() {
+        PerformNetworkRequest request = new PerformNetworkRequest(API.URL_GETALL_BP, CODE_GET_REQUEST);
         request.execute();
     }
 
