@@ -58,4 +58,5 @@
     <string name="total_credits_label">Total Credits:</string>
     <string name="set_blueprint">Set Active Blueprint</string>
     <string name="add_blueprint">Add blueprint</string>
+    <string name="apply_bp">Apply</string>
 </resources>
