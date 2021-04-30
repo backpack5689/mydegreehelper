@@ -9,11 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Initialize state from blueprint
-        stateManager = ((BPstate)requireActivity().getApplicationContext()).getStateManager();
+        stateManager = ((BPstate) requireActivity().getApplicationContext()).getStateManager();
         state = stateManager.getState();
 
         majorCourseList = new ArrayList<Course>();
@@ -88,12 +88,12 @@ public class HomeFragment extends Fragment {
         List<Course> tempGeneral = new ArrayList<>();
         String searchLowerCase = search.toLowerCase();
 
-        for (Course m: majorCourseList) {
+        for (Course m : majorCourseList) {
             if (m.getCourseName().toLowerCase().contains(searchLowerCase)) {
                 tempMajor.add(m);
             }
         }
-        for (Course g: generalCourseList) {
+        for (Course g : generalCourseList) {
             if (g.getCourseName().toLowerCase().contains(searchLowerCase)) {
                 tempGeneral.add(g);
             }
@@ -157,9 +157,9 @@ public class HomeFragment extends Fragment {
             for (j = 0; j < genCourses.get(i).requiredCourses.size(); j++) {
                 duplicate = false;
                 for (k = 0; k < compiledList.size(); k++) {
-                   if (genCourses.get(i).requiredCourses.get(j).toString().equals(compiledList.get(k).toString())) {
-                       duplicate = true;
-                   }
+                    if (genCourses.get(i).requiredCourses.get(j).toString().equals(compiledList.get(k).toString())) {
+                        duplicate = true;
+                    }
                 }
                 if (!duplicate) {
                     compiledList.add(genCourses.get(i).requiredCourses.get(j));

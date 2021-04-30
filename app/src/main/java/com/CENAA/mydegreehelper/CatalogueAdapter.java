@@ -22,11 +22,8 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
 
     List<JSONObject> blueprintList;
 
-    public CatalogueAdapter(List <JSONObject> bplist) {
-
+    public CatalogueAdapter(List<JSONObject> bplist) {
         this.blueprintList = bplist;
-
-
     }
 
     @NonNull
@@ -56,11 +53,9 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
 
     }
 
-    public void updateList(List <JSONObject> list2update) {
-
+    public void updateList(List<JSONObject> list2update) {
         blueprintList = list2update;
         notifyDataSetChanged();
-
     }
 
     @Override
@@ -69,20 +64,16 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-
-        CardView background;
-        ImageView dropdownIcon;
         TextView name, school, totalCredits;
         ConstraintLayout expandableLayout, blueprintInfoCard;
         Button applyButton;
-        boolean expanded = false;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.blueprintName);
             school = itemView.findViewById(R.id.locationDisplay);
-            totalCredits =  itemView.findViewById(R.id.totalCreditsDisplay);
+            totalCredits = itemView.findViewById(R.id.totalCreditsDisplay);
             applyButton = itemView.findViewById(R.id.applyButton);
 
             // Grade entry button listener

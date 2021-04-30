@@ -27,13 +27,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -187,7 +183,7 @@ public class CatalogueFragment extends Fragment {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
                     Toast.makeText(getActivity().getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                   //*****Save returned BPs*****
+                    //*****Save returned BPs*****
 
 
                     array = new JSONArray(object.getString("degrees"));
@@ -198,7 +194,7 @@ public class CatalogueFragment extends Fragment {
                         bplist.add(array.getJSONObject(i));
 
                     }
-                    
+
                     catalogueAdapter.notifyDataSetChanged();
                 }
 
@@ -225,7 +221,7 @@ public class CatalogueFragment extends Fragment {
         }
     }
 
-    public void uploadBP(Blueprint bp){
+    public void uploadBP(Blueprint bp) {
         Gson gson = new Gson();
         String bpString = gson.toJson(bp);
         HashMap<String, String> params = new HashMap<>();
@@ -238,7 +234,7 @@ public class CatalogueFragment extends Fragment {
         request.execute();
     }
 
-    public void requestBP(int id){
+    public void requestBP(int id) {
         HashMap<String, String> params = new HashMap<>();
         params.put("selector", Integer.toString(id));
 
@@ -246,8 +242,8 @@ public class CatalogueFragment extends Fragment {
         request.execute();
     }
 
-    public void getAllBP(){
-            PerformNetworkRequest request = new PerformNetworkRequest(API.URL_GETALL_BP, CODE_GET_REQUEST);
+    public void getAllBP() {
+        PerformNetworkRequest request = new PerformNetworkRequest(API.URL_GETALL_BP, CODE_GET_REQUEST);
         request.execute();
     }
 

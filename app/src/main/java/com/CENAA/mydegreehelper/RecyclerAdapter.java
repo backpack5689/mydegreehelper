@@ -158,7 +158,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             completeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentManager manager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
+                    FragmentManager manager = ((AppCompatActivity) v.getContext()).getSupportFragmentManager();
                     String courseName = courseList.get(getAdapterPosition()).getCourseName();
                     double grade = courseList.get(getAdapterPosition()).getGrade();
 

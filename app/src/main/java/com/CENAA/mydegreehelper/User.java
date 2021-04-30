@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.CENAA.mydegreehelper.ui.login.LoginActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -12,11 +11,11 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class User{
+public class User {
     public String username;
     public int id;
 
-    public User(){
+    public User() {
         username = "unset";
         id = -1;
     }
@@ -74,8 +73,8 @@ public class User{
         }
     }
 
-    public void userUpdateProgress(Context c, String bpID){
-        StateManager stateManager = ((BPstate)c.getApplicationContext()).getStateManager();
+    public void userUpdateProgress(Context c, String bpID) {
+        StateManager stateManager = ((BPstate) c.getApplicationContext()).getStateManager();
         User user = stateManager.getUserState();
         Gson gson = new Gson();
 
@@ -88,8 +87,8 @@ public class User{
         request.execute();
     }
 
-    public void userUpdateProgress(Context c){
-        StateManager stateManager = ((BPstate)c.getApplicationContext()).getStateManager();
+    public void userUpdateProgress(Context c) {
+        StateManager stateManager = ((BPstate) c.getApplicationContext()).getStateManager();
         User user = stateManager.getUserState();
         Gson gson = new Gson();
 

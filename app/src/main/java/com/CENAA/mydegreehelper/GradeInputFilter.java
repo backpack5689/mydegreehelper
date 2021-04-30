@@ -24,5 +24,5 @@ class GradeInputFilter implements InputFilter {
     }
 
     private boolean isInRange(double input) {
-        return 100.0 > 0.0 ? input >= 0.0 && input <= 100.0 : input >= 100.0 && input <= 0.0; }
+        return input >= 0.0 && input <= 100.0; }
 }

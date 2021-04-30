@@ -3,25 +3,17 @@ package com.CENAA.mydegreehelper.ui.login;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import com.CENAA.mydegreehelper.API;
-import com.CENAA.mydegreehelper.RequestHandler;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.CENAA.mydegreehelper.API;
 import com.CENAA.mydegreehelper.R;
+import com.CENAA.mydegreehelper.RequestHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,7 +89,7 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
                     //reroute to login
                     startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
@@ -121,7 +113,8 @@ public class SignupActivity extends AppCompatActivity {
             return null;
         }
     }
-    public void user_registration(String username, String password, String email){
+
+    public void user_registration(String username, String password, String email) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("username", username);

@@ -1,29 +1,14 @@
 package com.CENAA.mydegreehelper.ui.login;
 
-import android.app.Activity;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.CENAA.mydegreehelper.API;
 import com.CENAA.mydegreehelper.BPstate;
@@ -32,8 +17,6 @@ import com.CENAA.mydegreehelper.R;
 import com.CENAA.mydegreehelper.RequestHandler;
 import com.CENAA.mydegreehelper.StateManager;
 import com.CENAA.mydegreehelper.User;
-import com.CENAA.mydegreehelper.ui.login.LoginViewModel;
-import com.CENAA.mydegreehelper.ui.login.LoginViewModelFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void welcomeUser(String username) {
-        String welcome = "Welcome " + username +" !";
+        String welcome = "Welcome " + username + "!";
 
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -107,13 +90,13 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
-                    StateManager stateManager = ((BPstate)getApplicationContext()).getStateManager();
+                    StateManager stateManager = ((BPstate) getApplicationContext()).getStateManager();
                     User user = new User();
                     user.username = object.getString("user");
                     user.id = object.getInt("id");
                     stateManager.setUserState(user);
                     welcomeUser(object.getString("user"));
-                }else{
+                } else {
                     showLoginFailed(object.getString("message"));
                 }
             } catch (JSONException e) {
@@ -137,7 +120,8 @@ public class LoginActivity extends AppCompatActivity {
             return null;
         }
     }
-    public void user_login(String username, String password){
+
+    public void user_login(String username, String password) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("username", username);

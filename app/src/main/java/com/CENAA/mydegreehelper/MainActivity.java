@@ -172,13 +172,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void navToFile(View view){
-       Intent intent = new Intent(this, FileTest.class);
-       String message = "Navigating";
-       intent.putExtra(EXTRA_MESSAGE, message);
-       startActivity(intent);
-   }
-
    public void getAchievement(String achievementName) {
         String toastText = "Achievment Unlocked: " + achievementName;
         Toast achievementToast = Toast.makeText(getApplicationContext(), achievementName, Toast.LENGTH_SHORT);
