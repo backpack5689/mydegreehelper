@@ -91,15 +91,8 @@ public class CatalogueFragment extends Fragment {
     private static final int CODE_POST_REQUEST = 1025;
 
     private void initRecyclerView() {
-
-
         catalogueAdapter = new CatalogueAdapter(bplist);
         catalogueView.setAdapter(catalogueAdapter);
-
-
-
-
-
     }
 
 
