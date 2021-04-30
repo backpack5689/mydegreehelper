@@ -57,4 +57,5 @@
     <string name="location_label">Location:</string>
     <string name="total_credits_label">Total Credits:</string>
     <string name="set_blueprint">Set Active Blueprint</string>
+    <string name="add_blueprint">Add blueprint</string>
 </resources>
