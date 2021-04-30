@@ -56,12 +56,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/blueprintName">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bpInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/applyButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/applyButton">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/locationLabel"
@@ -118,8 +119,6 @@
                         tools:ignore="HardcodedText" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
                 <Button
                     android:id="@+id/applyButton"
                     android:layout_width="wrap_content"
@@ -130,7 +129,7 @@
                     android:backgroundTint="@color/main"
                     android:text="@string/set_blueprint"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/locationDisplay"
+                    app:layout_constraintTop_toBottomOf="@+id/bpInfo"
                     tools:targetApi="lollipop" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

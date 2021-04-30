@@ -10,7 +10,7 @@
         android:id="@+id/catalogueRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_bp_fab"
@@ -29,6 +29,5 @@
         app:tint="@color/white"
         tools:ignore="VectorDrawableCompat"
         tools:targetApi="lollipop" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
