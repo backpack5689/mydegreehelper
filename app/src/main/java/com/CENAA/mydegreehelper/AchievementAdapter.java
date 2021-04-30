@@ -49,14 +49,14 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView achievementIcon, achievementCompleteCheck;
+        ImageView achievementCompleteCheck;
         TextView achievementName, achievementDesc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             achievementName = itemView.findViewById(R.id.achievementName);
-            achievementDesc = itemView.findViewById(R.id.locationLabel);
+            achievementDesc = itemView.findViewById(R.id.achievementDesc);
             achievementCompleteCheck = itemView.findViewById(R.id.achievementCompleteCheck);
         }
     }
