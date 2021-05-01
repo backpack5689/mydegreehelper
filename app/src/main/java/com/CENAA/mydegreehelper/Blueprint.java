@@ -17,6 +17,7 @@ public class Blueprint {
     int bpID;
     String degree;
     int totalCredits;
+    String location;
     int level;
     boolean bpComplete;
     int creditsCompleted;
@@ -29,6 +30,7 @@ public class Blueprint {
         bpID = -1;
         degree = "";
         totalCredits = 0;
+        location = "";
         level = 0;
         bpComplete = false;
         creditsCompleted = 0;
@@ -39,6 +41,7 @@ public class Blueprint {
 
     public Blueprint(String bpInput) {
         //parse file to create BP
+        //Log.d("STRING", bpInput);
         Scanner sc = new Scanner(bpInput);
         String line;
         masterList = new ArrayList<Course>();
@@ -54,6 +57,8 @@ public class Blueprint {
         bpID = rand.nextInt(5000);
 
         degree = sc.nextLine();
+        location = sc.nextLine();
+
         totalCredits = Integer.parseInt(sc.nextLine());
 
         templateParse:

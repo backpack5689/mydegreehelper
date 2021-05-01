@@ -226,9 +226,9 @@ public class CatalogueFragment extends Fragment {
         String bpString = gson.toJson(bp);
         HashMap<String, String> params = new HashMap<>();
         params.put("object", bpString);
-        params.put("degreename", "Software Engineering");
+        params.put("degreename", bp.degree);
         params.put("totalhours", String.valueOf(bp.totalCredits));
-        params.put("location", "Lipscomb University");
+        params.put("location", bp.location);
 
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_CREATE_BP, params, CODE_POST_REQUEST);
         request.execute();
