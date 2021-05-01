@@ -180,6 +180,7 @@ public class CatalogueFragment extends Fragment {
                 if (!object.getBoolean("error")) {
                     if(object.getString("message").equals("Degree addedd successfully")){
                         Toast.makeText(getActivity().getApplicationContext(), "New Degree Added!", Toast.LENGTH_SHORT).show();
+                        getAllBP();
                     }
                     if(object.has("degrees")){
                         //*****Save returned BPs*****
@@ -193,9 +194,8 @@ public class CatalogueFragment extends Fragment {
                             bplist.add(array.getJSONObject(i));
 
                         }
-
+                        catalogueAdapter.notifyDataSetChanged();
                     }
-                    catalogueAdapter.notifyDataSetChanged();
                 }
 
             } catch (JSONException e) {

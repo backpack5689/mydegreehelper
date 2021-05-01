@@ -57,14 +57,13 @@ public class Blueprint {
         bpID = rand.nextInt(5000);
 
         degree = sc.nextLine();
-        location = sc.nextLine();
 
         totalCredits = Integer.parseInt(sc.nextLine());
-
+        location = sc.nextLine();
         templateParse:
         while (sc.hasNextLine()) {
             line = sc.nextLine();
-            //Log.d("line", line);
+            Log.d("line", line);
             if (line.equals("") || line.charAt(0) == '/') {
                 continue;
             }
