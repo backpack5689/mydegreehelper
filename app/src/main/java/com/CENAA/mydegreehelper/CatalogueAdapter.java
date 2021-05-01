@@ -1,5 +1,6 @@
 package com.CENAA.mydegreehelper;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -26,9 +27,11 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
 
 
     List<JSONObject> blueprintList;
+    Context context;
 
-    public CatalogueAdapter(List<JSONObject> bplist) {
-        this.blueprintList = bplist;
+    public CatalogueAdapter(List<JSONObject> bplist, Context c){
+            this.blueprintList = bplist;
+            this.context = c;
     }
 
     @NonNull
@@ -86,12 +89,19 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    builder.setTitle("Are you sure?").setMessage("Setting this as the active blueprint will change your home page");
+                    builder.setTitle("Are you sure?").setMessage("Setting this as the active blueprint will overwrite your previous progress!");
                     builder.setPositiveButton(R.string.apply_bp, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // TODO set active blueprint function
+                            StateManager stateManager = ((BPstate)context.getApplicationContext()).getStateManager();
+                            User user = stateManager.getUserState();
+                            try {
+                                user.userSetBP(context, blueprintList.get(getAdapterPosition()).getString("id"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             dialog.dismiss();
+
                         }
                     });
                     builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

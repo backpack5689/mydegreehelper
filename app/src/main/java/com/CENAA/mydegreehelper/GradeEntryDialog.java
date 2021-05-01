@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
+
+import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -91,6 +95,12 @@ public class GradeEntryDialog extends DialogFragment {
                     callback.onDialogCallback();
                 }
                 dismiss();
+                Gson gson = new Gson();
+                Log.d("BPSTATE", gson.toJson(stateManager.getState()));
+                Log.d("Complete", Boolean.toString(stateManager.getState().checkBPComplete()));
+                if(stateManager.getState().checkBPComplete()) {
+                    Toast.makeText(getActivity().getApplicationContext(), "Congratulations Graduate!!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

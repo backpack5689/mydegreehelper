@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                if (userID != -1) {
+                if (userID != -1 && stateManager.getState().requirements.size() > 0) {
                     item.setCheckable(true);
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 } else { // Disable navigation to home if blueprint is not selected
@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 stateManager.setUserState(new User());
+                stateManager.setState(new Blueprint());
                 MainActivity.PerformNetworkRequest request = new MainActivity.PerformNetworkRequest(API.URL_LOGIN, CODE_POST_REQUEST);
                 request.execute();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));

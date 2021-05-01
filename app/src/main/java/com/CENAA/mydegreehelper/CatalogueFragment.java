@@ -83,7 +83,7 @@ public class CatalogueFragment extends Fragment {
     private static final int CODE_POST_REQUEST = 1025;
 
     private void initRecyclerView() {
-        catalogueAdapter = new CatalogueAdapter(bplist);
+        catalogueAdapter = new CatalogueAdapter(bplist, getActivity().getApplicationContext());
         catalogueView.setAdapter(catalogueAdapter);
     }
 
@@ -178,19 +178,23 @@ public class CatalogueFragment extends Fragment {
             try {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
-                    Toast.makeText(getActivity().getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                    //*****Save returned BPs*****
+                    if(object.getString("message").equals("Degree addedd successfully")){
+                        Toast.makeText(getActivity().getApplicationContext(), "New Degree Added!", Toast.LENGTH_SHORT).show();
+                    }
+                    if(object.has("degrees")){
+                        //*****Save returned BPs*****
 
 
-                    array = new JSONArray(object.getString("degrees"));
-                    // bplist = new ArrayList<>();
+                        array = new JSONArray(object.getString("degrees"));
+                        // bplist = new ArrayList<>();
 
-                    for (int i = 0; i < array.length(); i++) {
-                        array.getJSONObject(i).put("expanded", false);
-                        bplist.add(array.getJSONObject(i));
+                        for (int i = 0; i < array.length(); i++) {
+                            array.getJSONObject(i).put("expanded", false);
+                            bplist.add(array.getJSONObject(i));
+
+                        }
 
                     }
-
                     catalogueAdapter.notifyDataSetChanged();
                 }
 
@@ -227,14 +231,6 @@ public class CatalogueFragment extends Fragment {
         params.put("location", "Lipscomb University");
 
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_CREATE_BP, params, CODE_POST_REQUEST);
-        request.execute();
-    }
-
-    public void requestBP(int id) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("selector", Integer.toString(id));
-
-        PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_BP, params, CODE_GET_REQUEST);
         request.execute();
     }
 

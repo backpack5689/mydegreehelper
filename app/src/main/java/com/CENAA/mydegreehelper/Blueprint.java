@@ -123,10 +123,11 @@ public class Blueprint {
 
     public boolean checkBPComplete() {
         for (int i = 0; i < requirements.size(); i++) {
-            if (!requirements.get(i).getComplete()) {
+            if (!requirements.get(i).checkComplete()) {
                 return false;
             }
         }
+        bpComplete = true;
         return true;
     }
 

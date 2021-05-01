@@ -1,6 +1,7 @@
 package com.CENAA.mydegreehelper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -26,15 +27,22 @@ public class User {
     private class PerformNetworkRequest extends AsyncTask<Void, Void, String> {
 
         String url;
-
         HashMap<String, String> params;
-
         int requestCode;
+        Context context;
+
 
         PerformNetworkRequest(String url, HashMap<String, String> params, int requestCode) {
             this.url = url;
             this.params = params;
             this.requestCode = requestCode;
+        }
+
+        PerformNetworkRequest(String url, HashMap<String, String> params, int requestCode, Context c) {
+            this.url = url;
+            this.params = params;
+            this.requestCode = requestCode;
+            this.context = c;
         }
 
         PerformNetworkRequest(String url, int requestCode) {
@@ -49,7 +57,27 @@ public class User {
             try {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
-                    Log.d("DB", "Progress Updated");
+                    if(object.has("degree")){
+                        HashMap<String, String> params = new HashMap<>();
+                        JSONObject bp = object.getJSONObject("degree");
+                        params.put("userid", Integer.toString(id));
+                        params.put("bpid", bp.getString("id"));
+                        Log.d("OBJ", bp.getString("object"));
+                        params.put("progress", bp.getString("object"));
+                        //Set state for Home
+                        Gson gson = new Gson();
+                        StateManager stateManager = ((BPstate) context.getApplicationContext()).getStateManager();
+                        stateManager.setState(gson.fromJson(bp.getString("object"), Blueprint.class));
+                        stateManager.getState().referenceRebuild();
+
+                        User.PerformNetworkRequest request = new User.PerformNetworkRequest(API.URL_UPDATE_USER, params, CODE_POST_REQUEST);
+                        request.execute();
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    }else{
+                        Log.d("DB", "Progress Updated");
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -73,17 +101,11 @@ public class User {
         }
     }
 
-    public void userUpdateProgress(Context c, String bpID) {
-        StateManager stateManager = ((BPstate) c.getApplicationContext()).getStateManager();
-        User user = stateManager.getUserState();
-        Gson gson = new Gson();
-
+    public void userSetBP(Context c, String bpID) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("userid", Integer.toString(user.id));
-        params.put("bpid", bpID);
-        params.put("progress", gson.toJson(stateManager.getState()));
+        params.put("selector", bpID);
 
-        User.PerformNetworkRequest request = new User.PerformNetworkRequest(API.URL_UPDATE_USER, params, CODE_POST_REQUEST);
+        User.PerformNetworkRequest request = new User.PerformNetworkRequest(API.URL_READ_BP, params, CODE_GET_REQUEST, c);
         request.execute();
     }
 
