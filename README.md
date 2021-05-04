@@ -1,8 +1,8 @@
 # mydegreehelper
 
-#Database
+# Database
 
-#API-Server
+# API-Server
 
 # Android Studio
 1. Install android studio
