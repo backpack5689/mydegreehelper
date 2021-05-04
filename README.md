@@ -1,6 +1,8 @@
 # mydegreehelper
+Hello! And welcome to "mydegreehelper"! An android app that works to try and help with all the class confusion of college.
 
-# Database
+# Setting up the program locally
+## Database
 1. In a VM or a Hosted Server, install MySQL
 2. Create the database with the following specifications
 ```mySQL
@@ -25,11 +27,15 @@ CREATE TABLE `degree` (
   `degree_object` json DEFAULT NULL,
   PRIMARY KEY (`degree_id`)
  );
-
 ```
-# API-Server
 
-# Android Studio
+## API-Server
+1. In the same Virtual Machine as the database, install Apache2
+2. Clone the repository from github into ```/var/www/mydegreehelper```
+3. In ```/etc/apache2/sites-enabled/000-default.conf```, change the ```DocumentRoot``` to be ```/var/www/mydegreehelper/php```
+
+
+## Android Studio
 1. Install android studio
 2. Clone the repo and open the project
 3. Navigate to API.java and change the ip in the constant URL to reflect your database IP.
