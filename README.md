@@ -3,6 +3,8 @@
 # Database
 
 # API-Server
+1. Install Apache2 on a server of your choice.
+2. Clone the php folder onto your server and point Apache to the folder "v1".
 
 # Android Studio
 1. Install android studio
