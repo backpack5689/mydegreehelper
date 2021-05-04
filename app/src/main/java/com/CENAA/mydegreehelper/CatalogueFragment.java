@@ -183,10 +183,9 @@ public class CatalogueFragment extends Fragment {
                     if(object.has("degrees")){
                         //*****Save returned BPs*****
 
-
                         array = new JSONArray(object.getString("degrees"));
-                        // bplist = new ArrayList<>();
 
+                        bplist.clear();
                         for (int i = 0; i < array.length(); i++) {
                             array.getJSONObject(i).put("expanded", false);
                             bplist.add(array.getJSONObject(i));
