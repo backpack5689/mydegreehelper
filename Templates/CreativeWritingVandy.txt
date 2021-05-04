@@ -1,0 +1,41 @@
+Creative Writing
+128
+Vanderbuilt University
+
+/Courses listed in ideal order of completion
+
+//Course Equivalents |
+//Calculus I-MA 1245-|Linear Algebra-MA 2113
+
+//Prerequisites
+//Calculus I-MA 1245-(MA 1234
+
+//Requirements (course on this line belongs to this requirement(s))
+//Introduction to Computer Science-CS 1122-*Major
+
+//Requirement lacking specific course
+//XXXX (Optional Description)-MA 0000-*General
+
+//each entry ends with credit hours
+//Introduction to Computer Science-CS 1122-*Major-2
+
+//Begin List:
+
+Introduction to Computer Science-CS 1122-*Major-2
+Introduction to Computer Programming-CS 1122-*Major-5
+The Story of Jesus-BI 1073-*Foundations-*Bible-*General-2
+Composition I-ENG 1113-*Composition-*General-3
+Physical Fitness-PE 1001-*Physical Education-*Foundations-*General-1
+XXXX (One College Math Course)-MA 0000-*Foundations-*General-3
+Lipscomb Experience-LU 1001-*Explorations-*General-0
+Calculus I-MA 1245-*Explorations-*General-3
+
+The Story of the Church-BI 1083-*Bible-*Foundations-*General-2
+University Writing-ENG 1313-*Composition-*Foundations-*General-3
+Intro to Chemistry-CM 1013-*Science with Lab-*General-3
+XXXX (PE Course)-PE 0000-*Physical Education-*Foundations-*General-3
+Object Oriented Programming-CS 1233-(CS 1122-*Major-3
+Math Structures for CS-CS 2223-(MA 1245-*Major-3
+
+
+
