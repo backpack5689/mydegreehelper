@@ -1,10 +1,33 @@
 # mydegreehelper
 
 # Database
+1. In a VM or a Hosted Server, install MySQL
+2. Create the database with the following specifications
+```mySQL
+CREATE TABLE `user` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `user_fname` varchar(255) DEFAULT NULL,
+  `user_lname` varchar(255) DEFAULT NULL,
+  `user_email` varchar(255) NOT NULL,
+  `user_password` varchar(255) NOT NULL,
+  `user_progress` json DEFAULT NULL,
+  `user_type` int DEFAULT NULL,
+  `degree_id` int DEFAULT NULL,
+  `user_username` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`)
+);
+CREATE TABLE `degree` (
+  `degree_id` int NOT NULL AUTO_INCREMENT,
+  `degree_name` varchar(255) NOT NULL,
+  `degree_location` varchar(255) NOT NULL,
+  `degree_coursehours` int NOT NULL,
+  `degree_applied` date NOT NULL,
+  `degree_object` json DEFAULT NULL,
+  PRIMARY KEY (`degree_id`)
+ );
 
+```
 # API-Server
-1. Install Apache2 on a server of your choice.
-2. Clone the php folder onto your server and point Apache to the folder "v1".
 
 # Android Studio
 1. Install android studio
