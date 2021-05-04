@@ -73,8 +73,6 @@ public class CatalogueFragment extends Fragment {
                 openFile(view);
             }
         });
-
-        getAllBP();
         return view;
     }
 
